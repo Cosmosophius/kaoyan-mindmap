@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/kaoyan/kp.schema.json",
+  "title": "Section Knowledge Points",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["section_id", "kps"],
+  "properties": {
+    "section_id": { "type": "string", "minLength": 1 },
+    "kps": {
+      "type": "array",
+      "maxItems": 60,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "type", "points", "quote", "para_id", "confidence"],
+        "properties": {
+          "title": { "type": "string", "minLength": 2, "maxLength": 30 },
+          "type": {
+            "type": "string",
+            "enum": ["名词解释","简答题","论述题","填空题","判断题","选择题","分析题","其他"]
+          },
+          "points": {
+            "type": "array", "minItems": 1, "maxItems": 8,
+            "items": { "type": "string", "minLength": 2, "maxLength": 200 }
+          },
+          "quote": { "type": "string", "minLength": 5, "maxLength": 400 },
+          "para_id": { "type": "integer", "minimum": 1 },
+          "para_id_end": { "type": "integer", "minimum": 1 },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    }
+  }
+}

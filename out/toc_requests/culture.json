@@ -1,0 +1,78 @@
+{
+ "task": "restore_toc",
+ "doc": "culture",
+ "book": "中国文化要略（第四版）",
+ "expected_chapters": 18,
+ "identified": 6,
+ "response_schema": {
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+   "book",
+   "chapters",
+   "missing",
+   "confidence"
+  ],
+  "properties": {
+   "book": {
+    "type": "string"
+   },
+   "chapters": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "no",
+      "title",
+      "sections"
+     ],
+     "properties": {
+      "no": {
+       "type": "integer",
+       "minimum": 1
+      },
+      "title": {
+       "type": "string",
+       "minLength": 2
+      },
+      "sections": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "no",
+         "title"
+        ],
+        "properties": {
+         "no": {
+          "type": "integer",
+          "minimum": 1
+         },
+         "title": {
+          "type": "string",
+          "minLength": 2
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "missing": {
+    "type": "array",
+    "items": {
+     "type": "integer"
+    }
+   },
+   "confidence": {
+    "type": "number",
+    "minimum": 0,
+    "maximum": 1
+   }
+  }
+ },
+ "system": "你是目录结构还原器。只输出符合 schema 的 JSON，禁止编造章节。",
+ "input": "# 角色\n\n你是教材目录的**结构还原器**。任务：从给定的目录文本中，还原出这本书真实的\n「章 → 节」两级结构。\n\n# 绝对禁止\n\n1. **禁止按你的理解重组。** 层级关系必须来自目录文本本身。\n2. **禁止补充目录里没有的章节。** 缺就是缺，在 `missing` 里报告。\n3. **禁止改写标题。** `title` 必须逐字取自目录，只允许去掉页码和省略号。\n4. **禁止输出 JSON 以外的任何文字。**\n\n# 输入\n\n`<text>` 中是目录原文，可能的特点：\n- 多个条目挤在同一行（如 `第一章 简论 / 1一、文化与中国文化 / 2`）\n- 带页码（`/ 15`、`……(36)`、`…… 1`）\n- 只有章没有节，或只有节没有章\n\n# 输出\n\n```json\n{\n  \"book\": \"中国文化要略（第四版）\",\n  \"chapters\": [\n    {\"no\": 1, \"title\": \"第一章 简论\",\n     \"sections\": [{\"no\": 1, \"title\": \"第一节 文化与中国文化\"}]},\n    {\"no\": 2, \"title\": \"第二章 地理概况\", \"sections\": []}\n  ],\n  \"missing\": [6, 7, 8],\n  \"confidence\": 0.9\n}\n```\n\n# 字段规则\n\n- `no`：章号/节号的阿拉伯数字。中文数字必须转换（第一章→1，第十二章→12）。\n- `title`：保留「第X章」前缀，去掉页码、省略号、多余的斜杠。\n- `sections`：该章下的节。目录里没有节就留空数组 `[]`。\n- `missing`：目录中**章号不连续**处缺失的章号列表。例如只有 1,2,5 章，则 `[3,4]`。\n- `confidence`：0~1，你对这份还原准确性的判断。\n\n# 自检\n\n1. 每个 `title` 都能在原文找到？\n2. `no` 是否连续？不连续的地方是否都记进 `missing`？\n3. 有没有我编出来的章节？有就删掉。\n4. 输出是纯 JSON 吗？\n\n\n---\n\n<book>中国文化要略（第四版）</book>\n<text>\n[p30] 目录第一章 简论 / 1一、文化与中国文化 / 2二、 了解中国文化的必要性 / 5三、中国文化的民族特点 / 9四、中国文化的未来 / 12\n[p31] 第二章 地理概况 / 15\n[p33] 第三章 历史纵横 / 31\n[p36] 第四章 姓氏与名、字、号 / 61\n[p39] 第五章 汉字 / 77\n[p41] 六、汉字的改革与汉字现代化 / 87第六章 学术思想 / 89一、孔孟之道 / 90二、老庄思想 / 94三、墨家学说 / 96\n[p42] 四、法家学说 / 97五、汉代经学 / 98六、魏晋玄学 / 99七、宋明理学 / 100八、清代朴学 / 103第七章 宗教信仰 / 107\n</text>\n"
+}

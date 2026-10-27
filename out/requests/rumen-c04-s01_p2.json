@@ -1,0 +1,94 @@
+{
+ "task": "extract_kp",
+ "section_id": "rumen-c04-s01",
+ "chapter": "第四章第二语言习得|",
+ "book": "对外汉语教学入门（第3版）",
+ "para_range": [
+  1034,
+  1825
+ ],
+ "chars": 8418,
+ "response_schema": {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/kaoyan/kp.schema.json",
+  "title": "Section Knowledge Points",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+   "section_id",
+   "kps"
+  ],
+  "properties": {
+   "section_id": {
+    "type": "string",
+    "minLength": 1
+   },
+   "kps": {
+    "type": "array",
+    "maxItems": 60,
+    "items": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "title",
+      "type",
+      "points",
+      "quote",
+      "para_id",
+      "confidence"
+     ],
+     "properties": {
+      "title": {
+       "type": "string",
+       "minLength": 2,
+       "maxLength": 30
+      },
+      "type": {
+       "type": "string",
+       "enum": [
+        "名词解释",
+        "简答题",
+        "论述题",
+        "填空题",
+        "判断题",
+        "选择题",
+        "分析题",
+        "其他"
+       ]
+      },
+      "points": {
+       "type": "array",
+       "minItems": 1,
+       "maxItems": 8,
+       "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 200
+       }
+      },
+      "quote": {
+       "type": "string",
+       "minLength": 5,
+       "maxLength": 400
+      },
+      "para_id": {
+       "type": "integer",
+       "minimum": 1
+      },
+      "para_id_end": {
+       "type": "integer",
+       "minimum": 1
+      },
+      "confidence": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 1
+      }
+     }
+    }
+   }
+  }
+ },
+ "system": "你是结构化抽取器。只输出符合 schema 的 JSON，禁止改写原文。",
+ "input": "# 角色\n\n你是考研教材的**结构化抽取器**，不是作者。你唯一的任务是：把给定的一段教材原文，\n抽取成符合 JSON schema 的知识点列表。\n\n# 绝对禁止（违反即作废）\n\n1. **禁止改写原文。** `quote` 字段必须从原文**逐字复制**，不得换词、不得润色、不得补充。\n2. **禁止补充外部知识。** 原文没写的，一律不写。你不确定就少抽，不要编。\n3. **禁止合并跨章节内容。** 只处理给你的这一段。\n4. **禁止输出 JSON 以外的任何文字**（不要解释、不要 markdown 代码块围栏）。\n\n# 输入\n\n- `<section_id>`：本节唯一标识\n- `<title>`：本节标题\n- `<text>`：本节原文，每段以 `[p<para_id>] ` 开头\n\n# 输出\n\n严格符合 `kp.schema.json` 的 JSON 对象：\n\n```json\n{\n  \"section_id\": \"culture-c02-s01\",\n  \"kps\": [\n    {\n      \"title\": \"地理环境\",\n      \"type\": \"名词解释\",\n      \"points\": [\"中国位于亚洲东部、太平洋西岸\", \"地势西高东低，呈三级阶梯\"],\n      \"quote\": \"逐字复制的原文片段\",\n      \"para_id\": 128,\n      \"para_id_end\": 130,\n      \"confidence\": 0.9\n    }\n  ]\n}\n```\n\n# 字段规则\n\n- `title`：**必须出自原文**的术语或小标题，2~20 字。不得自创概括词。\n- `type`：只能取 `名词解释` / `简答题` / `论述题` / `填空题` / `判断题` / `选择题` / `分析题` / `其他`。\n  若原文未体现题型，用 `其他`，不要猜。\n- `points`：1~8 条，每条为原文中的要点短句。**每条都必须是原文出现过的内容**。\n- `quote`：支撑该知识点的原文片段，10~300 字，必须逐字复制。\n- `para_id` / `para_id_end`：`quote` 所在段落的编号（见原文 `[pNNN]` 标记）。\n- `confidence`：0~1，你对该条是「独立可考知识点」的确信度。\n\n# 抽取标准（宁缺毋滥）\n\n**要抽**：\n- 明确给出定义、分类、特征、作用、例证的知识单元\n- 有编号的列举（如「三要素」「四种类型」）\n- 小标题下的核心论述\n\n**不要抽**：\n- 纯过渡句、纯例子铺垫、目录、页眉页脚、参考文献\n- 同一知识点的重复表述（只保留最完整的一处）\n- 无法独立成题的碎片\n\n# 自检（输出前逐条确认）\n\n1. 每个 `quote` 都能在 `<text>` 中一字不差地找到？\n2. 每个 `title` 都在原文出现过？\n3. `points` 里有没有我自己的话？有就删掉。\n4. `para_id` 是否与 `quote` 所在段落一致？\n5. 是否输出了纯 JSON、没有多余文字？\n\n任何一条不满足，修正后再输出。\n\n\n---\n\n<section_id>rumen-c04-s01</section_id>\n<title>第四章第二语言习得|</title>\n<part>2</part>\n<text>\n[p1768] [54] 周小兵, 学习难度的测定与考察 [J],世界汉语教学, 2004 (1).[55] 周小兵. “着”的习得情况考察 [C]//《第八届国际汉语教学讨论会论文选》编委会. 第八届国际汉语教学讨论会论文选 [M].北京：高等教育出版社，2006\n[p1769] [56] 周小兵. 越南人学习汉语语法点难度考察 [J].云南师范大学学报：对外汉语教学与研究版，2007 (1).[57] 周小兵，语言对比分析的技术应用———基于对韩汉语语法教学 [M]//周小兵，孟柱亿. 国际汉语教育：教学资源与汉韩对比. 广州，中山大学出版社，2014.\n[p1770] [58] 周小兵, 刘瑜. 汉语语法点学习发展难度 [J].华文教学与研究, 2010 (1).[59] 周小兵，陶思佳. 课堂教学中的互动与垂直结构 [C].珠海：不同环境下的汉语教学国际学术\n[p1771] 第四章 第二语言习得|125\n[p1772] 研讨会,2008.[60] 周小兵，朱其智，邓小宁，等. 外国人学汉语语法偏误研究 [M].北京：北京语言大学出版社, 2007.\n[p1773] [61] Bates E, MacWhinney B. Competition, variation and language learning [M]//MacWhinney B, Bates E. Mechanisms of language acquisition. Hillsdale, NJ: Erlbaum, 1987.\n[p1774] [62] Brown H. Principles of language learning and teaching [M]. Englewood Cliffs, N. J.: Prentice- Hall, 1980.\n[p1775] [63] Carroll J. The prediction of success in foreign language training [M] // Glaser R. Training, research and education. New York: Wiley, 1965.\n[p1776] [64] Chamot A. The learning strategies of ESL students [C] // Wenden A, Rubin J. Learner strategies in language learning [M]. Prentice Hall: New Jersey, 1987: 55-69.\n[p1777] [65] Chastain K. Affective and ability factors in second language acquisition [J]. Language Learning,1975, 25: 153-161.\n[p1778] [66] Cohen A D. Coming to terms with language learner strategies: Surveying the experts [M] // Cohen A D, Macaro E. Language learner strategies: 30 years of research and practice. Oxford: OUP, 2007:29-45.\n[p1779] [67] Comrie B, Keenan E. Nou n phrase accessibility revisited [J]. Language, 1979, 55: 649-664.\n[p1780] [68] Cook V. Cognitive processes in second language learning[J]. International Review of Applied Linguis- tics, 1977, XV: 1-20.\n[p1781] [69] Corder S. Language distance and the magnitude of the learning task [J]. Studies in Second Language Acquisition, 1978, 2: 27-36.\n[p1782] [70] De Bot K, Lowie W, Verspoor M. A dynamic systems theory approach to second language acquisition [J]. Bilingualism: Language and Cognition, 2007, 10: 7-21.\n[p1783] [71] DeKeyser R M. Implicit and explicit Learning [M] // Catherine J, Michael H. The handbook of second language acquisition. Oxford, MA: Blackwell, 2003.\n[p1784] [72] Ellis R. The definition and measurement of L2 explicit knowledge [J]. Language Learning, 2004, 54:227-275.\n[p1785] [73] Ellis R. The study of second language acquisition [M]. New York: Oxford University Press, 1994.\n[p1786] [74] Ellis R. Understanding second language acquisition [M]. New York: Oxford University Press, 1985.\n[p1787] [75] Gass S. Language transfer and universal grammatical relations [J]. Language Learning, 1979, 29:327-344.\n[p1788] [76] Hatch E. Psyelbolinguistics: A second language perspective [M]. Rowley Mass: Newbury House, 1983.\n[p1789] [77] Krashen S D. Principles and practice in second language acquisition [M]. Oxford: Pergamon Press, 1982.\n[p1790] [78] Larsen-Freeman D. Chaos/ complexity science and second language acquisition [J]. Applied Linguis- tics, 1997, 18: 141-165.\n[p1791] 126|对外汉语教学入门 (第三版)[79] Larsen-Freeman D, Cameron L. Complex systems and applied linguistics [M]. Oxford: Oxford Univer- sity Press, 2008.\n[p1792] [80] Lado R. Linguistics across cultures: Applied linguistics for language teachers [M]. Ann Arbor: Uni- versity of Michigan Press, 1975.\n[p1793] [81] Long M H. Native speaker/ non-native speaker conversation in the second language classroom [J]. TE-SOL, 1983, 82: 94-120.\n[p1794] [82] Long M. Problems in SLA [M]. Mahwah, NJ: Larrence Erlbaum, 2007.\n[p1795] [83] Lyster R. Differential effects of prompts and recasts in fourm-focused instruction [J]. Studies in Second Language Acquisition, 2004, 26: 51-81.\n[p1796] [84] MacWhinney B, Bates E, Kligell K. One validity and sentence interpretation in English, German and Italian [J]. Journal of Verbal Learning and Verbal Behavior, 1984, 23: 127-150.\n[p1797] [85] O' Malley J M, Chamot A U. Learming strategies in second language Acquisition [M]. Cambridge: Cambridge University Press, 1990.\n[p1798] [86] O' Malley J M, Chamot A U, Stewner-Manzanares G, et al. Learning strategies used by beginning and intermediate ESL students [J]. Language Learning, 1985,35 (1): 21-46.\n[p1799] [87] Oxford R L. Use of language learning strategies: A synthesis of studies with implications for strategy training [J]. System, 1989, 17 (2): 235-247.\n[p1800] [88] Oxford R. Language learning strategies: What every teacher should know [M]. Boston, MA: Heinle & Heinle, Inc, 1990.\n[p1801] [89] Prator C. Hierarchy of difficulty (Unpublished classroom lecture) .[M]. University of California, Los Angeles, 1967.\n[p1802] [90] Richards J, Platt J. 朗文语言教学及应用语言学辞典 [M]. 北京: 外语教学与研究出版社, 2000.\n[p1803] [91] Schachter J. An error in error analysis [J]. Language Learning, 1974, 24: 205-214.\n[p1804] [92] Schmidt M. Coordinate structures and language universals in interlanguage [J]. Language Learning,1980, 30: 394-416.\n[p1805] [93] Schneider W, Shriffen R M. Controlled and automatic human information processing: in detection, search and attention [J]. Psychological Review, 1977, 84, 1-66.\n[p1806] [94] Schumann J. The pidginization process: A model for second language acquisition [M]. Rowley, Mass: Newbury House, 1978.\n[p1807] [95] Schumann J. The acquisition of English relative clauses by second language learners [C] // Scarcella R C E and Krashen S D E. Research in second language acquisition: selected papers of the Los Angeles Second Lnaguage Acquisition Forum. Rouley Mass: Newbury House, 1980.\n[p1808] [96] Selinker L. Interlanguage [J]. International Review of Applied Linguistics in Language Teaching,1972, 10: 209-242.\n[p1809] [97] Sharwood-Smith M, Kellerman E. Crosslinguistic influence in second language acquisition: an introduc- tion [M] // Kellerman E and Sharwood-Smith M. Cross-linguistic influence in second language acquisi-\n[p1810] 第四章 第二语言习得 127\n[p1811] tion. Oxford: Pergamon, 1986.[98] Sheen Y. Differential effects of oral and written corrective feedback in the ESL classroom [J]. Studies in Second Language Acquisition, 2010, 31: 203-234.\n[p1812] [99] Sheen Y, Ellis R. Corrective feedback in language teaching [M] // Hinkle E. Handbook of second language teaching and learning. New York: Routledge, 2011.\n[p1813] [100] Sinclair J, Coulthard R M. Towards an analysis of discourse [M]. Oxford: Oxford University Press, 1975.\n[p1814] [101] Sorace A, Filiaci F. Anaphora resolution in near-native speakers of Italian [J]. Second Language Re- search, 2006, 22: 339-368.\n[p1815] [102] Sorace A, Serratrice L. Internal and external interfaces in bilingual language development: Beyond structural overlap [J]. International Journal of Bilingualism, 2009, 13: 195-210.\n[p1816] [103] Stockwell R, Bowen J, Martin J. The srammatical structures of English and Spanish [M]. Chicago: Chicago University Press, 1965.\n[p1817] [104] Swain M. Communicative competence: Some roles of comprehensible input and comprehensible output in its development [M] // Gass S, Madden C. Input in second language acquisition. Cambridge,MA: Newburry House, 1985.\n[p1818] [105] Tarone E. Communication strategies, foreigner talk and repair in interlanguage [J]. Language Learn- ing, 1980, 30: 417-431.\n[p1819] [106] White L. The responsibility of grammatical theory to acquisitional data [M] // Hornstein N and Light- foot D. Explanation in linguistics: The logical problem of language acquisition. London: Longman, 1981.\n[p1820] [107] White L. Grammatical theory: Interfaces and L2 knowledge [M] // Bhatia T K, Ritchie W C. The new handbook of second language acquisition. Bingley: Emerald Group Publishing Limited, 2009.\n[p1821] [108] White L. Second language acquisition at interfaces [J]. Lingua, 2011, 121: 577-590.\n[p1822] [109] Yuan B. Acquiring the unaccusative/ unergative distinction in a second language: Evidence from Eng- lish-speaking learners of L2 Chinese [J]. Linguistics, 1999, 37: 275-296.\n[p1823] [110] Yuan B, Dugarova E. Wh-topicalization at the syntax-discourse interface in English speakers’ L2 Chi- nese grammars [J]. Studies in Second Language Acquisition, 2012, 34: 533-560.\n[p1824] [111] Yuan B. The effect of increased processing demands on the L2 syntax-pragmatics interface: evidence from English speakers’ L2 Chinese attitude-bearing wh-qestions [M]. London: University of Cam- bridge, 2014.\n[p1825] [112] Zobl H. The formal and developmental selectivity of Ll influence on L2 acquisition [J]. Language Learning, 1983, 30: 43-57.\n</text>\n"
+}

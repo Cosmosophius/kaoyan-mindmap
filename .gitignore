@@ -1,0 +1,31 @@
+# ---------- 构建中间产物（可重新生成，不入库） ----------
+out/paragraphs/          # docx 逐段抽取结果 7.4M
+out/requests/            # Gemini 抽取请求包 8.7M
+out/toc_requests/        # Gemini 目录请求包
+out/requests_manifest.json
+out/kp_raw/              # 模型原始返回 2.9M
+out/kp_clean.jsonl       # 校验后平铺副本 2.5M
+out/rejected.jsonl
+out/stage3_report.txt
+
+# 根目录 index.html 是 web/index.html 的副本，只保留 web/ 一份
+/index.html
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---------- 临时 / 编辑器 ----------
+_*.js
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ---------- 本地密钥 ----------
+.env
+.env.local
