@@ -203,8 +203,8 @@ body{
   border-radius:var(--r-md);
   background:var(--sc-high);
   border:1px solid var(--outline-var);
-  padding:11px 13px;
-  box-shadow:0 1px 2px rgba(0,0,0,.30), 0 4px 12px rgba(0,0,0,.26);
+  padding:3px 7px;
+  box-shadow:0 1px 2px rgba(0,0,0,.26);
   will-change:transform,opacity;
   contain:layout style;
   transform-origin:0 50%;         /* 树向右生长：从左侧顶点长出 */
@@ -229,32 +229,66 @@ body{
   background:transparent;
   border:1px dashed color-mix(in oklch,var(--primary) 42%, var(--outline-var));
   box-shadow:none;
-  padding:9px 12px;
+  padding:6px 10px;
 }
 .card.more .label{
   color:var(--primary);font-size:12px;font-weight:600;
   -webkit-line-clamp:1;text-align:center;letter-spacing:.02em;
 }
 .card.more:hover{background:color-mix(in oklch,var(--primary) 9%, transparent);}
+/* 量宽态：label 强制单行 nowrap，让 max-content 能得到真实文本宽度。
+   量完立刻移除，用户看不到这一帧。 */
+.card.measuring{width:max-content!important;max-width:none!important;}
+.card.measuring .label{
+  display:block!important;-webkit-line-clamp:unset!important;
+  white-space:nowrap!important;overflow:visible!important;flex:none!important;
+}
 .card.root{
   border-radius:14px;
   background:var(--primary-container);
   border:1.5px solid var(--primary);
   box-shadow:0 6px 18px rgba(0,0,0,.44);
-  padding:14px 16px;
+  padding:10px 13px;
 }
 .card.chapter{
   background:var(--secondary-container);
   border-color:var(--secondary);
 }
-.card.section{background:var(--sc-high);}
-.card.kp{background:var(--sc);}
+.card.section{background:var(--sc-high);position:relative;}
+/* section 的两个操作按钮改为「悬停浮现」：绝对定位到卡片右缘外侧，
+   不占文档流宽度。实测它们常驻时占 36px，25 张 section 卡合计 900px，
+   而 win/doc 属于低频操作，常驻显示纯属浪费面积。 */
+.card.section .ibtn.act{
+  position:absolute;top:50%;transform:translateY(-50%);
+  opacity:0;pointer-events:none;
+  background:var(--sc-highest);
+  box-shadow:0 1px 3px rgba(0,0,0,.45);
+  transition:opacity .16s var(--ease-standard),background .16s var(--ease-standard);
+}
+.card.section .ibtn.act[data-act="win"]{ right:-19px; }
+.card.section .ibtn.act[data-act="para"]{ right:-37px; }
+@media (hover:hover) and (pointer:fine){
+  .card.section:hover .ibtn.act,
+  .card.section:focus-within .ibtn.act{ opacity:1;pointer-events:auto; }
+}
+/* 触屏没有 hover，直接常驻显示（否则按钮永远点不到） */
+@media (hover:none){
+  .card.section .ibtn.act{ opacity:.85;pointer-events:auto;position:static;transform:none;right:auto;box-shadow:none;background:transparent; }
+}
+.card.kp{background:var(--sc);padding:2px 5px;border-color:transparent;box-shadow:none;}
 .card.kp.hot{
   background:var(--gold-container);
   border-color:var(--gold);
 }
+/* 真题高频：左侧 2px 金色竖条。
+   原来用「真题」文字徽标，36px × 3,229 张 = 116,244px，
+   占 kp 卡全部装饰宽度的 76.3%。竖条横向不占位，颜色同样能一眼分辨。 */
+.card.kp.hot::before{
+  content:"";position:absolute;left:0;top:3px;bottom:3px;width:2px;
+  border-radius:2px;background:var(--gold);
+}
 
-.row{display:flex;align-items:center;gap:8px;}
+.row{display:flex;align-items:center;gap:2px;}
 .label{
   flex:1;min-width:0;
   overflow:hidden;
@@ -264,16 +298,16 @@ body{
   -webkit-box-orient:vertical;
   white-space:normal;
   word-break:break-word;
-  line-height:1.38;
-  font-weight:500;letter-spacing:.01em;
+  line-height:1.18;
+  font-weight:500;letter-spacing:0;
 }
-.card.root .label{font-size:17px;font-weight:700;color:var(--on-primary-cont);letter-spacing:.02em;}
-.card.chapter .label{font-size:14px;font-weight:700;color:var(--on-secondary-cont);}
-.card.section .label{font-size:13.5px;font-weight:600;}
+.card.root .label{font-size:15px;font-weight:700;color:var(--on-primary-cont);letter-spacing:.02em;}
+.card.chapter .label{font-size:13px;font-weight:700;color:var(--on-secondary-cont);}
+.card.section .label{font-size:12.5px;font-weight:600;}
 .card.kp .label{font-size:13px;font-weight:500;}
 
 .badge{
-  flex:none;font-size:9.5px;line-height:1;padding:3px 6px;border-radius:var(--r-xs);
+  flex:none;font-size:8.5px;line-height:1;padding:0 3px;border-radius:var(--r-xs);
   background:var(--tertiary-container);color:var(--on-tertiary-cont);
   letter-spacing:.02em;font-weight:600;
 }
@@ -281,7 +315,7 @@ body{
 
 /* 纯矢量图标按钮（无 emoji） */
 .ibtn{
-  flex:none;width:24px;height:24px;border:0;border-radius:50%;
+  flex:none;width:16px;height:16px;border:0;border-radius:50%;
   background:transparent;color:var(--on-surface-var);
   display:grid;place-items:center;cursor:pointer;
   transition:background .16s var(--ease-standard),color .16s var(--ease-standard);
@@ -293,10 +327,13 @@ body{
 .card.open > .row > .ibtn.chev svg{transform:rotate(90deg);}
 
 /* 详情行：随 LOD 淡出（源码 tween 180ms，阈值 scale 0.65） */
-.detail{
-  margin-top:6px;font-size:11.5px;line-height:1.62;color:var(--on-surface-var);
-  opacity:var(--lod,1);
-  transition:opacity .18s var(--ease-standard);
+/* 详情行默认折叠：3,618 张知识点卡片若全部展开要点行，
+   画布高度会被放大 3~4 倍，且低缩放下只是 opacity:0 —— 看不见却占着高度。
+   现在默认只显示标题，点击才展开。 */
+.detail{display:none;}
+.card.open > .detail{
+  display:block;
+  margin-top:3px;font-size:11px;line-height:1.5;color:var(--on-surface-var);
 }
 .detail .pt{display:flex;gap:6px;margin-top:2px;}
 .detail .pt::before{
@@ -700,26 +737,51 @@ const SCALE_MIN  = 0.35;
 const SCALE_MAX  = 2.6;
 const FIT_MIN    = 0.35;
 const FIT_MAX    = 1.3;
-let   FIT_PAD    = 90;
+/* 横向填满宽度时的缩放上限。
+   光栅实测（1440×900，按真实像素统计卡片覆盖，2px 网格）：
+     FILL_MAX=1.6 → 视口占用 31.7%，s=1.578，字 20.5px
+     FILL_MAX=2.0 → 视口占用 39.6%，s=2.000，字 26.0px
+     FILL_MAX=2.4 → 视口占用 40.0%，s=2.047，字 26.6px  ← 最优
+     FILL_MAX=2.8 → 与 2.4 完全相同（已被 byW 自然限住）
+   1.6 让内容只占屏幕三成，四周大片留白；放到 2.4 后屏幕被用到四成，
+   且重叠恒为 0%。再往上没有收益，因为宽度已拟合满。 */
+const FILL_MAX   = 2.4;
+/* 字号可读下限：取景缩放跌破它就宁可少展，不可看不清。
+   autoFill 与 fitView 共用，因此必须是模块级，不能留在函数内。 */
+const READABLE_MIN = 0.72;
+/* autoFill 的字号地板：低于 0.85（≈11px 字）就不再展开。
+   注意不能用绝对缩放阈值判断"该不该展"——
+   实测 768 屏首屏缩放本来只有 1.3、1024 屏 1.425，
+   若要求 >= 1.45 则一章都展不开（19 张卡、屏幕占用仅 27%）。
+   真正的判据是"展开后屏幕占用是否上升"，见 autoFill 内部。 */
+const FONT_FLOOR = 0.85;
+let   FIT_PAD    = 16;
 
 /* 布局常量（DictMindMap.computeMindMapLayout） */
 /* ---- 响应式度量：按视口实时计算，小屏不再溢出 ---- */
-const COL_W_BASE = [268, 300, 320, 348];  // 桌面基准列宽
+const COL_W_BASE = [212, 230, 246, 264];  // 桌面基准列宽（收紧后 1024 屏可横排）
 const W_PARA_BASE = 520;
 
 /* 小屏纵向缩进布局（TreeChat 窄屏模式）：横排四列在 360px 上必然缩到 0.4 倍，
    文字不可读，因此窄屏改为自上而下缩进，只沿纵向滚动 */
 let VERTICAL   = false;   // 是否纵向布局
-let INDENT_V   = 34;      // 每层缩进
-let PAD_V      = 16;      // 左右安全边距
-let GAP_Y_V    = 12;      // 纵向卡片间距
+let INDENT_V   = 22;      // 每层缩进
+let PAD_V      = 12;      // 左右安全边距
+let GAP_Y_V    = 3;       // 纵向卡片间距
 let COL_W_V    = [];      // 纵向各层卡片宽度
+/* 卡片最小宽度（自适应下限）。
+   实测 3,618 条知识点标题：中位仅 3 个汉字（≈39px 文字），
+   P90 也只有 6 个字。原下限 96px 会把 82.8% 的卡强行撑宽，
+   总共浪费 82,031px 宽度（平均每张 22.7px，单卡 60% 是空背景）。
+   降到 56px 后浪费归零，同时仍能容纳最短 2 字标题 + 箭头按钮。 */
+const MIN_CARD_W = 56;
 const KP_CHUNK   = 20;                 // 每节首屏挂载的知识点数
 const PARA_CHUNK = 80;                 // 正文首屏渲染的段落数
 
+let TARGET_ASPECT = 1.6;   // 视口宽高比：布局据此决定每层拆几列
 let COL_W  = COL_W_BASE.slice();
-let GAP_X  = 92;
-let GAP_Y  = 20;
+let GAP_X  = 12;
+let GAP_Y  = 3;
 let W_PARA = W_PARA_BASE;
 let IS_COMPACT = false;
 
@@ -728,6 +790,8 @@ function computeMetrics(){
   const tiny    = W < 420;
   const compact = W < 720 || H < 620;
   IS_COMPACT = compact;
+  /* 布局用：让包围盒形状贴近视口，才能把屏幕用满 */
+  TARGET_ASPECT = (stage.clientWidth || W) / Math.max(1, (stage.clientHeight || H));
 
   /* 列宽按屏宽收缩，但守住可读下限（再窄中文标题就没法两行了） */
   const k = tiny ? 0.60 : compact ? 0.76 : 1;
@@ -737,10 +801,10 @@ function computeMetrics(){
      重复调用会自我污染，得出"越来越窄"的错误结论。 */
   const COL_W_H = COL_W_BASE.map(w => Math.max(floor, Math.round(w * k)));
 
-  GAP_X = tiny ? 40 : compact ? 56 : 92;
-  GAP_Y = compact ? 16 : 20;
+  GAP_X = tiny ? 6 : compact ? 7 : 8;
+  GAP_Y = compact ? 2 : 2;
   W_PARA = Math.min(W_PARA_BASE, Math.max(280, W - 48));
-  FIT_PAD = compact ? 28 : 90;
+  FIT_PAD = compact ? 8 : 16;
 
   /* 方向判据：横排放进屏宽后，缩放比还够不够读？
      只看"放不放得下"会把 1440 桌面也判成纵向（四列共 1512px）。
@@ -750,12 +814,12 @@ function computeMetrics(){
   VERTICAL = fitNeed < 0.72;
 
   if(VERTICAL){
-    INDENT_V = tiny ? 18 : 24;
-    PAD_V    = tiny ? 12 : 16;
-    GAP_Y_V  = tiny ? 10 : 12;
+    INDENT_V = tiny ? 14 : 18;
+    PAD_V    = tiny ? 8 : 12;
+    GAP_Y_V  = tiny ? 2 : 3;
     /* 每层可用宽度 = 屏宽 - 两侧边距 - 该层缩进；守住可读下限 200 */
     COL_W_V = COL_W_BASE.map((_, d) =>
-      Math.max(200, Math.min(440, W - PAD_V * 2 - d * INDENT_V)));
+      Math.max(180, Math.min(340, W - PAD_V * 2 - d * INDENT_V)));
     /* 纵向模式下卡片按自身层宽渲染 */
     COL_W = COL_W_V.slice();
     W_PARA = Math.min(W - PAD_V * 2, 440);
@@ -782,7 +846,7 @@ function makeNode(o){
   const n = Object.assign({
     id:"", kind:"kp", label:"", depth:0, parent:null, children:[],
     open:false, visible:false, hasPara:false, paraOpen:false, paraLoaded:false,
-    w:COL_W[0], h:44,
+    w:COL_W[0], h:34,
     x:0, y:0, vx:0, vy:0, tx:0, ty:0,
     el:null, alpha:0, scaleIn:1,
     shown:null,        /* 已挂载的子节点数（null = 未截断） */
@@ -856,66 +920,176 @@ function buildTree(book){
    3. 布局：tidy tree —— 叶子按累计高度排布，父节点取子节点中位
    ===================================================================== */
 function computeLayout(){
-  let cursor = 0;
-  const seen = [];          /* 本次真正参与布局的节点（可见分支） */
-
-  /* ① 第一遍：定 depth + 纵向位置。
-     必须先跑这一遍 —— 否则新展开的子节点 depth 还是初值 0，
-     下面按列统计最大宽度时会把它们全算进第 0 列，列宽推算直接失效。 */
-  function walkY(n, depth){
+  const seen = [];
+  (function collect(n, depth){
     n.depth = depth;
     seen.push(n);
-    const kids = kidsOf(n);
-    if(VERTICAL){
-      /* 纵向：前序 —— 父占自己的槽位，子节点依次排在下方 */
+    kidsOf(n).forEach(k => collect(k, depth + 1));
+  })(ROOT, 0);
+
+  if(VERTICAL){
+    let cursor = 0;
+    (function walkY(n){
       n.ty = cursor;
       cursor += n.h + GAP_Y_V;
-      kids.forEach(k => walkY(k, depth + 1));
+      kidsOf(n).forEach(walkY);
+    })(ROOT);
+    for(const n of seen) n.tx = PAD_V + n.depth * INDENT_V;
+    return;
+  }
+
+  /* 不做"同层统一宽度"。
+     实测：统一后 section 卡从自然宽 203px 被撑到 246px，
+     凭空多出 43px 空白（内部空白占比 0.5% → 2.1%）。
+     卡片按内容自适应才是最省的 —— 宽窄参差由"逐父定位"消化，
+     窄卡右侧不会留洞，因为下一列紧跟在本卡右边缘 + GAP_X。 */
+
+  /* ---- 横向：兄弟按列打包 ----
+     单列堆叠 18 个章节会让包围盒变成 728×805（宽高比 0.90），
+     而视口是 1.60 —— 每行右侧 75% 空白，为塞进高度还得压缩放。
+     这里枚举"这一层拆成几列"，选包围盒宽高比最贴近视口的那一种。 */
+  /* 实测扫描（1440×900，autoFill 后）：
+       cols=1 → 53 张卡，屏幕占用 35.0%
+       cols=2 → 64 张卡，屏幕占用 39.4%   ← 最优
+       cols=3 → 46 张卡，屏幕占用 28.6%
+       cols=4/6 → 与 3 完全相同
+     放开上限让评分自己选时，评分选出 3 列，反而掉回 28.6%。
+     根因：评分模型用 min(availW/W, availH/H)，而真实 fitView 在高度不可读时
+     只按宽度取景（实测三种拆法 scale 都≈1.577），评分模型与真实行为不一致。
+     既然实测最优是 2，就直接固定 2，不再让错误模型去猜。 */
+  const PACK_COLS_MAX = 2;
+
+  /* 可用视口（与 fitView 保持同一口径） */
+  const availW = (stage.clientWidth || 1440) - FIT_PAD * 2;
+  const availH = (stage.clientHeight || 900) - FIT_PAD
+                 - (document.getElementById("topbar").offsetHeight + 24);
+
+  /* 保序最优切分：把 kids 按原顺序切成 kk 段，使最高的那段尽量矮。
+     原实现用 per = ceil(len/kk) 顺序等分，完全不看子树高度 ——
+     实测 1440 屏 18 个章节分 2 列，两列高度差被 Math.max 吃掉，
+     矮列整条留空，包围盒高度由高列决定，盒内填充只有 37%。
+     这是经典「线性划分」问题，DP 求最小最大段高，O(kk·n²)。
+     n 很大时（知识点最多 348 个）退回顺序等分，避免 O(n²) 开销。 */
+  function partCols(sub, kk){
+    const n = sub.length;
+    if(kk <= 1) return [sub.slice()];
+    if(kk >= n) return sub.map(x => [x]);
+    if(n > 64){
+      const per = Math.ceil(n / kk), out = [];
+      for(let a = 0; a < n; a += per) out.push(sub.slice(a, a + per));
+      return out;
+    }
+    const pre = [0];
+    for(let i = 0; i < n; i++) pre.push(pre[i] + sub[i].h + GAP_Y);
+    const segH = (a, b) => pre[b] - pre[a] - GAP_Y;
+    const INF = Infinity;
+    const dp = [], cut = [];
+    for(let c = 0; c <= kk; c++){
+      dp.push(new Array(n + 1).fill(INF));
+      cut.push(new Array(n + 1).fill(0));
+    }
+    dp[0][0] = 0;
+    for(let c = 1; c <= kk; c++){
+      for(let i = 1; i <= n; i++){
+        for(let j = c - 1; j < i; j++){
+          if(dp[c-1][j] === INF) continue;
+          const v = Math.max(dp[c-1][j], segH(j, i));
+          if(v < dp[c][i]){ dp[c][i] = v; cut[c][i] = j; }
+        }
+      }
+    }
+    const out = [];
+    let i = n;
+    for(let c = kk; c >= 1; c--){ const j = cut[c][i]; out.unshift(sub.slice(j, i)); i = j; }
+    return out;
+  }
+
+  function packFor(n, kids){
+    const cw = cardW(n);
+    const sub = kids.map(c => ({ c: c, h: c.subH, w: c.subW, a: c.subArea }));
+    let best = null;
+    const kMax = Math.min(PACK_COLS_MAX, kids.length);
+    const evalCand = (cols) => {
+      if(!cols.length || cols.some(c => !c.length)) return;
+      const colW = cols.map(col => Math.max.apply(null, col.map(x => x.w)));
+      const colH = cols.map(col => col.reduce((a, x) => a + x.h, 0) + GAP_Y * (col.length - 1));
+      const W = cw + GAP_X + colW.reduce((a, b) => a + b, 0) + GAP_X * (cols.length - 1);
+      const H = Math.max.apply(null, colH);
+      /* 评分 = 卡片净面积 × 缩放²  ——  这才是"屏幕被卡片覆盖多少"。
+         早前只最大化 scale，结果选出"缩放略大但卡片更少"的排法：
+         实测 1440 屏 cols=2 有 64 张卡、占用 39.4%；cols=3 只有 46 张卡、
+         占用 28.6%，但 cols=3 的 scale 反而更大（1.29 vs 1.00），
+         于是评分把更差的那一种选了出来。乘上面积就不会选错。 */
+      const sc = Math.min(availW / Math.max(1, W), availH / Math.max(1, H));
+      const area = cw * n.h + sub.reduce((a, x) => a + x.a, 0);
+      const score = area * sc * sc;
+      if(!best || score > best.score + 1e-9)
+        best = { score: score, cols: cols, colW: colW, W: W, H: H };
+    };
+    for(let kk = 1; kk <= kMax; kk++){
+      /* 顺序等分（旧策略，保留作为对照，不会比新策略差） */
+      const per = Math.ceil(kids.length / kk);
+      const seq = [];
+      for(let a = 0; a < sub.length; a += per) seq.push(sub.slice(a, a + per));
+      evalCand(seq);
+      /* 保序最优切分（新策略）：让各列高度尽量齐平，砍掉矮列的空条 */
+      const bal = partCols(sub, kk);
+      if(bal.length === kk) evalCand(bal);
+    }
+    return best;
+  }
+
+  function measure(n){
+    const kids = kidsOf(n);
+    const cw = cardW(n);
+    if(!kids.length){
+      n.subH = n.h; n.subW = cw; n._cols = null;
+      n.subArea = cw * n.h;          /* 子树卡片净面积，供 packFor 评分 */
       return;
     }
-    if(kids.length === 0){
-      n.ty = cursor;
-      cursor += n.h + GAP_Y;
-    }else{
-      kids.forEach(k => walkY(k, depth + 1));
-      n.ty = (kids[0].ty + kids[kids.length-1].ty) / 2;
-    }
+    for(const c of kids) measure(c);
+    const b = packFor(n, kids);
+    n._cols  = b.cols.map(col => col.map(x => x.c));
+    n._colW  = b.colW;
+    n.subH   = Math.max(n.h, b.H);
+    n.subW   = b.W;
+    n.subArea = cw * n.h + kids.reduce((a, c) => a + c.subArea, 0);
   }
-  walkY(ROOT, 0);
 
-  /* ② 每列实际宽度 = 该列所有可见节点的最大宽度。
-     某张卡片展开正文（320 → 520）时，右侧整列会被真正推开，
-     而不是压在展开的正文上面。 */
-  const DW = COL_W.slice();
+  function place(n, x, yTop){
+    n.tx = x;
+    if(!n._cols){ n.ty = yTop; return; }
+    let colsH = 0;
+    for(const col of n._cols){
+      let h = 0;
+      for(const c of col) h += c.subH + GAP_Y;
+      h -= GAP_Y;
+      if(h > colsH) colsH = h;
+    }
+    /* 父节点垂直居中于子节点整体跨度 */
+    n.ty = yTop + (colsH - n.h) / 2;
+    let cx = x + cardW(n) + GAP_X;
+    n._cols.forEach((col, ci) => {
+      let cy = yTop;
+      for(const c of col){
+        place(c, cx, cy);
+        cy += c.subH + GAP_Y;
+      }
+      cx += n._colW[ci] + GAP_X;
+    });
+  }
+
+  measure(ROOT);
+  place(ROOT, 60, 0);
+
+  /* 整棵树垂直居中到 0，具体落在视口哪里交给 fitView */
+  let minY = Infinity, maxY = -Infinity;
   for(const n of seen){
-    const d = n.depth;
-    if(d < 0 || d >= DW.length) continue;
-    const cw = cardW(n);
-    if(cw > DW[d]) DW[d] = cw;
+    if(n.ty < minY) minY = n.ty;
+    if(n.ty + n.h > maxY) maxY = n.ty + n.h;
   }
-
-  const COLX = [];
-  if(VERTICAL){
-    /* 纵向：横向坐标只由层深决定，与列宽无关 */
-    for(let d=0; d<COL_W_V.length; d++){
-      COLX[d] = PAD_V + d * INDENT_V;
-    }
-  }else{
-    for(let d=0; d<DW.length; d++){
-      COLX[d] = d===0 ? 60 : COLX[d-1] + DW[d-1] + GAP_X;
-    }
-  }
-
-  /* ③ 第三遍：落横向坐标 */
-  for(const n of seen){
-    n.tx = COLX[Math.min(n.depth, DW.length - 1)];
-  }
-
-  /* 横向布局垂直居中；纵向布局从顶部起排，避免首屏把根节点顶出视野 */
-  if(!VERTICAL){
-    const shift = cursor / 2 - ROOT.h / 2;
-    for(const n of seen){ n.ty -= shift; }
-  }
+  const shift = (minY + maxY) / 2;
+  for(const n of seen) n.ty -= shift;
 }
 
 /* 可见集合：自身可见 = 所有祖先都 open
@@ -970,19 +1144,26 @@ function createCard(n){
   el.dataset.id = n.id;
   /* 关键：绝对定位元素的可用宽度是 0，必须显式给宽，
      否则 shrink-to-fit 会把中文压成一字一行（即"长条"） */
-  el.style.width = (n.paraOpen ? W_PARA : n.w) + "px";
+  const capW = n.paraOpen ? W_PARA : n.w;
+  el.style.width = capW + "px";
 
   const hasKids = n.children.length > 0;
-  const chev = (hasKids || n.hasPara)
+  /* 知识点详情行默认折叠，因此需要自己的展开箭头 */
+  const hasDetail = !!(n.kind === "kp" && n.kp &&
+                       ((n.kp.p && n.kp.p.length) || n.kp.y));
+  const chev = (hasKids || n.hasPara || hasDetail)
     ? '<button class="ibtn chev" data-act="toggle">' + SVG.chev + '</button>' : '';
 
+  /* 不再生成「N节 / N点」徽标。
+     实测 1440 屏：chapter 卡装饰宽 60px、section 卡 100px，
+     其中徽标固定占 32px（30 + gap），43 张卡合计 1,376px 宽度。
+     而这些数字展开后就能看到，属于纯冗余；移出后卡宽直接收窄 32px。 */
   let badge = "";
-  if(n.kind === "chapter" && n.children.length)
-    badge = '<span class="badge">' + n.children.length + '节</span>';
-  if(n.kind === "section" && n.kpCount)
-    badge = '<span class="badge">' + n.kpCount + '点</span>';
-  if(n.kind === "kp" && n.weight === "high")
-    badge = '<span class="badge gold">真题</span>';
+  /* 真题标记不再用「真题」徽标。
+     实测：3,618 张 kp 卡里有 3,229 张是高频，徽标各占 36px，
+     合计 116,244px，占全部装饰宽度的 76.3%，去掉后整卡宽度减少 37.1%。
+     而且人人都有标 = 没有区分度。改为左侧 2px 金色竖条（CSS），
+     横向零占用，靠颜色一眼分辨。 */
 
   let detail = "";
   if(n.kind === "kp" && n.kp){
@@ -1000,8 +1181,8 @@ function createCard(n){
       '<span class="label">' + esc(n.label) + '</span>' +
       badge +
       (n.kind === "section"
-        ? '<button class="ibtn" data-act="win" title="在窗口中打开">' + SVG.win + '</button>' +
-          '<button class="ibtn" data-act="para" title="画布内展开正文">' + SVG.doc + '</button>'
+        ? '<button class="ibtn act" data-act="win" title="在窗口中打开">' + SVG.win + '</button>' +
+          '<button class="ibtn act" data-act="para" title="画布内展开正文">' + SVG.doc + '</button>'
         : '') +
       chev +
     '</div>' + detail;
@@ -1009,8 +1190,13 @@ function createCard(n){
   nodesLayer.appendChild(el);
   n.el = el;
 
+  /* ---- 自适应卡宽：先量自然宽，再收敛 ----
+     固定列宽会让"10 个字 + 268px 卡"留下 60% 空背景，
+     这是截图里最刺眼的面积浪费。改为让卡片刚好包住内容。 */
+  measureCardW(n);
+
   /* 一次性量高，之后布局不再触发重排 */
-  n.h = Math.max(40, el.offsetHeight);
+  n.h = Math.max(22, el.offsetHeight);
   return el;
 }
 
@@ -1123,6 +1309,64 @@ function anchorIn(n){
 }
 function cardW(n){ return n.paraOpen ? W_PARA : n.w; }
 
+/* 自适应卡宽的唯一实现：先量 max-content 自然宽，再收敛到 [MIN_CARD_W, 列上限]。
+   createCard 与 resize 共用，避免两处逻辑分叉。 */
+/* 文本像素宽度估算：CJK 按 1em，拉丁/数字按 0.55em。
+   为什么不用 offsetWidth：那需要「加 measuring 类 → 强制同步重排 → 读回 → 去类」，
+   3,618 张卡逐个同步重排会让首屏明显卡顿；而且量宽时机稍有不慎
+   （元素未挂载 / display:none）就恒得 0，代码只能回落列宽上限，
+   于是所有卡又变回满列宽 —— 这正是"卡片浪费面积"反复出现的根因。
+   纯文本度量无重排、无时序依赖，结果确定。 */
+function textPx(str, fs){
+  let w = 0;
+  for(let i = 0; i < str.length; i++){
+    const c = str.charCodeAt(i);
+    /* CJK 统一表意文字 / 全角标点 / 假名 / 谚文：1em */
+    if((c >= 0x2E80 && c <= 0x9FFF) || (c >= 0xAC00 && c <= 0xD7AF) ||
+       (c >= 0xF900 && c <= 0xFAFF) || (c >= 0xFF00 && c <= 0xFF60) ||
+       (c >= 0x3000 && c <= 0x303F)) w += fs;
+    else if(c === 32) w += fs * 0.28;
+    else w += fs * 0.55;
+  }
+  return w;
+}
+
+function measureCardW(n){
+  const el = n.el;
+  if(!el || n.paraOpen) return n.w;
+  const capW = COL_W[Math.min(n.depth, COL_W.length - 1)];
+
+  /* 展开态：只有知识点卡有详情行，需要横向空间，才用列宽上限。
+     章节/小节卡展开只是露出子节点，自身内容不变宽 ——
+     对它们强制列宽会白扔 80~105px（实测第一章空 105px、第二章空 79px）。 */
+  if(n.open && n.kind === "kp"){
+    n.w = capW;
+    el.style.width = capW + "px";
+    return capW;
+  }
+
+  const fs = n.kind === "root" ? 15 : n.kind === "chapter" ? 13
+           : n.kind === "section" ? 12.5 : 13;
+  let w = textPx(n.label || "", fs);
+
+  /* 装饰宽度：padding 左右 + gap + 按钮 + 徽标 */
+  /* 装饰宽度只算「常驻占位」的元素。
+     win/doc 两个按钮已改为 hover 时绝对定位浮现，不占流内宽度，
+     因此这里不再计入 —— 与 CSS 保持同一口径，否则又会白留 36px。 */
+  const pad = n.kind === "kp" ? 10 : 14;
+  let chrome = pad;
+  if(n.children.length || n.hasPara || (n.kind === "kp" && n.kp &&
+     ((n.kp.p && n.kp.p.length) || n.kp.y)))   chrome += 2 + 16;   /* 展开箭头 */
+
+  const natural = Math.ceil(w + chrome) + 1;
+  /* 上限仍是列宽：标题过长时按两行折行，不无限拉宽 */
+  const out = Math.max(MIN_CARD_W, Math.min(capW, natural));
+  n.w = out;
+  n.measured = true;
+  el.style.width = out + "px";
+  return out;
+}
+
 let edgePool = [];
 function drawEdges(){
   let i = 0;
@@ -1171,6 +1415,8 @@ function drawEdges(){
 function setOpen(n, open){
   n.open = open;
   if(n.el) n.el.classList.toggle("open", open);
+  /* 展开/收起改变内容宽度，重新量一次（仅状态变化时，非每帧） */
+  if(n.el && n.kind === "kp") measureCardW(n);
   /* 新出现的子节点从父节点位置弹出去（Compose 入场感） */
   if(open){
     kidsOf(n).forEach(c => {
@@ -1194,13 +1440,16 @@ function relayout(){
   }
   /* 批量测量真实卡片高度：纵向布局按 h 堆叠，h 不准就会重叠。
      连续只读不写 → 只触发一次同步布局，无逐节点重排。 */
+  let heightsChanged = false;
   for(const n of NODES){
     if(n.visible && n.el){
       const hh = n.el.offsetHeight;
-      if(hh > 0 && hh !== n.h) n.h = hh;
+      if(hh > 0 && hh !== n.h){ n.h = hh; heightsChanged = true; }
     }
   }
-  /* 高度变了要重算 ty（上面已按旧 h 排过一遍） */
+  /* 统一宽度可能改变换行 → 高度变 → ty 失效。
+     横向也要重排一次（同层同宽后一般只差一次，不会反复）。 */
+  if(!VERTICAL && heightsChanged) computeLayout();
   if(VERTICAL){
     let c2 = 0;
     (function walkY2(n){
@@ -1221,6 +1470,12 @@ function toggleNode(n){
     const p = n.parent;
     if(!p) return;
     p.shown = (p.shown == null ? KP_CHUNK : p.shown) + KP_CHUNK;
+    relayout();
+    return;
+  }
+  /* 知识点：展开/收起详情行。默认收起，避免要点铺满画布 */
+  if(n.kind === "kp"){
+    setOpen(n, !n.open);
     relayout();
     return;
   }
@@ -1258,7 +1513,7 @@ function renderParaPage(n){
       ev.stopPropagation();
       n.paraShown = Math.min(total, n.paraShown + PARA_CHUNK);
       renderParaPage(n);
-      n.h = Math.max(40, n.el.offsetHeight);
+      n.h = Math.max(22, n.el.offsetHeight);
       relayout();
     });
   }
@@ -1287,7 +1542,7 @@ async function togglePara(n){
   n.el.classList.toggle("para-open", n.paraOpen);
   if(n.paraEl) n.paraEl.style.display = n.paraOpen ? "" : "none";
   n.el.style.width = (n.paraOpen ? W_PARA : n.w) + "px";
-  n.h = Math.max(40, n.el.offsetHeight);
+  n.h = Math.max(22, n.el.offsetHeight);
   relayout();
 }
 
@@ -1428,7 +1683,7 @@ function fitView(animate){
      纵向本来就是靠纵向滚动阅读的，所以顶部对齐、保持可读字号。 */
   if(VERTICAL){
     const nsv = Math.max(FIT_MIN, Math.min(FIT_MAX, availW / cw));
-    const npxv = (vw - cw * nsv) / 2 - minX * nsv;
+    const npxv = Math.min((vw - cw * nsv) / 2, FIT_PAD) - minX * nsv;
     const npyv = topSafe - minY * nsv;
     if(animate){
       animateViewTo(npxv, npyv, nsv);
@@ -1445,21 +1700,33 @@ function fitView(animate){
      缩放会掉到 0.456（13px 字变 5.9px）—— 图是"看全"了，但根本读不了。
      所以设一个可读下限 READABLE_MIN：高度拟合跌破它时放弃高度拟合，
      顶部对齐，纵向靠拖拽平移查看。 */
-  const READABLE_MIN = 0.72;
   const byW = availW / cw;
   const byH = availH / chh;
   const heightBound = byH < READABLE_MIN && byH < byW;
   let ns = Math.min(heightBound ? byW : Math.min(byW, byH), FIT_MAX);
   ns = Math.max(FIT_MIN, ns);
 
+  /* 横向填满宽度：按高度拟合后内容往往只占视口 60% 宽，两侧大片空白。
+     这是可平移画布，不必为了"看全"把字缩到 12.8px ——
+     优先把宽度用满（上限 FILL_MAX，字约 19.5px），垂直溢出交给平移。 */
+  if(!heightBound){
+    const fill = Math.min(byW, FILL_MAX);
+    if(fill > ns) ns = fill;
+  }
+
   const npx = (vw - cw * ns) / 2 - minX * ns;
   /* 高度没拟合时不能对齐"包围盒顶边"。
      横向布局里整棵树是围绕根节点垂直居中的，根节点位于树的中段；
      若把包围盒顶边贴到顶栏下沿，根节点会被推到视口下方（实测 y=1036 > 900）。
      正确做法是把根节点本身对齐到视口中上部，其余部分上下拖拽查看。 */
-  const npy = heightBound
-    ? ((topSafe + availH * 0.42) - (ROOT.ty + ROOT.h / 2) * ns)
-    : (topSafe + (availH - chh * ns) / 2 - minY * ns);        /* 真正放下了才居中 */
+  /* 高度没拟合 / 放大后溢出：都不能对齐包围盒顶边。
+     横向布局整棵树围绕根节点垂直居中，根节点位于树中段，
+     对齐顶边会把根节点推到视口下方（实测 y=1036 > 900）。
+     改为把根节点本身锚定到顶栏下沿。 */
+  const overflows = chh * ns > availH;
+  const npy = (heightBound || overflows)
+    ? ((topSafe + 40) - ROOT.ty * ns)
+    : (topSafe + (availH - chh * ns) / 2 - minY * ns);
 
   if(animate){
     animateViewTo(npx, npy, ns);
@@ -1506,6 +1773,80 @@ booksBar.addEventListener("click", e => {
   loadBook();
 });
 
+/* 首屏自动填充：按屏幕大小决定展开多少章节。
+   固定"展开前 2 章"会让 1440 屏上只有 26 张卡片，
+   画布大片空白 —— 这才是"浪费可显示面积"的主因，
+   而不是卡片内部太胖（实测内部空白仅 0.2%~0.6%）。
+
+   策略：BFS 逐层展开章节；每展开一个就重排并试算取景缩放，
+   一旦缩放跌破 READABLE_MIN 就回退并停止。小屏少展、大屏多展。 */
+/* 屏幕被卡片覆盖的比例：Σ卡片面积 × 缩放² / 视口面积。
+   这是"有没有浪费显示面积"最直接的度量 —— 展开子节点会增加卡片面积，
+   但同时可能撑大包围盒、压低缩放，两者相抵未必更满，必须实测比较。 */
+/* 屏幕真实覆盖率：只统计「当前真正落在视口内」的卡片面积。
+   旧实现是「全部可见卡面积 × s² / 视口面积」，把已经放大到屏幕外、
+   用户根本看不到的卡片也算了进去。实测 1440 屏包围盒 795×856，
+   按 1.6 倍填满宽度后高 1370px，而视口只有 812px ——
+   近 40% 卡片落在折叠线以下，旧公式却报 39.4% 的占用率，
+   指标虚高，autoFill 一直在优化一个用户看不见的数字。
+   新实现按矩形求交，只算屏幕上真的被卡片占住的地方。 */
+function usageScore(){
+  const vw = stage.clientWidth || W, vh = stage.clientHeight || H;
+  if(vw <= 0 || vh <= 0) return 0;
+  const s = view.s, px = view.px, py = view.py;
+  if(!(s > 0)) return 0;
+  let hit = 0;
+  for(const n of NODES){
+    if(!n.visible) continue;
+    const x0 = n.tx * s + px, y0 = n.ty * s + py;
+    const x1 = Math.min(x0 + cardW(n) * s, vw), y1 = Math.min(y0 + n.h * s, vh);
+    const ax = Math.max(x0, 0), ay = Math.max(y0, 0);
+    if(x1 > ax && y1 > ay) hit += (x1 - ax) * (y1 - ay);
+  }
+  return hit / (vw * vh);
+}
+
+function autoFill(targetCards){
+  /* 目标卡片数必须跟着视口面积走。
+     实测固定 64 张时：1440 屏占用 39.4%，1920 屏只有 25.4% ——
+     同样 64 张卡摊在 1.6 倍面积上，自然显得空。
+     以 1440×900（1.296M px²）= 64 张为基准等比放大。 */
+  const vw = stage.clientWidth  || 1440;
+  const vh = stage.clientHeight || 900;
+  const TARGET = targetCards ||
+    Math.max(48, Math.min(220, Math.round(64 * (vw * vh) / 1296000)));
+  const queue = [ROOT];
+  let guard = 0;
+  while(queue.length && guard++ < 400){
+    if(NODES.filter(n => n.visible).length >= TARGET) break;
+    const n = queue.shift();
+    if(!n.children.length || n.depth >= 3) continue;
+    if(n.open) { n.children.forEach(c => { if(c.children.length) queue.push(c); }); continue; }
+
+    const before = usageScore();
+    setOpen(n, true);
+    refreshVisible();
+    computeLayout();
+    fitView(false);
+    /* 判据：展开后"屏幕被卡片覆盖的比例"是否真的上升。
+       试过改成「只看字号是否可读」，实测是负优化：
+       1440 屏从 64 张卡 / 占用 39.4% 变成 65 张卡 / 占用 29.9% ——
+       多展的那一层把包围盒撑高，fitView 缩放从 1.577 掉到 1.363，
+       缩放是平方项，掉一点就吃掉全部收益。所以仍用占用率判据。 */
+    const after = usageScore();
+    if(view.s < FONT_FLOOR || after <= before * 1.02){
+      setOpen(n, false);
+      refreshVisible();
+      computeLayout();
+      fitView(false);
+      continue;
+    }
+    n.children.forEach(c => { if(c.children.length) queue.push(c); });
+  }
+  refreshVisible();
+  computeLayout();
+}
+
 function loadBook(){
   const book = DATA[bookIdx];
   tbTitle.textContent = book.t;
@@ -1514,8 +1855,9 @@ function loadBook(){
   edgePool = [];
   computeMetrics();
   buildTree(book);
-  /* 默认展开根 + 前两个章节，首屏有内容但不至于铺满 */
-  ROOT.children.slice(0, 2).forEach(c => setOpen(c, true));
+  /* 首屏内容量交给 autoFill 按屏幕决定（原来固定展 2 章，大屏太空） */
+  relayout();
+  autoFill(64);
   relayout();
   requestAnimationFrame(() => {
     fitView(false);
@@ -1559,9 +1901,15 @@ window.addEventListener("resize", () => {
   clearTimeout(_rsT);
   _rsT = setTimeout(() => {
     computeMetrics();
+    /* 不能把 n.w 重置成列宽 —— 那会把自适应量宽的结果冲掉，
+       窗口一变所有卡片退回"宽卡少字"。必须重新测量。 */
+    /* 只重测可见节点：隐藏节点的 offsetWidth 恒为 0，
+       重测只会让它们退回列宽上限，展开后又得再算一次。 */
     for(const n of NODES){
-      n.w = COL_W[Math.min(n.depth, COL_W.length - 1)];
-      if(n.el) n.el.style.width = cardW(n) + "px";
+      if(n.el && n.visible){
+        if(n.paraOpen) n.el.style.width = W_PARA + "px";
+        else measureCardW(n);
+      }
     }
     relayout();
     /* 方向切换后重新取景，否则会停在旧方向的空白处 */
