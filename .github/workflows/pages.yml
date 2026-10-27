@@ -1,0 +1,50 @@
+name: Deploy PWA to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同一时间只跑一个部署，新的推送取消排队中的旧任务
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 校验产物完整性
+        run: |
+          set -e
+          test -f web/index.html           || { echo "缺少 web/index.html"; exit 1; }
+          test -f web/manifest.webmanifest || { echo "缺少 manifest"; exit 1; }
+          test -f web/sw.js                || { echo "缺少 sw.js"; exit 1; }
+          test -d web/icons                || { echo "缺少 icons"; exit 1; }
+          test -f web/data/para/_list.json || { echo "缺少分片清单"; exit 1; }
+          n=$(ls web/data/para/*.json | grep -v _list.json | wc -l)
+          echo "正文分片 $n 个"
+          test "$n" -ge 151 || { echo "分片数量不足"; exit 1; }
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
