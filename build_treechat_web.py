@@ -257,8 +257,14 @@ body{
 .card.chapter{
   background:var(--secondary-container);
   border-color:var(--secondary);
+  box-shadow:inset 3px 0 0 var(--secondary), 0 2px 8px rgba(0,0,0,.35);
 }
-.card.section{background:var(--sc-high);position:relative;}
+.card.section{
+  background:var(--tertiary-container);
+  position:relative;
+  border-color:color-mix(in oklch, var(--tertiary) 45%, var(--outline-var));
+  box-shadow:inset 3px 0 0 var(--tertiary), 0 1px 4px rgba(0,0,0,.28);
+}
 /* section 的两个操作按钮改为「悬停浮现」：绝对定位到卡片右缘外侧，
    不占文档流宽度。实测它们常驻时占 36px，25 张 section 卡合计 900px，
    而 win/doc 属于低频操作，常驻显示纯属浪费面积。 */
@@ -279,7 +285,12 @@ body{
 @media (hover:none){
   .card.section .ibtn.act{ opacity:.85;pointer-events:auto;position:static;transform:none;right:auto;box-shadow:none;background:transparent; }
 }
-.card.kp{background:var(--sc);padding:2px 5px;border-color:transparent;box-shadow:none;}
+.card.kp{
+  background:var(--sc);
+  padding:2px 5px;
+  border-color:color-mix(in oklch,var(--outline-var) 70%,transparent);
+  box-shadow:none;
+}
 .card.kp.hot{
   background:var(--gold-container);
   border-color:var(--gold);
@@ -674,6 +685,55 @@ body{
 #pwaChip .pwa-ico svg{width:16px;height:16px;display:block;}
 #pwaChip.ready{color:var(--primary);border-color:color-mix(in oklch,var(--primary) 40%,transparent);}
 #pwaChip.offline{color:var(--tertiary);border-color:color-mix(in oklch,var(--tertiary) 45%,transparent);}
+
+/* ---------- 缩放指示 ---------- */
+#zoomPct{
+  position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom) + 118px);z-index:20;
+  font-size:11px;font-variant-numeric:tabular-nums;color:var(--on-surface-var);
+  background:var(--sc-high);border:1px solid var(--outline-var);border-radius:var(--r-sm);
+  padding:2px 8px;pointer-events:none;
+}
+
+/* ---------- 搜索面板 ---------- */
+#searchPanel{
+  position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 70px);transform:translateX(-50%);
+  width:min(560px,calc(100vw - 32px));max-height:60vh;z-index:40;
+  background:var(--sc-high);border:1px solid var(--outline-var);border-radius:var(--r-lg);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;
+}
+#searchPanel[hidden]{display:none;}
+#searchInput{
+  background:transparent;border:0;border-bottom:1px solid var(--outline-var);
+  color:var(--on-surface);font-size:15px;padding:14px 16px;outline:none;
+}
+#searchList{overflow:auto;padding:6px;}
+.sr{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;}
+.sr:hover{background:var(--sc-highest);}
+.sr b{font-size:13px;font-weight:600;color:var(--on-surface);}
+.sr span{font-size:11px;color:var(--on-surface-var);}
+
+/* ---------- 面包屑 ---------- */
+#crumbs{
+  position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:15;
+  display:flex;gap:6px;align-items:center;max-width:calc(100vw - 120px);
+  font-size:12px;color:var(--on-surface-var);overflow:hidden;
+}
+#crumbs button{
+  background:transparent;border:0;color:inherit;font:inherit;cursor:pointer;
+  padding:2px 4px;border-radius:6px;white-space:nowrap;
+}
+#crumbs button:hover{background:var(--sc-high);}
+#crumbs .sep{opacity:.4;flex:none;}
+
+/* ---------- 小屏适配 ---------- */
+@media (max-width:600px){
+  .tb-title{font-size:14px;}
+  .chip{padding:5px 9px;font-size:12px;}
+  .fab{width:40px;height:40px;border-radius:12px;}
+  #tools{gap:8px;right:10px;}
+  #crumbs{font-size:11px;max-width:calc(100vw - 96px);}
+  #zoomPct{bottom:calc(env(safe-area-inset-bottom) + 106px);}
+}
 </style>
 </head>
 <body>
@@ -691,6 +751,9 @@ body{
     <div class="tb-title" id="tbTitle">汉硕考研 · 全书思维导图</div>
     <span id="buildTag" style="margin-left:10px;font-size:11px;opacity:.5;font-variant-numeric:tabular-nums;white-space:nowrap">__BUILD__</span>
     <button id="btnAlign" title="切换对齐方式" style="margin-left:8px;font-size:11px;line-height:18px;padding:0 8px;border-radius:9px;border:1px solid var(--outline-var);background:transparent;color:var(--on-surface-var);cursor:pointer">对齐:顶部</button>
+    <button class="ibtn" id="btnSearch" title="搜索">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 4a6 6 0 104.47 10.03l4.25 4.25 1.41-1.41-4.25-4.25A6 6 0 0010 4zm0 2a4 4 0 110 8 4 4 0 010-8z"/></svg>
+    </button>
     <button class="ibtn" id="btnCollapseAll" title="全部收起">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/></svg>
     </button>
@@ -700,6 +763,13 @@ body{
   </div>
   <div id="books"></div>
 </div>
+
+<div id="searchPanel" hidden>
+  <input id="searchInput" placeholder="搜索章节 / 小节 / 考点" autocomplete="off">
+  <div id="searchList"></div>
+</div>
+<div id="crumbs"></div>
+<div id="zoomPct">100%</div>
 
 <div id="tools">
   <button class="fab" id="btnIn" title="放大">
@@ -1119,6 +1189,8 @@ function createCard(n){
 const view = { px:0, py:0, s:1, tpx:0, tpy:0, ts:1, springing:false };
 
 function applyView(){
+  const _zp = document.getElementById("zoomPct");
+  if(_zp) _zp.textContent = Math.round(view.s * 100) + "%";
   world.style.transform =
     "translate3d(" + view.px.toFixed(2) + "px," + view.py.toFixed(2) + "px,0) scale(" + view.s.toFixed(4) + ")";
   /* 点阵跟随平移，取模避免数值无限增长 */
@@ -1130,6 +1202,7 @@ function applyView(){
     applyView._lod = lod;
     nodesLayer.style.setProperty("--lod", lod);
   }
+  if(typeof updateCrumbsThrottled === "function") updateCrumbsThrottled();
 }
 
 /* =====================================================================
@@ -1306,6 +1379,12 @@ function measureCardW(n){
 }
 
 let edgePool = [];
+/* 连线按父节点层级分色：根→章 用次级色，章→节 用三级色，其余用描边色 */
+function edgeStyle(parent){
+  if(parent.kind === "root")    return { c:"var(--secondary)", w:1.6,  o:0.72 };
+  if(parent.kind === "chapter") return { c:"var(--tertiary)",  w:1.25, o:0.55 };
+  return { c:"var(--outline)", w:0.9, o:0.34 };
+}
 function drawEdges(){
   let i = 0;
   for(const n of NODES){
@@ -1340,10 +1419,11 @@ function drawEdges(){
         edgePool.push(path);
       }
       path.setAttribute("d", d);
+      const st = edgeStyle(n);
       const hot = (c.weight === "high");
-      path.setAttribute("stroke", hot ? "var(--gold)" : "var(--outline)");
-      path.setAttribute("stroke-width", hot ? "1.6" : "1.1");
-      path.setAttribute("opacity", hot ? "0.72" : "0.42");
+      path.setAttribute("stroke", hot ? "var(--gold)" : st.c);
+      path.setAttribute("stroke-width", String(hot ? st.w + 0.35 : st.w));
+      path.setAttribute("opacity", String(hot ? Math.min(0.9, st.o + 0.25) : st.o));
       path.style.display = "";
       i++;
     }
@@ -2590,6 +2670,96 @@ if("serviceWorker" in navigator && location.protocol !== "file:"){
     }).catch(() => { /* file:// 或权限受限时静默降级 */ });
   });
 }
+
+/* ---------- 搜索 ---------- */
+const searchPanel = document.getElementById("searchPanel");
+const searchInput = document.getElementById("searchInput");
+const searchList  = document.getElementById("searchList");
+const btnSearch   = document.getElementById("btnSearch");
+
+function pathOf(n){
+  const out = [];
+  let p = n;
+  while(p){ out.unshift(p); p = p.parent; }
+  return out;
+}
+
+function focusNode(n){
+  for(const a of pathOf(n)){ if(a !== n && !a.open) setOpen(a, true); }
+  relayout();
+  const cx = stage.clientWidth / 2, cy = stage.clientHeight / 2;
+  const s  = Math.max(view.s, 1.1);
+  animateViewTo(cx - (n.tx + n.w / 2) * s, cy - (n.ty + n.h / 2) * s, s);
+}
+
+function doSearch(q){
+  q = (q || "").trim().toLowerCase();
+  const hits = [];
+  for(const n of NODES){
+    if(!n.label || n.kind === "more") continue;
+    if(q && n.label.toLowerCase().indexOf(q) < 0) continue;
+    hits.push(n);
+    if(hits.length >= 40) break;
+  }
+  searchList._hits = hits;
+  searchList.innerHTML = hits.length
+    ? hits.map((n, i) =>
+        '<div class="sr" data-i="' + i + '"><b>' + esc(n.label) + '</b><span>' +
+        esc(pathOf(n).slice(0, -1).map(x => x.label).join(" › ")) + '</span></div>').join("")
+    : '<div class="sr"><span>没有匹配结果</span></div>';
+}
+
+function openSearch(show){
+  searchPanel.hidden = !show;
+  if(show){ searchInput.value = ""; doSearch(""); searchInput.focus(); }
+}
+
+if(btnSearch) btnSearch.addEventListener("click", () => openSearch(searchPanel.hidden));
+if(searchInput) searchInput.addEventListener("input", () => doSearch(searchInput.value));
+if(searchList) searchList.addEventListener("click", e => {
+  const row = e.target.closest(".sr");
+  if(!row || row.dataset.i == null) return;
+  const n = searchList._hits[+row.dataset.i];
+  if(!n) return;
+  openSearch(false);
+  focusNode(n);
+});
+
+/* ---------- 面包屑 ---------- */
+var crumbsEl = document.getElementById("crumbs");
+var _crumbT = 0;
+
+function updateCrumbs(){
+  if(!crumbsEl) return;
+  const vw = stage.clientWidth, vh = stage.clientHeight;
+  let best = null, bd = Infinity;
+  for(const n of NODES){
+    if(!n.visible) continue;
+    const sx = n.tx * view.s + view.px, sy = n.ty * view.s + view.py;
+    const d = Math.hypot(sx + n.w * view.s / 2 - vw / 2, sy + n.h * view.s / 2 - vh / 2);
+    if(d < bd){ bd = d; best = n; }
+  }
+  if(!best){ crumbsEl.innerHTML = ""; return; }
+  crumbsEl.innerHTML = pathOf(best).map((x, i) =>
+    (i ? '<span class="sep">›</span>' : '') +
+    '<button data-id="' + esc(x.id) + '">' +
+    esc(x.label.length > 12 ? x.label.slice(0, 12) + "…" : x.label) + '</button>'
+  ).join("");
+}
+
+function updateCrumbsThrottled(){
+  const t = performance.now();
+  if(t - _crumbT < 120) return;
+  _crumbT = t;
+  updateCrumbs();
+}
+
+if(crumbsEl) crumbsEl.addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if(!b) return;
+  const n = NODES.find(x => x.id === b.dataset.id);
+  if(n) focusNode(n);
+});
 </script>
 <script>
 /* 构建自更新：每 10 秒比对 build.txt，发现新构建自动刷新。
