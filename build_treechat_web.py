@@ -686,6 +686,7 @@ body{
   <div class="tb-row">
     <div class="tb-title" id="tbTitle">汉硕考研 · 全书思维导图</div>
     <span id="buildTag" style="margin-left:10px;font-size:11px;opacity:.5;font-variant-numeric:tabular-nums;white-space:nowrap">__BUILD__</span>
+    <button id="btnAlign" title="切换对齐方式" style="margin-left:8px;font-size:11px;line-height:18px;padding:0 8px;border-radius:9px;border:1px solid var(--outline-var);background:transparent;color:var(--on-surface-var);cursor:pointer">对齐:顶部</button>
     <button class="ibtn" id="btnCollapseAll" title="全部收起">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/></svg>
     </button>
@@ -784,6 +785,10 @@ let TARGET_ASPECT = 1.6;   // 视口宽高比：布局据此决定每层拆几�
 let COL_W  = COL_W_BASE.slice();
 let GAP_X  = 12;
 let GAP_Y  = 3;
+/* 对齐方式：top = 父卡与首个子卡顶端对齐；center = 父卡居中于子块。
+   两种都在 place() 的同一次调用内用子块高度算出，不依赖任何回读值。 */
+let ALIGN_MODE = "center";
+try{ ALIGN_MODE = localStorage.getItem("alignMode") || "center"; }catch(_){}
 let W_PARA = W_PARA_BASE;
 let IS_COMPACT = false;
 
@@ -1086,13 +1091,34 @@ function computeLayout(){
   /* 父卡顶端 = 槽顶，子块也从槽顶开始 → 父卡与首个子卡顶端严格对齐。 */
   function place(n, x, slotTop){
     n.tx = x;
-    n.ty = slotTop;
-    if(!n._cols) return;
+    const kids = n._cols && n._cols[0];
+    if(!kids || !kids.length){ n.ty = slotTop; return; }
+
+    /* 子块高度就地累加，与 measure() 的 blockH 同口径，不读任何回读值 */
+    let blockH = 0;
+    for(const c of kids) blockH += c.subH + GAP_Y;
+    blockH -= GAP_Y;
+
+    /* 先把子节点摆好，再定位父卡 —— 两阶段，且全程只用本次调用算出的几何量。 */
     const cx = x + cardW(n) + GAP_X;
     let cy = slotTop;
-    for(const c of n._cols[0]){
+    for(const c of kids){
       place(c, cx, cy);
       cy += c.subH + GAP_Y;
+    }
+
+    if(ALIGN_MODE === "top"){
+      n.ty = slotTop;
+    }else{
+      /* 居中于【可见子卡的首尾跨度】，而不是槽位块：
+         槽位里含孙辈子树的高度，用槽位中点会让父卡偏离肉眼看到的子卡列。
+         先取首子卡顶端与末子卡底端的中点，再按槽高夹紧，防止越界压到兄弟。 */
+      const first = kids[0], last = kids[kids.length - 1];
+      const spanMid = (first.ty + (last.ty + last.h)) / 2;
+      n.ty = spanMid - n.h / 2;
+      const lo = slotTop, hi = slotTop + Math.max(0, n.subH - n.h);
+      if(n.ty < lo) n.ty = lo;
+      if(n.ty > hi) n.ty = hi;
     }
   }
 
@@ -1510,11 +1536,18 @@ function relayout(){
       let mx = 0, pairs = 0;
       for(const n of NODES){
         if(!n.visible || !n._cols || !n._cols.length) continue;
-        const d = Math.abs(n._cols[0][0].ty - n.ty);
+        const kids = n._cols[0];
+        const last = kids[kids.length - 1];
+        /* 按当前模式量对应偏差：居中量"父卡中心 vs 可见子卡跨度中点"，
+           顶部量"父卡顶端 vs 首子卡顶端" */
+        const d = (ALIGN_MODE === "center")
+          ? Math.abs((n.ty + n.h / 2) - (kids[0].ty + (last.ty + last.h)) / 2)
+          : Math.abs(kids[0].ty - n.ty);
         pairs++;
         if(d > mx) mx = d;
       }
-      bt.textContent = BUILD_ID + " · Δ" + (Math.round(mx * 10) / 10) + " (" + pairs + ")";
+      bt.textContent = BUILD_ID + " · " + (ALIGN_MODE === "center" ? "居中" : "顶部")
+                     + " · Δ" + (Math.round(mx * 10) / 10) + " (" + pairs + ")";
     }
   }
   drawEdges();
@@ -1785,8 +1818,16 @@ function fitView(animate){
      横向布局整棵树围绕根节点垂直居中，根节点位于树中段，
      对齐顶边会把根节点推到视口下方（实测 y=1036 > 900）。
      改为把根节点本身锚定到顶栏下沿。 */
+  /* 溢出时的纵向锚点：
+     居中对齐下内容会延伸到根卡【上方】，若把根卡贴到顶栏，上半截会被裁掉。
+     改为取两者较高者（npy 越小内容越靠上）：
+       A) 包围盒顶端对齐 → 内容从头可见；
+       B) 根卡落在视口上 1/3 → 保证根卡一定出现在屏幕里（全展开时内容极高，
+          只对齐顶端会把根卡推到屏幕下方）。 */
+  const npyA = topSafe - minY * ns;
+  const npyRoot = topSafe + availH * 0.33 - (ROOT.ty + ROOT.h / 2) * ns;
   const npy = overflows
-    ? ((topSafe + 40) - ROOT.ty * ns)
+    ? Math.min(npyA, npyRoot)
     : (topSafe + (availH - chh * ns) / 2 - minY * ns);
 
   if(animate){
@@ -1925,6 +1966,16 @@ function loadBook(){
     kick();
   });
 }
+
+const btnAlign = document.getElementById("btnAlign");
+function syncAlignBtn(){ if(btnAlign) btnAlign.textContent = "对齐:" + (ALIGN_MODE === "center" ? "居中" : "顶部"); }
+syncAlignBtn();
+if(btnAlign) btnAlign.addEventListener("click", () => {
+  ALIGN_MODE = (ALIGN_MODE === "center") ? "top" : "center";
+  try{ localStorage.setItem("alignMode", ALIGN_MODE); }catch(_){}
+  syncAlignBtn();
+  relayout();
+});
 
 document.getElementById("btnFit").addEventListener("click", () => fitView(true));
 document.getElementById("btnIn").addEventListener("click", () => {
