@@ -947,53 +947,53 @@ function computeLayout(){
   /* 槽位模型：每个节点纵向占一个 slot，槽高 subH，槽顶到子区顶的补偿量 _shift。
      父卡的纵向位置由 place() 用首个子卡的【真实】位置反推，measure 只负责
      给父卡留够溢出空间（父卡比首个子卡高时会向上/向下探出子区）。 */
+  /* =====================================================================
+     布局：单列、顶部对齐的 tidy tree
+     ---------------------------------------------------------------------
+     只保留两条不变式，任何一条被破坏都会出现"父子对不齐"：
+       1) 父卡顶端 == 首个子卡顶端
+       2) 节点槽高 subH == max(自身卡高, 子块总高)，兄弟按槽高依次下排
+     两条都不含任何"预估偏移"，也不依赖回读高度的时机。
+     旧实现把父卡摆到【整棵子树】的纵向中点 ((colsH-n.h)/2)，
+     又用 _shift/_topOff 记一套预估值；真实浏览器里高度回读稍有滞后，
+     整段父子就错开（实测第二章卡比它自己的第一节高约 115px，
+     第三章还插进了第二章的小节区）。estimation 一律删除。
+     代价是父卡偏上而非居中，但这正是"从父卡展开"的语义。
+     ===================================================================== */
   function measure(n){
     const kids = kidsOf(n);
     const cw = cardW(n);
     if(!kids.length){
-      n.subH = n.h; n.subW = cw; n._cols = null; n._shift = 0;
-      n.subArea = cw * n.h;          /* 子树卡片净面积，供 packFor 评分 */
+      n.subH = n.h; n.subW = cw; n._cols = null; n._colW = null;
       return;
     }
     for(const c of kids) measure(c);
-    const b = packFor(n, kids);
-    n._cols  = b.cols.map(col => col.map(x => x.c));
-    n._colW  = b.colW;
-    n.subW   = b.W;
-    n.subArea = cw * n.h + kids.reduce((a, c) => a + c.subArea, 0);
 
-    /* 父卡与"第一个子节点"垂直居中对齐 —— 这才是"从父卡展开"。
-       旧公式 n.ty = yTop + (colsH - n.h)/2 把父卡摆到【整棵子树】的纵向中点，
-       而首个子卡在子区顶端，两者中心相差 (colsH - c0.h)/2。
-       18 个章节时 colsH≈1006，父卡中心比首个子卡中心高出约 500px ——
-       父卡悬空、子卡从很上面开始排，就是"父子卡片对不齐/错开"。
-       这里按首个子卡自身的尺寸与偏移预留溢出空间（保守取值，
-       宁可多留一点，也不能让父卡压到上一个兄弟）。 */
-    const c0   = n._cols[0][0];
-    const pRel = (c0._shift || 0) + c0.h / 2 - n.h / 2;   /* 父卡顶相对子区顶 */
-    const topRel = Math.min(0, pRel);                     /* 父卡向上探出的量 */
-    const botRel = Math.max(b.H, pRel + n.h);             /* 父卡/子区的最低点 */
-    n._shift = -topRel;
-    n.subH   = botRel - topRel;
+    /* 单列：所有子节点排成一列，槽高逐项累加 */
+    let blockH = 0, colW = 0;
+    for(const c of kids){
+      blockH += c.subH + GAP_Y;
+      if(c.subW > colW) colW = c.subW;
+    }
+    blockH -= GAP_Y;
+
+    n._cols = [kids];                       /* 保持数组结构，外围代码无需改 */
+    n._colW = [colW];
+    n.subH  = Math.max(n.h, blockH);        /* 槽高要同时容下父卡与子块 */
+    n.subW  = cw + GAP_X + colW;
   }
 
-  /* 先摆子节点，再用首个子卡的真实位置反推父卡 ——
-     不再依赖任何"预估偏移"，父卡与首个子卡必定垂直居中。 */
+  /* 父卡顶端 = 槽顶，子块也从槽顶开始 → 父卡与首个子卡顶端严格对齐。 */
   function place(n, x, slotTop){
     n.tx = x;
-    if(!n._cols){ n.ty = slotTop; return; }
-    const base = slotTop + n._shift;
-    let cx = x + cardW(n) + GAP_X;
-    n._cols.forEach((col, ci) => {
-      let cy = base;
-      for(const c of col){
-        place(c, cx, cy);
-        cy += c.subH + GAP_Y;
-      }
-      cx += n._colW[ci] + GAP_X;
-    });
-    const c0 = n._cols[0][0];
-    n.ty = c0.ty + c0.h / 2 - n.h / 2;
+    n.ty = slotTop;
+    if(!n._cols) return;
+    const cx = x + cardW(n) + GAP_X;
+    let cy = slotTop;
+    for(const c of n._cols[0]){
+      place(c, cx, cy);
+      cy += c.subH + GAP_Y;
+    }
   }
 
   measure(ROOT);
