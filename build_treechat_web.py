@@ -957,7 +957,17 @@ function computeLayout(){
      根因：评分模型用 min(availW/W, availH/H)，而真实 fitView 在高度不可读时
      只按宽度取景（实测三种拆法 scale 都≈1.577），评分模型与真实行为不一致。
      既然实测最优是 2，就直接固定 2，不再让错误模型去猜。 */
-  const PACK_COLS_MAX = 2;
+  /* 单列：子节点一律紧贴自己父卡的右缘，父子间距恒为 GAP_X。
+     曾经设为 2（兄弟拆两列）来提升屏幕占用率，但第 2 列子节点的 x 是
+     「父卡右缘 + 第 1 列整棵子树宽度」——第 1 列里只要有一个展开的章节，
+     它的子树宽几百上千像素，第 2 列的兄弟就被推到那么远之外。
+     实测（1440×900，node 桩跑真实布局引擎）父子横向间距：
+       cols=1 → 中位 8px，p90 8px，max 8px
+       cols=2 → 中位 8px，p90 331px，max 331px
+     cols=2 的屏幕占用只多 2.4 个百分点（36.5% vs 34.1%），
+     代价是三分之一的子卡被甩到 331px 之外、连线语义断掉。
+     占用率可以靠 fitView 缩放补，父子邻接关系补不回来，所以取 1。 */
+  const PACK_COLS_MAX = 1;
 
   /* 可用视口（与 fitView 保持同一口径） */
   const availW = (stage.clientWidth || 1440) - FIT_PAD * 2;
@@ -1039,11 +1049,15 @@ function computeLayout(){
     return best;
   }
 
+  /* 每个节点在纵向占一个"槽位"，槽高 subH，节点自身顶端相对槽顶的偏移 _topOff。
+     这两件事必须成对算出来，否则父卡会挂到子树外面去。
+     _lead 是"槽顶到子区顶端"的距离（父卡比首个子卡高时为正）。 */
   function measure(n){
     const kids = kidsOf(n);
     const cw = cardW(n);
     if(!kids.length){
       n.subH = n.h; n.subW = cw; n._cols = null;
+      n._lead = 0; n._topOff = 0;
       n.subArea = cw * n.h;          /* 子树卡片净面积，供 packFor 评分 */
       return;
     }
@@ -1051,26 +1065,33 @@ function computeLayout(){
     const b = packFor(n, kids);
     n._cols  = b.cols.map(col => col.map(x => x.c));
     n._colW  = b.colW;
-    n.subH   = Math.max(n.h, b.H);
     n.subW   = b.W;
     n.subArea = cw * n.h + kids.reduce((a, c) => a + c.subArea, 0);
+
+    /* ---- 父卡与"第一个子节点"垂直居中对齐 ----
+       旧代码是 n.ty = yTop + (colsH - n.h)/2，把父卡摆到【整棵子树】的纵向中点，
+       而首个子卡摆在 yTop —— 两者中心相差 (colsH - c0.h)/2。
+       18 个章节时 colsH=1006，父卡中心比首个子卡中心高出 502px，
+       父卡悬在半空、子卡从很上面开始排，这就是"父子卡片离得很远 / 错开的"。
+       改成以首个子卡为锚：父卡中心 = 首个子卡中心，父子之间只剩一条水平线。 */
+    const c0   = n._cols[0][0];
+    const pMid = c0._lead + c0.h / 2;      /* 父卡中心，相对子区顶端 */
+    const pTop = pMid - n.h / 2;
+    const topRel    = Math.min(0, pTop);                 /* 父卡比子区还高时向上溢出 */
+    const bottomRel = Math.max(pMid + n.h / 2, b.H);
+    n._lead   = -topRel;
+    n._topOff = pTop - topRel;
+    n.subH    = bottomRel - topRel;
   }
 
-  function place(n, x, yTop){
+  function place(n, x, slotTop){
     n.tx = x;
-    if(!n._cols){ n.ty = yTop; return; }
-    let colsH = 0;
-    for(const col of n._cols){
-      let h = 0;
-      for(const c of col) h += c.subH + GAP_Y;
-      h -= GAP_Y;
-      if(h > colsH) colsH = h;
-    }
-    /* 父节点垂直居中于子节点整体跨度 */
-    n.ty = yTop + (colsH - n.h) / 2;
+    if(!n._cols){ n.ty = slotTop; return; }
+    const base = slotTop + n._lead;        /* 子区顶端（槽顶 + 溢出补偿） */
+    n.ty = slotTop + n._topOff;            /* 父卡顶端 */
     let cx = x + cardW(n) + GAP_X;
     n._cols.forEach((col, ci) => {
-      let cy = yTop;
+      let cy = base;
       for(const c of col){
         place(c, cx, cy);
         cy += c.subH + GAP_Y;
