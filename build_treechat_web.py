@@ -859,6 +859,7 @@ function makeNode(o){
     open:false, visible:false, hasPara:false, paraOpen:false, paraLoaded:false,
     w:COL_W[0], h:34,
     x:0, y:0, vx:0, vy:0, tx:0, ty:0,
+    fx:0, fy:0, fvx:0, fvy:0, _anim:false,   /* FLIP：相对布局位置的瞬时偏移 */
     el:null, alpha:0, scaleIn:1,
     shown:null,        /* 已挂载的子节点数（null = 未截断） */
     moreNode:null,     /* "再显示 N 条"哨兵节点 */
@@ -993,10 +994,12 @@ function computeLayout(){
   for(const n of NODES){
     if(!n.visible || !n.el || !n.el.isConnected) continue;
     const r = n.el.getBoundingClientRect();
-    n.w  = r.width  / s;
-    n.h  = r.height / s;
-    n.tx = (r.left - wr.left) / s;
-    n.ty = (r.top  - wr.top ) / s;
+    /* 宽高用 offsetWidth/Height：不受卡片自身 scale 动画影响 */
+    n.w = n.el.offsetWidth  || n.w;
+    n.h = n.el.offsetHeight || n.h;
+    /* rect 里含 FLIP 的瞬时位移 fx/fy，扣掉才是真正的布局位置 */
+    n.tx = (r.left - wr.left) / s - (n.fx || 0);
+    n.ty = (r.top  - wr.top ) / s - (n.fy || 0);
     n.x  = n.tx; n.y = n.ty;
   }
 }
@@ -1140,6 +1143,7 @@ function needsFrame(){
   for(const n of NODES){
     if(!n.visible || !n.el) continue;
     if(n.alpha < 0.999 || n.scaleIn < 0.999) return true;
+    if(n.fx || n.fy || n.fvx || n.fvy) return true;
   }
   return false;
 }
@@ -1151,18 +1155,39 @@ function frame(t){
   lastT = t;
   dt = Math.min(dt, 1/30);           // 掉帧时不让弹簧积分爆炸
 
-  /* --- 节点入场动画（位置由 flex 决定，这里只负责淡入/缩放） --- */
+  /* --- 节点动效：FLIP 弹簧归零 + 入场淡入/缩放 --- */
   let moving = false;
   for(const n of NODES){
     if(!n.visible || !n.el) continue;
+    let anim = false;
+    if(n.fx || n.fy || n.fvx || n.fvy){
+      const ax = -SPRING_K * n.fx - SPRING_C * n.fvx;
+      const ay = -SPRING_K * n.fy - SPRING_C * n.fvy;
+      n.fvx += ax * dt; n.fvy += ay * dt;
+      n.fx  += n.fvx * dt; n.fy  += n.fvy * dt;
+      if(Math.abs(n.fx) < 0.3 && Math.abs(n.fy) < 0.3 &&
+         Math.abs(n.fvx) < 2 && Math.abs(n.fvy) < 2){
+        n.fx = n.fy = n.fvx = n.fvy = 0;
+      }else{
+        anim = true;
+      }
+    }
     const fadeIn = n.alpha < 1, growIn = n.scaleIn < 1;
     if(fadeIn) n.alpha = Math.min(1, n.alpha + dt * (1000 / TWEEN_BASE));
     if(growIn) n.scaleIn = Math.min(1, n.scaleIn + dt * (1000 / 220));
-    if(fadeIn || growIn){
+    if(anim || fadeIn || growIn){
       const sc = 0.92 + 0.08 * n.scaleIn;
-      n.el.style.transform = "scale(" + sc.toFixed(3) + ")";
+      n.el.style.transform =
+        "translate3d(" + n.fx.toFixed(2) + "px," + n.fy.toFixed(2) + "px,0) scale(" + sc.toFixed(3) + ")";
       n.el.style.opacity = n.alpha.toFixed(3);
+      n.x = n.tx + n.fx; n.y = n.ty + n.fy;
+      n._anim = true;
       moving = true;
+    }else if(n._anim){
+      n.el.style.transform = "";
+      n.el.style.opacity = "";
+      n.x = n.tx; n.y = n.ty;
+      n._anim = false;
     }
   }
 
@@ -1344,11 +1369,52 @@ function setOpen(n, open){
   }
 }
 
-function relayout(){
+/* FLIP：布局由浏览器算，动效靠"反向位移 + 弹簧归零"实现。
+   relayout 前记录每张卡的世界坐标，重排后算出位移差，交给 frame() 弹回 0。
+   这样既有原来的弹簧手感，又不会和 flex 布局打架。 */
+function captureRects(){
+  const wr = world.getBoundingClientRect();
+  const s  = view.s || 1;
+  const m = new Map();
+  for(const n of NODES){
+    if(n.visible && n.el && n.el.isConnected){
+      const r = n.el.getBoundingClientRect();
+      m.set(n, { x:(r.left - wr.left) / s, y:(r.top - wr.top) / s });
+    }
+  }
+  return m;
+}
+
+function relayout(animate){
+  const before = (animate === false) ? null : captureRects();
   computeLayout();
+  if(before){
+    for(const n of NODES){
+      if(!n.visible || !n.el) continue;
+      const old = before.get(n);
+      if(old){
+        n.fx = old.x - n.tx;
+        n.fy = old.y - n.ty;
+      }else{
+        /* 新出现的卡片：从父卡当前位置弹出来（Compose 入场感） */
+        const p = n.parent;
+        if(p && p.visible){
+          n.fx = (p.tx + p.fx) - n.tx;
+          n.fy = (p.ty + p.fy) - n.ty;
+        }else{ n.fx = 0; n.fy = 0; }
+        n.fvx = 0; n.fvy = 0;
+        n.alpha = 0; n.scaleIn = 0;
+      }
+    }
+  }
+  for(const n of NODES){
+    if(!n.visible || !n.el) continue;
+    n.x = n.tx + (n.fx || 0);
+    n.y = n.ty + (n.fy || 0);
+  }
   drawEdges();
   updateBadge();
-  kick();          /* 入场淡入/缩放需要帧循环 */
+  kick();
 }
 
 function updateBadge(){
