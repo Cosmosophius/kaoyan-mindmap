@@ -194,11 +194,15 @@ body{
   fill:none;stroke-linecap:round;stroke-linejoin:round;
   vector-effect:non-scaling-stroke;
 }
-#nodes{position:absolute;left:0;top:0;}
+#nodes{position:absolute;left:0;top:0;display:flex;align-items:flex-start;}
+/* 嵌套 flex 树：对齐交给浏览器，JS 不再计算坐标 */
+.tn{display:flex;align-items:center;}
+.tc{flex:none;position:relative;}
+.tk{display:flex;flex-direction:column;}
 
 /* ---------- 卡片 ---------- */
 .card{
-  position:absolute;left:0;top:0;
+  position:relative;
   box-sizing:border-box;          /* 让 COL_W 是含 padding 的实际宽度 */
   border-radius:var(--r-md);
   background:var(--sc-high);
@@ -926,213 +930,75 @@ function buildTree(book){
 /* =====================================================================
    3. 布局：tidy tree —— 叶子按累计高度排布，父节点取子节点中位
    ===================================================================== */
-function computeLayout(){
-  const seen = [];
-  (function collect(n, depth){
-    n.depth = depth;
-    seen.push(n);
-    kidsOf(n).forEach(k => collect(k, depth + 1));
-  })(ROOT, 0);
+function ensureDom(n){
+  if(n.tn) return;
+  const tn = document.createElement("div"); tn.className = "tn";
+  const tc = document.createElement("div"); tc.className = "tc";
+  const tk = document.createElement("div"); tk.className = "tk";
+  tn.appendChild(tc); tn.appendChild(tk);
+  n.tn = tn; n.tc = tc; n.tk = tk;
+}
 
-  if(VERTICAL){
-    let cursor = 0;
-    (function walkY(n){
-      n.ty = cursor;
-      cursor += n.h + GAP_Y_V;
-      kidsOf(n).forEach(walkY);
-    })(ROOT);
-    for(const n of seen) n.tx = PAD_V + n.depth * INDENT_V;
-    return;
-  }
-
-  /* 不做"同层统一宽度"。
-     实测：统一后 section 卡从自然宽 203px 被撑到 246px，
-     凭空多出 43px 空白（内部空白占比 0.5% → 2.1%）。
-     卡片按内容自适应才是最省的 —— 宽窄参差由"逐父定位"消化，
-     窄卡右侧不会留洞，因为下一列紧跟在本卡右边缘 + GAP_X。 */
-
-  /* ---- 横向：兄弟按列打包 ----
-     单列堆叠 18 个章节会让包围盒变成 728×805（宽高比 0.90），
-     而视口是 1.60 —— 每行右侧 75% 空白，为塞进高度还得压缩放。
-     这里枚举"这一层拆成几列"，选包围盒宽高比最贴近视口的那一种。 */
-  /* 必须是 1 列。真实高度模型实测（1440×900，展开前 6 章）：
-     cols=2 时根节点 18 章被切成 [5,13] 两列，各章 ty =
-       -335.5, -215.5, -55.5, 144.5, -335.5, -95.5, 17.5, 43.5 ...
-     第 6 章直接跳回 -335.5，与第 1 章同高 —— 第 2 列的纵向从子区顶端
-     重新开始，兄弟的阅读顺序被打断。用户看到的就是
-     "后面几个卡片点出来对不齐前面的"，正是这一条。
-     cols=1 时 ty 严格单调：
-       -639.5, -519.5, -359.5, -71.5, -31.5, 208.5, 321.5, 347.5 ...
-     代价是包围盒变窄变高（556×1293，比例 0.43），屏幕占用
-     33.2% → 13.5%。但"看得全"能靠 fitView 缩放 + 拖拽平移补回来，
-     纵向阅读顺序补不回来；TreeChat 原版 computeGraphLayout 也是
-     单列 cursor 累加，与 1 列一致。 */
-  const PACK_COLS_MAX = 1;
-
-  /* 可用视口（与 fitView 保持同一口径） */
-  const availW = (stage.clientWidth || 1440) - FIT_PAD * 2;
-  const availH = (stage.clientHeight || 900) - FIT_PAD
-                 - (document.getElementById("topbar").offsetHeight + 24);
-
-  /* 保序最优切分：把 kids 按原顺序切成 kk 段，使最高的那段尽量矮。
-     原实现用 per = ceil(len/kk) 顺序等分，完全不看子树高度 ——
-     实测 1440 屏 18 个章节分 2 列，两列高度差被 Math.max 吃掉，
-     矮列整条留空，包围盒高度由高列决定，盒内填充只有 37%。
-     这是经典「线性划分」问题，DP 求最小最大段高，O(kk·n²)。
-     n 很大时（知识点最多 348 个）退回顺序等分，避免 O(n²) 开销。 */
-  function partCols(sub, kk){
-    const n = sub.length;
-    if(kk <= 1) return [sub.slice()];
-    if(kk >= n) return sub.map(x => [x]);
-    if(n > 64){
-      const per = Math.ceil(n / kk), out = [];
-      for(let a = 0; a < n; a += per) out.push(sub.slice(a, a + per));
-      return out;
-    }
-    const pre = [0];
-    for(let i = 0; i < n; i++) pre.push(pre[i] + sub[i].h + GAP_Y);
-    const segH = (a, b) => pre[b] - pre[a] - GAP_Y;
-    const INF = Infinity;
-    const dp = [], cut = [];
-    for(let c = 0; c <= kk; c++){
-      dp.push(new Array(n + 1).fill(INF));
-      cut.push(new Array(n + 1).fill(0));
-    }
-    dp[0][0] = 0;
-    for(let c = 1; c <= kk; c++){
-      for(let i = 1; i <= n; i++){
-        for(let j = c - 1; j < i; j++){
-          if(dp[c-1][j] === INF) continue;
-          const v = Math.max(dp[c-1][j], segH(j, i));
-          if(v < dp[c][i]){ dp[c][i] = v; cut[c][i] = j; }
-        }
+/* 把节点的 DOM 挂到父节点的子列里，顺序即兄弟顺序。
+   已经挂好的元素再次 appendChild 会移动到末尾 —— 正好用来排序。 */
+function syncTree(){
+  refreshVisible();
+  ensureDom(ROOT);
+  if(ROOT.tn.parentNode !== nodesLayer) nodesLayer.appendChild(ROOT.tn);
+  ROOT.tn.style.display = "";
+  (function walk(n){
+    const kids = n.open ? kidsOf(n) : [];
+    const vis = [];
+    for(const c of kids){
+      if(!c.visible){
+        if(c.tn && c.tn.parentNode) c.tn.parentNode.removeChild(c.tn);
+        continue;
       }
+      ensureDom(c);
+      if(!c.el) createCard(c);
+      c.tn.style.display = "";
+      vis.push(c);
     }
-    const out = [];
-    let i = n;
-    for(let c = kk; c >= 1; c--){ const j = cut[c][i]; out.unshift(sub.slice(j, i)); i = j; }
-    return out;
-  }
-
-  function packFor(n, kids){
-    const cw = cardW(n);
-    const sub = kids.map(c => ({ c: c, h: c.subH, w: c.subW, a: c.subArea }));
-    let best = null;
-    const kMax = Math.min(PACK_COLS_MAX, kids.length);
-    const evalCand = (cols) => {
-      if(!cols.length || cols.some(c => !c.length)) return;
-      const colW = cols.map(col => Math.max.apply(null, col.map(x => x.w)));
-      const colH = cols.map(col => col.reduce((a, x) => a + x.h, 0) + GAP_Y * (col.length - 1));
-      const W = cw + GAP_X + colW.reduce((a, b) => a + b, 0) + GAP_X * (cols.length - 1);
-      const H = Math.max.apply(null, colH);
-      /* 评分 = 卡片净面积 × 缩放²  ——  这才是"屏幕被卡片覆盖多少"。
-         早前只最大化 scale，结果选出"缩放略大但卡片更少"的排法：
-         实测 1440 屏 cols=2 有 64 张卡、占用 39.4%；cols=3 只有 46 张卡、
-         占用 28.6%，但 cols=3 的 scale 反而更大（1.29 vs 1.00），
-         于是评分把更差的那一种选了出来。乘上面积就不会选错。 */
-      const sc = Math.min(availW / Math.max(1, W), availH / Math.max(1, H));
-      const area = cw * n.h + sub.reduce((a, x) => a + x.a, 0);
-      const score = area * sc * sc;
-      if(!best || score > best.score + 1e-9)
-        best = { score: score, cols: cols, colW: colW, W: W, H: H };
-    };
-    for(let kk = 1; kk <= kMax; kk++){
-      /* 顺序等分（旧策略，保留作为对照，不会比新策略差） */
-      const per = Math.ceil(kids.length / kk);
-      const seq = [];
-      for(let a = 0; a < sub.length; a += per) seq.push(sub.slice(a, a + per));
-      evalCand(seq);
-      /* 保序最优切分（新策略）：让各列高度尽量齐平，砍掉矮列的空条 */
-      const bal = partCols(sub, kk);
-      if(bal.length === kk) evalCand(bal);
-    }
-    return best;
-  }
-
-  /* 槽位模型：每个节点纵向占一个 slot，槽高 subH，槽顶到子区顶的补偿量 _shift。
-     父卡的纵向位置由 place() 用首个子卡的【真实】位置反推，measure 只负责
-     给父卡留够溢出空间（父卡比首个子卡高时会向上/向下探出子区）。 */
-  /* =====================================================================
-     布局：单列、顶部对齐的 tidy tree
-     ---------------------------------------------------------------------
-     只保留两条不变式，任何一条被破坏都会出现"父子对不齐"：
-       1) 父卡顶端 == 首个子卡顶端
-       2) 节点槽高 subH == max(自身卡高, 子块总高)，兄弟按槽高依次下排
-     两条都不含任何"预估偏移"，也不依赖回读高度的时机。
-     旧实现把父卡摆到【整棵子树】的纵向中点 ((colsH-n.h)/2)，
-     又用 _shift/_topOff 记一套预估值；真实浏览器里高度回读稍有滞后，
-     整段父子就错开（实测第二章卡比它自己的第一节高约 115px，
-     第三章还插进了第二章的小节区）。estimation 一律删除。
-     代价是父卡偏上而非居中，但这正是"从父卡展开"的语义。
-     ===================================================================== */
-  function measure(n){
-    const kids = kidsOf(n);
-    const cw = cardW(n);
-    if(!kids.length){
-      n.subH = n.h; n.subW = cw; n._cols = null; n._colW = null;
-      return;
-    }
-    for(const c of kids) measure(c);
-
-    /* 单列：所有子节点排成一列，槽高逐项累加 */
-    let blockH = 0, colW = 0;
-    for(const c of kids){
-      blockH += c.subH + GAP_Y;
-      if(c.subW > colW) colW = c.subW;
-    }
-    blockH -= GAP_Y;
-
-    n._cols = [kids];                       /* 保持数组结构，外围代码无需改 */
-    n._colW = [colW];
-    n.subH  = Math.max(n.h, blockH);        /* 槽高要同时容下父卡与子块 */
-    n.subW  = cw + GAP_X + colW;
-  }
-
-  /* 父卡顶端 = 槽顶，子块也从槽顶开始 → 父卡与首个子卡顶端严格对齐。 */
-  function place(n, x, slotTop){
-    n.tx = x;
-    const kids = n._cols && n._cols[0];
-    if(!kids || !kids.length){ n.ty = slotTop; return; }
-
-    /* 子块高度就地累加，与 measure() 的 blockH 同口径，不读任何回读值 */
-    let blockH = 0;
-    for(const c of kids) blockH += c.subH + GAP_Y;
-    blockH -= GAP_Y;
-
-    /* 先把子节点摆好，再定位父卡 —— 两阶段，且全程只用本次调用算出的几何量。 */
-    const cx = x + cardW(n) + GAP_X;
-    let cy = slotTop;
-    for(const c of kids){
-      place(c, cx, cy);
-      cy += c.subH + GAP_Y;
-    }
-
-    if(ALIGN_MODE === "top"){
-      n.ty = slotTop;
-    }else{
-      /* 居中于【可见子卡的首尾跨度】，而不是槽位块：
-         槽位里含孙辈子树的高度，用槽位中点会让父卡偏离肉眼看到的子卡列。
-         先取首子卡顶端与末子卡底端的中点，再按槽高夹紧，防止越界压到兄弟。 */
-      const first = kids[0], last = kids[kids.length - 1];
-      const spanMid = (first.ty + (last.ty + last.h)) / 2;
-      n.ty = spanMid - n.h / 2;
-      const lo = slotTop, hi = slotTop + Math.max(0, n.subH - n.h);
-      if(n.ty < lo) n.ty = lo;
-      if(n.ty > hi) n.ty = hi;
+    n.tk.style.display       = vis.length ? "flex" : "none";
+    n.tk.style.flexDirection = "column";
+    n.tk.style.gap           = GAP_Y + "px";
+    n.tk.style.marginLeft    = GAP_X + "px";
+    n.tn.style.alignItems    = (ALIGN_MODE === "center") ? "center" : "flex-start";
+    for(const c of vis) n.tk.appendChild(c.tn);
+    for(const c of vis) walk(c);
+  })(ROOT);
+  for(const n of NODES){
+    if(n.tn && !n.visible && n.tn !== ROOT.tn && n.tn.parentNode){
+      n.tn.parentNode.removeChild(n.tn);
     }
   }
+}
 
-  measure(ROOT);
-  place(ROOT, 60, 0);
-
-  /* 整棵树垂直居中到 0，具体落在视口哪里交给 fitView */
-  let minY = Infinity, maxY = -Infinity;
-  for(const n of seen){
-    if(n.ty < minY) minY = n.ty;
-    if(n.ty + n.h > maxY) maxY = n.ty + n.h;
+/* =====================================================================
+   布局：交给浏览器
+   ---------------------------------------------------------------------
+   旧实现用 JS 算 ty/tx，再靠弹簧把卡片挪过去。真实浏览器里卡片高度
+   与 JS 预估不一致（实测章节卡 204×40、小节卡 296×57），于是父子
+   越排越偏 —— 这就是反复出现的"对不齐"。
+   现在卡片是嵌套 flex：
+     .tn{display:flex;align-items:center}    卡片垂直居中于子节点列
+     .tk{display:flex;flex-direction:column} 子节点自上而下排列
+   对齐由浏览器保证，然后把结果读回 tx/ty 供连线与取景使用。
+   ALIGN_MODE="top" 时 .tn 改为 align-items:flex-start。
+   ===================================================================== */
+function computeLayout(){
+  syncTree();
+  const wr = world.getBoundingClientRect();
+  const s  = view.s || 1;
+  for(const n of NODES){
+    if(!n.visible || !n.el || !n.el.isConnected) continue;
+    const r = n.el.getBoundingClientRect();
+    n.w  = r.width  / s;
+    n.h  = r.height / s;
+    n.tx = (r.left - wr.left) / s;
+    n.ty = (r.top  - wr.top ) / s;
+    n.x  = n.tx; n.y = n.ty;
   }
-  const shift = (minY + maxY) / 2;
-  for(const n of seen) n.ty -= shift;
 }
 
 /* 可见集合：自身可见 = 所有祖先都 open
@@ -1230,7 +1096,8 @@ function createCard(n){
       chev +
     '</div>' + detail;
 
-  nodesLayer.appendChild(el);
+  ensureDom(n);
+  n.tc.appendChild(el);
   n.el = el;
 
   /* ---- 自适应卡宽：先量自然宽，再收敛 ----
@@ -1271,11 +1138,8 @@ function needsFrame(){
   if(inertiaOn) return true;
   if(view.springing) return true;
   for(const n of NODES){
-    if(!n.visible) continue;
-    if(Math.abs(n.x - n.tx) > 0.25 || Math.abs(n.vx) > 0.6) return true;
-    if(Math.abs(n.y - n.ty) > 0.25 || Math.abs(n.vy) > 0.6) return true;
-    if(n.alpha < 0.999) return true;
-    if(n.scaleIn < 0.999) return true;
+    if(!n.visible || !n.el) continue;
+    if(n.alpha < 0.999 || n.scaleIn < 0.999) return true;
   }
   return false;
 }
@@ -1287,21 +1151,19 @@ function frame(t){
   lastT = t;
   dt = Math.min(dt, 1/30);           // 掉帧时不让弹簧积分爆炸
 
-  /* --- 节点弹簧 --- */
+  /* --- 节点入场动画（位置由 flex 决定，这里只负责淡入/缩放） --- */
   let moving = false;
   for(const n of NODES){
-    if(!n.visible) continue;
-    const ax = -SPRING_K * (n.x - n.tx) - SPRING_C * n.vx;
-    const ay = -SPRING_K * (n.y - n.ty) - SPRING_C * n.vy;
-    n.vx += ax * dt; n.vy += ay * dt;
-    n.x  += n.vx * dt; n.y  += n.vy * dt;
-    if(n.alpha < 1) n.alpha = Math.min(1, n.alpha + dt * (1000 / TWEEN_BASE));
-    if(n.scaleIn < 1) n.scaleIn = Math.min(1, n.scaleIn + dt * (1000 / 220));
-    const sc = 0.92 + 0.08 * n.scaleIn;
-    n.el.style.transform =
-      "translate3d(" + n.x.toFixed(1) + "px," + n.y.toFixed(1) + "px,0) scale(" + sc.toFixed(3) + ")";
-    if(n.alpha < 0.999) n.el.style.opacity = n.alpha.toFixed(3);
-    if(Math.abs(n.x - n.tx) > 0.25 || Math.abs(n.y - n.ty) > 0.25) moving = true;
+    if(!n.visible || !n.el) continue;
+    const fadeIn = n.alpha < 1, growIn = n.scaleIn < 1;
+    if(fadeIn) n.alpha = Math.min(1, n.alpha + dt * (1000 / TWEEN_BASE));
+    if(growIn) n.scaleIn = Math.min(1, n.scaleIn + dt * (1000 / 220));
+    if(fadeIn || growIn){
+      const sc = 0.92 + 0.08 * n.scaleIn;
+      n.el.style.transform = "scale(" + sc.toFixed(3) + ")";
+      n.el.style.opacity = n.alpha.toFixed(3);
+      moving = true;
+    }
   }
 
   /* --- 视图弹簧（滚轮/按钮缩放） --- */
@@ -1476,7 +1338,6 @@ function setOpen(n, open){
   if(open){
     kidsOf(n).forEach(c => {
       if(!c.el) createCard(c);
-      c.x = n.x; c.y = n.y; c.vx = 0; c.vy = 0;
       c.alpha = 0; c.scaleIn = 0;      /* 入场：淡入 + 从 0.92 生长 */
       c.visible = true;
     });
@@ -1484,74 +1345,29 @@ function setOpen(n, open){
 }
 
 function relayout(){
-  refreshVisible();
   computeLayout();
-  for(const n of NODES){
-    if(n.visible && !n.el) createCard(n);
-  }
-  /* 隐藏的节点从 DOM 上摘掉 transform 成本（保留元素复用） */
-  for(const n of NODES){
-    if(n.el) n.el.style.display = n.visible ? "" : "none";
-  }
-  /* 批量测量真实卡片高度，并【迭代到高度稳定】再收工。
-     为什么一轮不够：卡片高度是从 DOM 回读的，而 place() 用 n.h 决定
-     父卡的纵向位置（父卡中心 = 首个子卡中心）。一轮里高度被更新了，
-     ty 却还是按旧高度算的，父子中心就残留几像素偏差 ——
-     实测"末章全展开"场景残留 -6px（"一、世界遗产名录"）。
-     宽度在 relayout 期间不变，所以高度不会无限变，2~3 轮必然收敛。
-     迭代上限 3 是保险丝，不是常态。 */
-  if(!VERTICAL){
-    for(let iter = 0; iter < 3; iter++){
-      let changed = false;
-      for(const n of NODES){
-        if(n.visible && n.el){
-          const hh = n.el.offsetHeight;
-          if(hh > 0 && hh !== n.h){ n.h = hh; changed = true; }
-        }
-      }
-      /* iter===0 必须无条件重排：
-         函数开头的 computeLayout() 跑在【建卡之前】，新节点那时还是默认高度；
-         createCard() 自己会把 n.h 设成真实高度，于是下一轮回读"无变化"，
-         若这里按 changed 才重排，就会带着旧高度收工 ——
-         实测残留 -6px（"一、世界遗产名录"），再手动调一次 computeLayout 才归零。 */
-      if(iter === 0 || changed) computeLayout();
-      else break;
-    }
-  }
-  if(VERTICAL){
-    let c2 = 0;
-    (function walkY2(n){
-      n.ty = c2;
-      c2 += n.h + GAP_Y_V;
-      kidsOf(n).forEach(walkY2);
-    })(ROOT);
-  }
-  /* 根节点首次落位 */
-  if(ROOT && ROOT.alpha === 0){ ROOT.x = ROOT.tx; ROOT.y = ROOT.ty; ROOT.alpha = 1; }
-  /* 对齐自检：把所有可见父卡与它首个子卡的顶端差值取最大，显示在顶栏。
-     这是给排查用的——屏幕上直接能看到"程序认为差多少"。 */
-  {
-    const bt = document.getElementById("buildTag");
-    if(bt){
-      let mx = 0, pairs = 0;
-      for(const n of NODES){
-        if(!n.visible || !n._cols || !n._cols.length) continue;
-        const kids = n._cols[0];
-        const last = kids[kids.length - 1];
-        /* 按当前模式量对应偏差：居中量"父卡中心 vs 可见子卡跨度中点"，
-           顶部量"父卡顶端 vs 首子卡顶端" */
-        const d = (ALIGN_MODE === "center")
-          ? Math.abs((n.ty + n.h / 2) - (kids[0].ty + (last.ty + last.h)) / 2)
-          : Math.abs(kids[0].ty - n.ty);
-        pairs++;
-        if(d > mx) mx = d;
-      }
-      bt.textContent = BUILD_ID + " · " + (ALIGN_MODE === "center" ? "居中" : "顶部")
-                     + " · Δ" + (Math.round(mx * 10) / 10) + " (" + pairs + ")";
-    }
-  }
   drawEdges();
-  kick();
+  updateBadge();
+  kick();          /* 入场淡入/缩放需要帧循环 */
+}
+
+function updateBadge(){
+  const bt = document.getElementById("buildTag");
+  if(!bt) return;
+  let mx = 0, pairs = 0;
+  for(const n of NODES){
+    if(!n.visible || !n.open) continue;
+    const kids = kidsOf(n).filter(c => c.visible);
+    if(!kids.length) continue;
+    const last = kids[kids.length - 1];
+    const d = (ALIGN_MODE === "center")
+      ? Math.abs((n.ty + n.h / 2) - (kids[0].ty + (last.ty + last.h)) / 2)
+      : Math.abs(kids[0].ty - n.ty);
+    pairs++;
+    if(d > mx) mx = d;
+  }
+  bt.textContent = BUILD_ID + " · " + (ALIGN_MODE === "center" ? "居中" : "顶部")
+                 + " · Δ" + (Math.round(mx * 10) / 10) + " (" + pairs + ")";
 }
 
 function toggleNode(n){
