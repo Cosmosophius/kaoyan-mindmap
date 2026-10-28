@@ -97,6 +97,38 @@ body{
   vector-effect:non-scaling-stroke;
 }
 #nodes{position:absolute;left:0;top:0;}
+/* 展开/收起的"来源"提示：被点击的卡片描一圈光晕再散开 */
+.card.flash{ animation:cardFlash 600ms cubic-bezier(0.2,0,0,1); }
+@keyframes cardFlash{
+  0%  { outline:2px solid rgba(138,180,248,0.95); outline-offset:0; }
+  100%{ outline:2px solid rgba(138,180,248,0);    outline-offset:8px; }
+}
+
+/* [新增] 收起残影：子卡片缩回父卡中心，让"内容是从哪张卡来的"一眼可见。
+   transform / opacity 走 MD3 强调曲线，只动合成层，不触发重排。
+   frame() 会跳过 ghost 节点，所以这里的 inline transform 不会被每帧覆盖。 */
+.card.ghost{
+  transition:transform 260ms cubic-bezier(0.2,0,0,1),
+             opacity   260ms cubic-bezier(0.2,0,0,1);
+  pointer-events:none;
+  z-index:1;
+}
+
+/* [新增] 父卡脉冲环：展开/收起时在来源卡上炸一圈涟漪。
+   光靠 outline 在缩得很小时几乎看不见，环用 scale 放大更醒目。 */
+.card.pulse{ position:absolute; }
+.card.pulse::after{
+  content:""; position:absolute; inset:-3px;
+  border-radius:inherit; pointer-events:none;
+  border:2px solid var(--primary);
+  animation:pulseRing 560ms cubic-bezier(0.2,0,0,1) forwards;
+}
+.card.pulse-close::after{ border-color:var(--tertiary); }
+@keyframes pulseRing{
+  0%  { opacity:0.95; transform:scale(1); }
+  70% { opacity:0.35; }
+  100%{ opacity:0;    transform:scale(1.22); }
+}
 
 /* ---------- 卡片 ---------- */
 .card{
@@ -703,8 +735,11 @@ function computeMetrics(){
      重复调用会自我污染，得出"越来越窄"的错误结论。 */
   const COL_W_H = COL_W_BASE.map(w => Math.max(floor, Math.round(w * k)));
 
-  GAP_X = tiny ? 6 : compact ? 7 : 8;
-  GAP_Y = compact ? 2 : 2;
+  /* [修] 原 GAP_X=8 / GAP_Y=2。缩放 0.35 时实际间隙只剩 2.8px / 0.7px，
+     卡片在视觉上直接粘成一片，看起来就像"相互覆盖"。间距是唯一能让
+     层次清爽的手段，同时给连线留出可见的走廊。 */
+  GAP_X = tiny ? 14 : compact ? 20 : 28;
+  GAP_Y = tiny ? 5  : compact ? 6  : 8;
   W_PARA = Math.min(W_PARA_BASE, Math.max(280, W - 48));
   FIT_PAD = compact ? 8 : 16;
 
@@ -718,7 +753,7 @@ function computeMetrics(){
   if(VERTICAL){
     INDENT_V = tiny ? 14 : 18;
     PAD_V    = tiny ? 8 : 12;
-    GAP_Y_V  = tiny ? 2 : 3;
+    GAP_Y_V  = tiny ? 5 : 8;
     /* 每层可用宽度 = 屏宽 - 两侧边距 - 该层缩进；守住可读下限 200 */
     COL_W_V = COL_W_BASE.map((_, d) =>
       Math.max(180, Math.min(340, W - PAD_V * 2 - d * INDENT_V)));
@@ -859,7 +894,13 @@ function computeLayout(){
      根因：评分模型用 min(availW/W, availH/H)，而真实 fitView 在高度不可读时
      只按宽度取景（实测三种拆法 scale 都≈1.577），评分模型与真实行为不一致。
      既然实测最优是 2，就直接固定 2，不再让错误模型去猜。 */
-  const PACK_COLS_MAX = 2;
+  /* [修] 兄弟必须单列。原为 2 列，实测直接导致三个问题：
+       ① 父卡到第 2 列子卡的连线必须横穿第 1 列卡片 —— 探针实测 34 个
+          采样点落在别的卡片内部，而 #edges 在 #nodes 之下，线被卡片盖住；
+       ② 第 2 列的兄弟与父卡隔着整列宽度，看不清线从哪张卡出来；
+       ③ 同一列以最宽卡定列宽，窄卡右侧留大片空洞。
+     TreeChat / Markmap / Mind-Elixir 都是单列堆叠，这也是用户要求的复刻。 */
+  const PACK_COLS_MAX = 1;
 
   /* 可用视口（与 fitView 保持同一口径） */
   const availW = (stage.clientWidth || 1440) - FIT_PAD * 2;
@@ -1150,16 +1191,19 @@ function frame(t){
   let moving = false;
   for(const n of NODES){
     if(!n.visible) continue;
+    /* [修] ghost 节点正在播 CSS 飞回动画，每帧写 inline transform 会把它打断 */
+    if(n.ghost) continue;
     const ax = -SPRING_K * (n.x - n.tx) - SPRING_C * n.vx;
     const ay = -SPRING_K * (n.y - n.ty) - SPRING_C * n.vy;
     n.vx += ax * dt; n.vy += ay * dt;
     n.x  += n.vx * dt; n.y  += n.vy * dt;
     if(n.alpha < 1) n.alpha = Math.min(1, n.alpha + dt * (1000 / TWEEN_BASE));
     if(n.scaleIn < 1) n.scaleIn = Math.min(1, n.scaleIn + dt * (1000 / 220));
-    const sc = 0.92 + 0.08 * n.scaleIn;
+    /* 错开入场会让 alpha 出现负值（尚未开始），opacity/scale 必须钳到 0 */
+    const sc = 0.92 + 0.08 * Math.max(0, n.scaleIn);
     n.el.style.transform =
       "translate3d(" + n.x.toFixed(1) + "px," + n.y.toFixed(1) + "px,0) scale(" + sc.toFixed(3) + ")";
-    if(n.alpha < 0.999) n.el.style.opacity = n.alpha.toFixed(3);
+    if(n.alpha < 0.999) n.el.style.opacity = Math.max(0, n.alpha).toFixed(3);
     if(Math.abs(n.x - n.tx) > 0.25 || Math.abs(n.y - n.ty) > 0.25) moving = true;
   }
 
@@ -1201,12 +1245,18 @@ function kick(){
    ===================================================================== */
 function anchorOut(n){
   return VERTICAL
-    ? { x:n.x + cardW(n)/2, y:n.y + n.h }        /* 纵向：父出点在下边中点 */
-    : { x:n.x + cardW(n),   y:n.y + n.h/2 };     /* 横向：父出点在右边中点 */
+    /* [修] 原为下边"中点"。纵向布局里卡片几乎满屏宽，父卡到后面兄弟卡的
+       连线若从下边中点垂直下行，必然横穿中间那几张兄弟卡 —— 探针实测
+       333 个采样点落在别的卡片内部，而 #edges 在 #nodes 之下，线被卡片盖住。
+       改为从下边"左侧沟槽"出线：沟槽 x 落在父卡缩进的内侧，
+       始终位于本层卡片左边缘之外的空白带里。 */
+    ? { x:n.x + INDENT_V * 0.5, y:n.y + n.h }
+    : { x:n.x + cardW(n),       y:n.y + n.h/2 };
 }
 function anchorIn(n){
   return VERTICAL
-    ? { x:n.x + cardW(n)/2, y:n.y }              /* 纵向：子入点在上边中点 */
+    /* 子节点从左边缘进线，与沟槽竖线在同一水平带上，只差一个缩进宽度 */
+    ? { x:n.x,              y:n.y + n.h/2 }
     : { x:n.x,              y:n.y + n.h/2 };
 }
 function cardW(n){ return n.paraOpen ? W_PARA : n.w; }
@@ -1280,14 +1330,28 @@ function drawEdges(){
       const e = anchorIn(c);
       let d;
       if(VERTICAL){
-        /* 纵向：控制点沿 y 轴拉伸，形成 TreeChat 式圆润竖向下垂 */
-        const dy = Math.max(Math.abs(e.y - p.y), 40) * 0.5;
-        d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
-            "C" + p.x.toFixed(1) + " " + (p.y + dy).toFixed(1) + "," +
-                  e.x.toFixed(1) + " " + (e.y - dy).toFixed(1) + "," +
-                  e.x.toFixed(1) + " " + e.y.toFixed(1);
+        /* [修] 纵向必须是"沟槽折线"，不能是贝塞尔。
+           贝塞尔从父卡下边中点直连子卡上边中点，路径会横穿中间所有兄弟卡
+           （实测每条线平均穿卡 10 次）。折线走 p.x 处的竖直沟槽，
+           该沟槽位于本层卡片左边缘之外，天然不碰任何卡片。 */
+        const r  = Math.min(6, Math.abs(e.x - p.x) * 0.5, Math.abs(e.y - p.y) * 0.5);
+        const dir = (e.y >= p.y) ? 1 : -1;
+        if(r < 1.5){
+          d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
+              "L" + e.x.toFixed(1) + " " + e.y.toFixed(1);
+        }else{
+          d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
+              "L" + p.x.toFixed(1) + " " + (e.y - dir * r).toFixed(1) +
+              "Q" + p.x.toFixed(1) + " " + e.y.toFixed(1) + "," +
+                    (p.x + Math.sign(e.x - p.x) * r).toFixed(1) + " " + e.y.toFixed(1) +
+              "L" + e.x.toFixed(1) + " " + e.y.toFixed(1);
+        }
       }else{
-        const dx = Math.max(Math.abs(e.x - p.x), 60) * 0.5;
+        /* [修] 原为 max(|dx|,60)*0.5 —— 间隙只有 8px 时控制点偏移 30px，
+           曲线向外鼓出，冲进两侧卡片里（探针实测 34 个采样点穿卡），
+           既被卡片遮挡又显得扭曲。改为跟随真实间隙，曲线始终落在走廊内。 */
+        const gapX = Math.max(6, e.x - p.x);
+        const dx = gapX * 0.55;
         d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
             "C" + (p.x + dx).toFixed(1) + " " + p.y.toFixed(1) + "," +
                   (e.x - dx).toFixed(1) + " " + e.y.toFixed(1) + "," +
@@ -1302,8 +1366,11 @@ function drawEdges(){
       path.setAttribute("d", d);
       const hot = (c.weight === "high");
       path.setAttribute("stroke", hot ? "var(--gold)" : "var(--outline)");
-      path.setAttribute("stroke-width", hot ? "1.6" : "1.1");
-      path.setAttribute("opacity", hot ? "0.72" : "0.42");
+      /* [修] 原 1.6/1.1 线宽 + 0.72/0.42 不透明度。缩放 0.35 时线宽只剩
+         0.4~0.6px，叠加 0.42 透明度后在深色底上几乎看不见，观感就是
+         "线被遮挡/断开"。加深线宽并抬高不透明度。 */
+      path.setAttribute("stroke-width", hot ? 2.0 : 1.5);
+      path.setAttribute("opacity", hot ? 0.85 : 0.62);
       path.style.display = "";
       i++;
     }
@@ -1321,13 +1388,78 @@ function setOpen(n, open){
   if(n.el && n.kind === "kp") measureCardW(n);
   /* 新出现的子节点从父节点位置弹出去（Compose 入场感） */
   if(open){
-    kidsOf(n).forEach(c => {
+    /* [修] 原来所有子节点 alpha 都从 0 同时起步，且起点都在父卡位置 ——
+       18 个兄弟同时从同一点向外弹，画面上就是"一堆卡片叠在一起"，
+       这正是"卡片相互覆盖"的观感来源（几何上其实并不重叠）。
+       改为按索引给负 alpha 起点，形成依次入场的波浪，任一时刻只有少数几张在飞。 */
+    kidsOf(n).forEach((c, i) => {
       if(!c.el) createCard(c);
       c.x = n.x; c.y = n.y; c.vx = 0; c.vy = 0;
-      c.alpha = 0; c.scaleIn = 0;      /* 入场：淡入 + 从 0.92 生长 */
+      c.alpha   = -i * 0.055;          /* 负值 = 延后 i*55ms 才出现 */
+      c.scaleIn = 0;                   /* 入场：从 0.92 生长 */
       c.visible = true;
     });
+  }else{
+    /* [新增] 收起：让所有后代"缩回父卡"，而不是原地瞬间消失。
+       用户原话"收起展开也不容易知道是从哪里来的"—— 没有飞回动画时，
+       一堆卡片突然不见，视线失去落点。 */
+    flyBackInto(n);
   }
+}
+
+/* 把 n 的所有可见后代缩回 n 的中心，260ms 后真正隐藏。
+   注意：这里只写 inline transform，不改 tx/ty —— tx/ty 归布局所有，
+   改写会污染下一次 computeLayout。 */
+function flyBackInto(n){
+  const pcx = n.tx + cardW(n) / 2;
+  const pcy = n.ty + n.h / 2;
+  const ghosts = [];
+  /* [修] 这里绝对不能用 kidsOf()。
+     setOpen() 第一行就是 n.open = open，收起时 n.open 已经是 false，
+     kidsOf(n) 立刻 return NO_KIDS —— 一个残影都收不到，动画等于没写。
+     必须直接遍历 children（并带上分页哨兵），它不受 open 状态影响。 */
+  (function collect(x){
+    const cs = x.moreNode ? x.children.concat([x.moreNode]) : x.children;
+    cs.forEach(c => {
+      if(c.visible && c.el){
+        const w = cardW(c);
+        c.ghost = true;
+        c.el.classList.add("ghost");
+        c.el.style.transform =
+          "translate3d(" + (pcx - w/2).toFixed(1) + "px," +
+                          (pcy - c.h/2).toFixed(1) + "px,0) scale(0.55)";
+        c.el.style.opacity = "0";
+        ghosts.push(c);
+      }
+      collect(c);
+    });
+  })(n);
+  if(!ghosts.length){
+    /* 无可见后代时（例如空节），至少让父卡轻微收缩一下，给出方向感 */
+    if(n.el){
+      n.el.classList.add("ghost");
+      n.el.style.transform =
+        "translate3d(" + n.tx.toFixed(1) + "px," + n.ty.toFixed(1) + "px,0) scale(0.94)";
+      setTimeout(function(){
+        if(!n.el) return;
+        n.el.classList.remove("ghost");
+        n.el.style.transform =
+          "translate3d(" + n.tx.toFixed(1) + "px," + n.ty.toFixed(1) + "px,0) scale(1)";
+      }, 160);
+    }
+    return;
+  }
+  setTimeout(function(){
+    for(const c of ghosts){
+      c.ghost = false;
+      if(c.el){
+        c.el.classList.remove("ghost");
+        c.el.style.opacity = "";
+        /* 只有仍处于隐藏态的才真正 display:none，避免误伤被重新展开的节点 */
+        if(!c.visible) c.el.style.display = "none";
+      }
+    }
+  }, 280);
 }
 
 function relayout(){
@@ -1336,9 +1468,13 @@ function relayout(){
   for(const n of NODES){
     if(n.visible && !n.el) createCard(n);
   }
-  /* 隐藏的节点从 DOM 上摘掉 transform 成本（保留元素复用） */
+  /* 隐藏的节点从 DOM 上摘掉 transform 成本（保留元素复用）。
+     [修] ghost 节点 visible 已为 false，但必须留在屏幕上把飞回动画播完，
+     否则收起瞬间就被 display:none 掐断，动画永远看不见。 */
   for(const n of NODES){
-    if(n.el) n.el.style.display = n.visible ? "" : "none";
+    if(!n.el) continue;
+    if(n.ghost) continue;
+    n.el.style.display = n.visible ? "" : "none";
   }
   /* 批量测量真实卡片高度：纵向布局按 h 堆叠，h 不准就会重叠。
      连续只读不写 → 只触发一次同步布局，无逐节点重排。 */
@@ -1375,6 +1511,8 @@ function toggleNode(n){
     relayout();
     return;
   }
+  /* [修] 收起用琥珀色环、展开用主色环，方向一眼可辨 */
+  flashNode(n, n.open);
   /* 知识点：展开/收起详情行。默认收起，避免要点铺满画布 */
   if(n.kind === "kp"){
     setOpen(n, !n.open);
@@ -1389,6 +1527,21 @@ function toggleNode(n){
     setOpen(n, !n.open);
     relayout();
   }
+}
+
+/* 让用户看清"这一堆卡片是从哪一张卡展开/收起来的"。
+   只闪被点击的那一张（含分页哨兵的父节点），不做全局高亮，
+   否则 60 张卡同时发光反而更乱。 */
+function flashNode(n, closing){
+  if(!n || !n.el) return;
+  const cls = closing ? "pulse-close" : "pulse";
+  n.el.classList.remove("flash", "pulse", "pulse-close");
+  void n.el.offsetWidth;          /* 强制回流，让动画能重放 */
+  n.el.classList.add("flash", cls);
+  setTimeout(function(){
+    if(!n.el) return;
+    n.el.classList.remove("flash", "pulse", "pulse-close");
+  }, 620);
 }
 
 /* 正文分页渲染：先 80 段，底部按钮按需追加，避免 6390 段一次性进 DOM */
@@ -1693,7 +1846,11 @@ booksBar.addEventListener("click", e => {
    指标虚高，autoFill 一直在优化一个用户看不见的数字。
    新实现按矩形求交，只算屏幕上真的被卡片占住的地方。 */
 function usageScore(){
-  const vw = stage.clientWidth || W, vh = stage.clientHeight || H;
+  /* [修] 原为 `stage.clientWidth || W`，而 W/H 是 computeMetrics 内的局部变量，
+     这里从未定义 —— 只因 stage.clientWidth 恒非 0 才没抛 ReferenceError。
+     一旦画布尚未布局（clientWidth=0）就会崩，且崩在 autoFill 里会让首屏白屏。 */
+  const vw = stage.clientWidth || innerWidth;
+  const vh = stage.clientHeight || innerHeight;
   if(vw <= 0 || vh <= 0) return 0;
   const s = view.s, px = view.px, py = view.py;
   if(!(s > 0)) return 0;
@@ -1759,7 +1916,7 @@ function loadBook(){
   buildTree(book);
   /* 首屏内容量交给 autoFill 按屏幕决定（原来固定展 2 章，大屏太空） */
   relayout();
-  autoFill(64);
+  autoFill();
   relayout();
   requestAnimationFrame(() => {
     fitView(false);
