@@ -948,16 +948,19 @@ function computeLayout(){
      单列堆叠 18 个章节会让包围盒变成 728×805（宽高比 0.90），
      而视口是 1.60 —— 每行右侧 75% 空白，为塞进高度还得压缩放。
      这里枚举"这一层拆成几列"，选包围盒宽高比最贴近视口的那一种。 */
-  /* 实测扫描（1440×900，autoFill 后）：
-       cols=1 → 53 张卡，屏幕占用 35.0%
-       cols=2 → 64 张卡，屏幕占用 39.4%   ← 最优
-       cols=3 → 46 张卡，屏幕占用 28.6%
-       cols=4/6 → 与 3 完全相同
-     放开上限让评分自己选时，评分选出 3 列，反而掉回 28.6%。
-     根因：评分模型用 min(availW/W, availH/H)，而真实 fitView 在高度不可读时
-     只按宽度取景（实测三种拆法 scale 都≈1.577），评分模型与真实行为不一致。
-     既然实测最优是 2，就直接固定 2，不再让错误模型去猜。 */
-  const PACK_COLS_MAX = 2;
+  /* 必须是 1 列。真实高度模型实测（1440×900，展开前 6 章）：
+     cols=2 时根节点 18 章被切成 [5,13] 两列，各章 ty =
+       -335.5, -215.5, -55.5, 144.5, -335.5, -95.5, 17.5, 43.5 ...
+     第 6 章直接跳回 -335.5，与第 1 章同高 —— 第 2 列的纵向从子区顶端
+     重新开始，兄弟的阅读顺序被打断。用户看到的就是
+     "后面几个卡片点出来对不齐前面的"，正是这一条。
+     cols=1 时 ty 严格单调：
+       -639.5, -519.5, -359.5, -71.5, -31.5, 208.5, 321.5, 347.5 ...
+     代价是包围盒变窄变高（556×1293，比例 0.43），屏幕占用
+     33.2% → 13.5%。但"看得全"能靠 fitView 缩放 + 拖拽平移补回来，
+     纵向阅读顺序补不回来；TreeChat 原版 computeGraphLayout 也是
+     单列 cursor 累加，与 1 列一致。 */
+  const PACK_COLS_MAX = 1;
 
   /* 可用视口（与 fitView 保持同一口径） */
   const availW = (stage.clientWidth || 1440) - FIT_PAD * 2;
@@ -1039,11 +1042,14 @@ function computeLayout(){
     return best;
   }
 
+  /* 槽位模型：每个节点纵向占一个 slot，槽高 subH，槽顶到子区顶的补偿量 _shift。
+     父卡的纵向位置由 place() 用首个子卡的【真实】位置反推，measure 只负责
+     给父卡留够溢出空间（父卡比首个子卡高时会向上/向下探出子区）。 */
   function measure(n){
     const kids = kidsOf(n);
     const cw = cardW(n);
     if(!kids.length){
-      n.subH = n.h; n.subW = cw; n._cols = null;
+      n.subH = n.h; n.subW = cw; n._cols = null; n._shift = 0;
       n.subArea = cw * n.h;          /* 子树卡片净面积，供 packFor 评分 */
       return;
     }
@@ -1051,32 +1057,41 @@ function computeLayout(){
     const b = packFor(n, kids);
     n._cols  = b.cols.map(col => col.map(x => x.c));
     n._colW  = b.colW;
-    n.subH   = Math.max(n.h, b.H);
     n.subW   = b.W;
     n.subArea = cw * n.h + kids.reduce((a, c) => a + c.subArea, 0);
+
+    /* 父卡与"第一个子节点"垂直居中对齐 —— 这才是"从父卡展开"。
+       旧公式 n.ty = yTop + (colsH - n.h)/2 把父卡摆到【整棵子树】的纵向中点，
+       而首个子卡在子区顶端，两者中心相差 (colsH - c0.h)/2。
+       18 个章节时 colsH≈1006，父卡中心比首个子卡中心高出约 500px ——
+       父卡悬空、子卡从很上面开始排，就是"父子卡片对不齐/错开"。
+       这里按首个子卡自身的尺寸与偏移预留溢出空间（保守取值，
+       宁可多留一点，也不能让父卡压到上一个兄弟）。 */
+    const c0   = n._cols[0][0];
+    const pRel = (c0._shift || 0) + c0.h / 2 - n.h / 2;   /* 父卡顶相对子区顶 */
+    const topRel = Math.min(0, pRel);                     /* 父卡向上探出的量 */
+    const botRel = Math.max(b.H, pRel + n.h);             /* 父卡/子区的最低点 */
+    n._shift = -topRel;
+    n.subH   = botRel - topRel;
   }
 
-  function place(n, x, yTop){
+  /* 先摆子节点，再用首个子卡的真实位置反推父卡 ——
+     不再依赖任何"预估偏移"，父卡与首个子卡必定垂直居中。 */
+  function place(n, x, slotTop){
     n.tx = x;
-    if(!n._cols){ n.ty = yTop; return; }
-    let colsH = 0;
-    for(const col of n._cols){
-      let h = 0;
-      for(const c of col) h += c.subH + GAP_Y;
-      h -= GAP_Y;
-      if(h > colsH) colsH = h;
-    }
-    /* 父节点垂直居中于子节点整体跨度 */
-    n.ty = yTop + (colsH - n.h) / 2;
+    if(!n._cols){ n.ty = slotTop; return; }
+    const base = slotTop + n._shift;
     let cx = x + cardW(n) + GAP_X;
     n._cols.forEach((col, ci) => {
-      let cy = yTop;
+      let cy = base;
       for(const c of col){
         place(c, cx, cy);
         cy += c.subH + GAP_Y;
       }
       cx += n._colW[ci] + GAP_X;
     });
+    const c0 = n._cols[0][0];
+    n.ty = c0.ty + c0.h / 2 - n.h / 2;
   }
 
   measure(ROOT);
@@ -1353,7 +1368,15 @@ function measureCardW(n){
   /* 装饰宽度只算「常驻占位」的元素。
      win/doc 两个按钮已改为 hover 时绝对定位浮现，不占流内宽度，
      因此这里不再计入 —— 与 CSS 保持同一口径，否则又会白留 36px。 */
-  const pad = n.kind === "kp" ? 10 : 14;
+  /* 必须把 border 算进去：.card 是 box-sizing:border-box 且有 1px 边框，
+     内容可用宽 = 宽 - 2*padding - 2*border。
+     .card      padding:3px 7px  → 7*2 + 1*2 = 16
+     .card.kp   padding:2px 5px  → 5*2 + 1*2 = 12（边框透明但仍然占宽）
+     旧值 14 / 10 漏掉了这 2px，导致卡片内容宽比文字窄 1~2px，
+     几乎每张单行卡都被迫折成两行：实测卡高 24px → 39px，
+     整棵树被凭空拉高一倍，再被 fitView 压缩，字就更小。
+     这是"卡片浪费面积 + 树过高对不齐"的隐藏放大项。 */
+  const pad = n.kind === "kp" ? 12 : 16;
   let chrome = pad;
   if(n.children.length || n.hasPara || (n.kind === "kp" && n.kp &&
      ((n.kp.p && n.kp.p.length) || n.kp.y)))   chrome += 2 + 16;   /* 展开箭头 */
@@ -1442,18 +1465,31 @@ function relayout(){
   for(const n of NODES){
     if(n.el) n.el.style.display = n.visible ? "" : "none";
   }
-  /* 批量测量真实卡片高度：纵向布局按 h 堆叠，h 不准就会重叠。
-     连续只读不写 → 只触发一次同步布局，无逐节点重排。 */
-  let heightsChanged = false;
-  for(const n of NODES){
-    if(n.visible && n.el){
-      const hh = n.el.offsetHeight;
-      if(hh > 0 && hh !== n.h){ n.h = hh; heightsChanged = true; }
+  /* 批量测量真实卡片高度，并【迭代到高度稳定】再收工。
+     为什么一轮不够：卡片高度是从 DOM 回读的，而 place() 用 n.h 决定
+     父卡的纵向位置（父卡中心 = 首个子卡中心）。一轮里高度被更新了，
+     ty 却还是按旧高度算的，父子中心就残留几像素偏差 ——
+     实测"末章全展开"场景残留 -6px（"一、世界遗产名录"）。
+     宽度在 relayout 期间不变，所以高度不会无限变，2~3 轮必然收敛。
+     迭代上限 3 是保险丝，不是常态。 */
+  if(!VERTICAL){
+    for(let iter = 0; iter < 3; iter++){
+      let changed = false;
+      for(const n of NODES){
+        if(n.visible && n.el){
+          const hh = n.el.offsetHeight;
+          if(hh > 0 && hh !== n.h){ n.h = hh; changed = true; }
+        }
+      }
+      /* iter===0 必须无条件重排：
+         函数开头的 computeLayout() 跑在【建卡之前】，新节点那时还是默认高度；
+         createCard() 自己会把 n.h 设成真实高度，于是下一轮回读"无变化"，
+         若这里按 changed 才重排，就会带着旧高度收工 ——
+         实测残留 -6px（"一、世界遗产名录"），再手动调一次 computeLayout 才归零。 */
+      if(iter === 0 || changed) computeLayout();
+      else break;
     }
   }
-  /* 统一宽度可能改变换行 → 高度变 → ty 失效。
-     横向也要重排一次（同层同宽后一般只差一次，不会反复）。 */
-  if(!VERTICAL && heightsChanged) computeLayout();
   if(VERTICAL){
     let c2 = 0;
     (function walkY2(n){
