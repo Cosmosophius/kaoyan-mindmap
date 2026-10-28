@@ -315,6 +315,14 @@ self.addEventListener("fetch", e => {
     return;
   }
 
+  /* build.txt：只走网络、绝不缓存 —— 页面靠它判断是否有新构建 */
+  if(url.pathname.endsWith("/build.txt")){
+    e.respondWith(fetch(req, { cache: "no-store" }).catch(
+      () => new Response("", { status: 504 })
+    ));
+    return;
+  }
+
   /* 3) 其他静态资源：缓存优先 */
   e.respondWith((async () => {
     const c = await caches.open(SHELL);

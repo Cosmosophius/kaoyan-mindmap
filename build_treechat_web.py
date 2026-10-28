@@ -685,6 +685,7 @@ body{
 <div id="topbar">
   <div class="tb-row">
     <div class="tb-title" id="tbTitle">汉硕考研 · 全书思维导图</div>
+    <span id="buildTag" style="margin-left:10px;font-size:11px;opacity:.5;font-variant-numeric:tabular-nums;white-space:nowrap">__BUILD__</span>
     <button class="ibtn" id="btnCollapseAll" title="全部收起">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/></svg>
     </button>
@@ -722,6 +723,7 @@ body{
 
 <script>
 "use strict";
+const BUILD_ID = "__BUILD__";
 
 const DATA = __DATA__;
 
@@ -1500,6 +1502,21 @@ function relayout(){
   }
   /* 根节点首次落位 */
   if(ROOT && ROOT.alpha === 0){ ROOT.x = ROOT.tx; ROOT.y = ROOT.ty; ROOT.alpha = 1; }
+  /* 对齐自检：把所有可见父卡与它首个子卡的顶端差值取最大，显示在顶栏。
+     这是给排查用的——屏幕上直接能看到"程序认为差多少"。 */
+  {
+    const bt = document.getElementById("buildTag");
+    if(bt){
+      let mx = 0, pairs = 0;
+      for(const n of NODES){
+        if(!n.visible || !n._cols || !n._cols.length) continue;
+        const d = Math.abs(n._cols[0][0].ty - n.ty);
+        pairs++;
+        if(d > mx) mx = d;
+      }
+      bt.textContent = BUILD_ID + " · Δ" + (Math.round(mx * 10) / 10) + " (" + pairs + ")";
+    }
+  }
   drawEdges();
   kick();
 }
@@ -2641,6 +2658,23 @@ if("serviceWorker" in navigator && location.protocol !== "file:"){
   });
 }
 </script>
+<script>
+/* 构建自更新：每 10 秒比对 build.txt，发现新构建自动刷新。
+   本地/线上都可能被 Service Worker 或 HTTP 缓存挡住，手动刷新不一定生效；
+   这段保证"打开一次之后永远是最新的"。构建标记同时显示在顶栏，便于核对。 */
+(function(){
+  var B = "__BUILD__";
+  var tag = document.getElementById("buildTag");
+  if(tag) tag.textContent = B;
+  if(location.protocol !== "http:" && location.protocol !== "https:") return;
+  setInterval(function(){
+    fetch("build.txt?_=" + Date.now(), { cache: "no-store" })
+      .then(function(r){ return r.ok ? r.text() : ""; })
+      .then(function(t){ if(t && t.trim() !== B) location.reload(); })
+      .catch(function(){});
+  }, 10000);
+})();
+</script>
 </body>
 </html>
 """
@@ -2655,7 +2689,9 @@ def build():
     ch_total = sum(len(b["c"]) for b in books)
 
     payload = json.dumps(books, ensure_ascii=False, separators=(",", ":"))
-    html = HTML.replace("__DATA__", payload)
+    import datetime
+    build_id = datetime.datetime.now().strftime("%m%d-%H%M%S")
+    html = HTML.replace("__DATA__", payload).replace("__BUILD__", build_id)
 
     os.makedirs(WEB, exist_ok=True)
 
@@ -2674,6 +2710,13 @@ def build():
         os.makedirs(os.path.dirname(t), exist_ok=True)
         with open(t, "w", encoding="utf-8") as f:
             f.write(html)
+
+    # 构建标记文件：页面轮询它来发现新构建
+    with open(os.path.join(WEB, "build.txt"), "w", encoding="utf-8") as f:
+        f.write(build_id)
+    if has_shared:
+        with open(os.path.join(SHARED, "build.txt"), "w", encoding="utf-8") as f:
+            f.write(build_id)
 
     # 正文分片同步一份到共享目录（仅本机 Android）
     if has_shared:

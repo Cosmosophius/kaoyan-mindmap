@@ -1,6 +1,6 @@
 /* 汉硕考研思维导图 · Service Worker
    版本号由构建时按 index.html 内容哈希注入，重建即换缓存桶，旧包自动清掉。 */
-const VER   = "0f25f86b26";
+const VER   = "4c0be72a22";
 const SHELL = "shell-" + VER;
 const DATA  = "data-" + VER;
 
@@ -125,6 +125,14 @@ self.addEventListener("fetch", e => {
         });
       }
     })());
+    return;
+  }
+
+  /* build.txt：只走网络、绝不缓存 —— 页面靠它判断是否有新构建 */
+  if(url.pathname.endsWith("/build.txt")){
+    e.respondWith(fetch(req, { cache: "no-store" }).catch(
+      () => new Response("", { status: 504 })
+    ));
     return;
   }
 
