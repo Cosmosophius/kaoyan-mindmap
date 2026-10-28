@@ -37,3 +37,8 @@ patch_*.py
 # ---------- 本地参考与测量环境 ----------
 .ref/
 .verify/
+
+# ---------- 验收脚本产生的临时文件 ----------
+tools/.build.log
+tools/.check.log
+tools/.check_app.js
