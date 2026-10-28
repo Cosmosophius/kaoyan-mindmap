@@ -1740,19 +1740,24 @@ function fitView(animate){
      缩放会掉到 0.456（13px 字变 5.9px）—— 图是"看全"了，但根本读不了。
      所以设一个可读下限 READABLE_MIN：高度拟合跌破它时放弃高度拟合，
      顶部对齐，纵向靠拖拽平移查看。 */
+  /* 取景策略：可读优先，其次控制纵向溢出。
+     旧策略在"填满宽度"(FILL_MAX=2.4) 与"塞进高度"之间二选一，两头都不可用：
+       1548×1032 实测填满宽度 → scale 2.4，根卡字 36px，
+         一屏只剩 3 章，其余全在屏幕外 —— 用户说的"完全用不了"；
+       纯按高度拟合 → scale 0.72（约 9px 字）—— 用户说的"有的字看不清楚"。
+     改为三步：
+       1) 先按宽度拟合，上限 FIT_MAX（1.3，约 17px 字）；
+       2) 若纵向溢出超过 MAX_VSCREENS 屏，压到刚好那么多屏；
+       3) 压缩后不低于 READABLE_SCALE（1.0，约 13px 字）。
+     纵向溢出交给拖拽平移 —— 这是可平移画布，本来就不需要一屏看全。 */
   const byW = availW / cw;
-  const byH = availH / chh;
-  const heightBound = byH < READABLE_MIN && byH < byW;
-  let ns = Math.min(heightBound ? byW : Math.min(byW, byH), FIT_MAX);
+  const MAX_VSCREENS = 1.6;
+  const READABLE_SCALE = 1.0;
+  let ns = Math.min(byW, FIT_MAX);
+  const capH = (availH * MAX_VSCREENS) / chh;
+  if(ns > capH) ns = Math.max(capH, Math.min(byW, READABLE_SCALE));
   ns = Math.max(FIT_MIN, ns);
-
-  /* 横向填满宽度：按高度拟合后内容往往只占视口 60% 宽，两侧大片空白。
-     这是可平移画布，不必为了"看全"把字缩到 12.8px ——
-     优先把宽度用满（上限 FILL_MAX，字约 19.5px），垂直溢出交给平移。 */
-  if(!heightBound){
-    const fill = Math.min(byW, FILL_MAX);
-    if(fill > ns) ns = fill;
-  }
+  const overflows = chh * ns > availH;
 
   const npx = (vw - cw * ns) / 2 - minX * ns;
   /* 高度没拟合时不能对齐"包围盒顶边"。
@@ -1763,8 +1768,7 @@ function fitView(animate){
      横向布局整棵树围绕根节点垂直居中，根节点位于树中段，
      对齐顶边会把根节点推到视口下方（实测 y=1036 > 900）。
      改为把根节点本身锚定到顶栏下沿。 */
-  const overflows = chh * ns > availH;
-  const npy = (heightBound || overflows)
+  const npy = overflows
     ? ((topSafe + 40) - ROOT.ty * ns)
     : (topSafe + (availH - chh * ns) / 2 - minY * ns);
 

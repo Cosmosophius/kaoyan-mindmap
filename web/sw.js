@@ -1,6 +1,6 @@
 /* 汉硕考研思维导图 · Service Worker
    版本号由构建时按 index.html 内容哈希注入，重建即换缓存桶，旧包自动清掉。 */
-const VER   = "ba982b4b43";
+const VER   = "0691919da6";
 const SHELL = "shell-" + VER;
 const DATA  = "data-" + VER;
 
@@ -86,21 +86,25 @@ self.addEventListener("fetch", e => {
   try{ url = new URL(req.url); }catch(_){ return; }
   if(url.origin !== self.location.origin) return;
 
-  /* 1) 导航：缓存优先，后台静默更新（离线也能开） */
+  /* 1) 导航：网络优先，失败回落缓存。
+     曾经是"缓存优先 + 后台更新"：只要缓存里有 index.html 就先返回旧页面。
+     本地开发服务器停掉后，后台更新永远失败，页面就永久停在旧版本 ——
+     用户改了代码却怎么刷都是旧的（实测卡在 PACK_COLS_MAX=2 的旧布局）。
+     改为网络优先：在线永远拿到最新构建；断网时回落到缓存，离线可用性不变。 */
   if(req.mode === "navigate"){
     e.respondWith((async () => {
       const c = await caches.open(SHELL);
-      const hit = await c.match("./index.html");
-      const net = fetch(req).then(res => {
+      try {
+        const res = await fetch(req, { cache: "no-store" });
         if(res && res.ok) c.put("./index.html", res.clone());
         return res;
-      }).catch(() => null);
-      if(hit) return hit;
-      const fresh = await net;
-      return fresh || new Response(
-        "<h1>离线且未缓存</h1><p>请联网打开一次以完成离线包安装。</p>",
-        { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } }
-      );
+      } catch (_) {
+        const hit = await c.match("./index.html");
+        return hit || new Response(
+          "<h1>离线且未缓存</h1><p>请联网打开一次以完成离线包安装。</p>",
+          { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } }
+        );
+      }
     })());
     return;
   }
