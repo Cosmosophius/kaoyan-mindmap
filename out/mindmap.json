@@ -1,1 +1,1558 @@
-{"version": 1, "books": [{"doc": "culture", "title": "中国文化要略（第四版）", "chapters": [{"id": "culture-c01", "title": "第一章简论", "weight": "high", "sections": [{"id": "culture-c01-s01", "title": "二、了解中国文化的必要性", "kp_count": 4, "weight": "high"}, {"id": "culture-c01-s02", "title": "三、中国文化的民族特点", "kp_count": 8, "weight": "high"}, {"id": "culture-c01-s03", "title": "四、中国文化的未来", "kp_count": 1, "weight": "high"}]}, {"id": "culture-c02", "title": "第二章地理概况", "weight": "high", "sections": [{"id": "culture-c02-s01", "title": "一、黄河、长江与中国文明", "kp_count": 2, "weight": "high"}, {"id": "culture-c02-s02", "title": "二、中国历代疆域", "kp_count": 1, "weight": "normal"}, {"id": "culture-c02-s03", "title": "三、中国古代行政区划沿革", "kp_count": 3, "weight": "high"}, {"id": "culture-c02-s04", "title": "四、现行省、市、自治区", "kp_count": 1, "weight": "normal"}]}, {"id": "culture-c03", "title": "第三章历史纵横", "weight": "high", "sections": [{"id": "culture-c03-s01", "title": "三、中国的王朝", "kp_count": 6, "weight": "high"}, {"id": "culture-c03-s02", "title": "四、中国的皇帝", "kp_count": 5, "weight": "high"}, {"id": "culture-c03-s03", "title": "五、中国的宰相", "kp_count": 6, "weight": "high"}, {"id": "culture-c03-s04", "title": "六、中国的宦官", "kp_count": 3, "weight": "high"}, {"id": "culture-c03-s05", "title": "七、中国古代的战争", "kp_count": 16, "weight": "high"}]}, {"id": "culture-c04", "title": "第四章姓氏与名、字、号", "weight": "high", "sections": [{"id": "culture-c04-s01", "title": "四、名与字", "kp_count": 2, "weight": "high"}]}, {"id": "culture-c05", "title": "第五章汉字", "weight": "high", "sections": [{"id": "culture-c05-s01", "title": "一、汉字的产生", "kp_count": 5, "weight": "high"}, {"id": "culture-c05-s02", "title": "二、现存最早的汉字", "kp_count": 7, "weight": "high"}, {"id": "culture-c05-s03", "title": "三、石鼓文", "kp_count": 8, "weight": "high"}, {"id": "culture-c05-s04", "title": "四、汉字的结构——“六书”", "kp_count": 18, "weight": "high"}, {"id": "culture-c05-s05", "title": "五、汉字结构的基本精神", "kp_count": 13, "weight": "high"}, {"id": "culture-c05-s06", "title": "六、汉字的改革与汉字现代化", "kp_count": 17, "weight": "high"}]}, {"id": "culture-c06", "title": "第六章学术思想", "weight": "high", "sections": [{"id": "culture-c06-s01", "title": "二、老庄思想", "kp_count": 3, "weight": "high"}, {"id": "culture-c06-s02", "title": "七、宋明理学", "kp_count": 8, "weight": "high"}, {"id": "culture-c06-s03", "title": "八、清代朴学", "kp_count": 3, "weight": "normal"}]}, {"id": "culture-c07", "title": "第七章宗教信仰", "weight": "high", "sections": [{"id": "culture-c07-s01", "title": "一、多神信仰和三大崇拜", "kp_count": 8, "weight": "high"}, {"id": "culture-c07-s02", "title": "二、佛教", "kp_count": 24, "weight": "high"}, {"id": "culture-c07-s03", "title": "三、道教", "kp_count": 7, "weight": "high"}, {"id": "culture-c07-s04", "title": "四、伊斯兰教", "kp_count": 3, "weight": "high"}, {"id": "culture-c07-s05", "title": "五、基督教", "kp_count": 4, "weight": "high"}]}, {"id": "culture-c08", "title": "第八章古代教育", "weight": "high", "sections": [{"id": "culture-c08-s01", "title": "一、古代的学校教育", "kp_count": 8, "weight": "high"}, {"id": "culture-c08-s02", "title": "二、明清时代的国子监", "kp_count": 6, "weight": "high"}, {"id": "culture-c08-s03", "title": "三、书院的兴起与衰落", "kp_count": 13, "weight": "high"}, {"id": "culture-c08-s04", "title": "四、古代的家庭教育", "kp_count": 4, "weight": "high"}, {"id": "culture-c08-s05", "title": "五、清代的学塾教育", "kp_count": 11, "weight": "high"}]}, {"id": "culture-c09", "title": "第九章科举制度", "weight": "high", "sections": [{"id": "culture-c09-s01", "title": "第九章科举制度", "kp_count": 2, "weight": "high"}]}, {"id": "culture-c10", "title": "第十章典籍藏书", "weight": "high", "sections": [{"id": "culture-c10-s01", "title": "一、经书", "kp_count": 10, "weight": "high"}, {"id": "culture-c10-s02", "title": "二、史书及其类别", "kp_count": 4, "weight": "high"}, {"id": "culture-c10-s03", "title": "三、类书和辞书", "kp_count": 8, "weight": "high"}, {"id": "culture-c10-s04", "title": "四、方志", "kp_count": 3, "weight": "high"}, {"id": "culture-c10-s05", "title": "五、官藏与私藏", "kp_count": 6, "weight": "high"}, {"id": "culture-c10-s06", "title": "六、版本与善本", "kp_count": 2, "weight": "high"}, {"id": "culture-c10-s07", "title": "七、图书分类", "kp_count": 7, "weight": "high"}]}, {"id": "culture-c11", "title": "第十一章科技成就", "weight": "high", "sections": [{"id": "culture-c11-s01", "title": "一、天文与历法", "kp_count": 5, "weight": "high"}, {"id": "culture-c11-s02", "title": "二、农学", "kp_count": 1, "weight": "high"}, {"id": "culture-c11-s03", "title": "三、算学", "kp_count": 2, "weight": "high"}, {"id": "culture-c11-s04", "title": "四、医学", "kp_count": 6, "weight": "high"}, {"id": "culture-c11-s05", "title": "五、地学", "kp_count": 2, "weight": "normal"}, {"id": "culture-c11-s06", "title": "六、四大发明", "kp_count": 9, "weight": "high"}]}, {"id": "culture-c12", "title": "第十二章传统建筑", "weight": "high", "sections": [{"id": "culture-c12-s01", "title": "一、古代城池", "kp_count": 2, "weight": "high"}, {"id": "culture-c12-s02", "title": "二、宫殿建筑", "kp_count": 5, "weight": "high"}, {"id": "culture-c12-s03", "title": "三、帝王陵寝", "kp_count": 1, "weight": "high"}, {"id": "culture-c12-s04", "title": "四、万里长城和关隘", "kp_count": 3, "weight": "high"}, {"id": "culture-c12-s05", "title": "五、古代桥梁", "kp_count": 7, "weight": "high"}, {"id": "culture-c12-s06", "title": "六、古代园林与亭台楼阁", "kp_count": 11, "weight": "high"}, {"id": "culture-c12-s07", "title": "七、宗教祭祀建筑", "kp_count": 4, "weight": "high"}, {"id": "culture-c12-s08", "title": "八、装饰性建筑", "kp_count": 6, "weight": "high"}, {"id": "culture-c12-s09", "title": "九、衙署与会馆", "kp_count": 4, "weight": "high"}, {"id": "culture-c12-s10", "title": "十、北京四合院与各地民居", "kp_count": 3, "weight": "high"}, {"id": "culture-c12-s11", "title": "十一、古代大型水利工程", "kp_count": 4, "weight": "high"}]}, {"id": "culture-c13", "title": "第十三章古典文学", "weight": "high", "sections": [{"id": "culture-c13-s01", "title": "一、诗词作品及诗人", "kp_count": 9, "weight": "high"}, {"id": "culture-c13-s02", "title": "二、散文及其作者", "kp_count": 6, "weight": "high"}, {"id": "culture-c13-s03", "title": "三、辞赋及其作者", "kp_count": 5, "weight": "high"}, {"id": "culture-c13-s04", "title": "四、戏剧及戏剧家", "kp_count": 1, "weight": "high"}, {"id": "culture-c13-s05", "title": "五、小说及小说家", "kp_count": 8, "weight": "high"}]}, {"id": "culture-c14", "title": "第十四章各类艺术", "weight": "high", "sections": [{"id": "culture-c14-s01", "title": "一、书法艺术", "kp_count": 11, "weight": "high"}, {"id": "culture-c14-s02", "title": "二、绘画艺术", "kp_count": 8, "weight": "high"}, {"id": "culture-c14-s03", "title": "三、雕塑艺术", "kp_count": 1, "weight": "high"}, {"id": "culture-c14-s04", "title": "四、戏曲艺术", "kp_count": 3, "weight": "high"}, {"id": "culture-c14-s05", "title": "五、民族音乐艺术", "kp_count": 11, "weight": "high"}, {"id": "culture-c14-s06", "title": "六、楹联艺术", "kp_count": 9, "weight": "high"}]}, {"id": "culture-c15", "title": "第十五章精美器物", "weight": "high", "sections": [{"id": "culture-c15-s01", "title": "一、玉器", "kp_count": 4, "weight": "high"}, {"id": "culture-c15-s02", "title": "二、青铜器", "kp_count": 9, "weight": "high"}, {"id": "culture-c15-s03", "title": "三、瓷器", "kp_count": 5, "weight": "high"}, {"id": "culture-c15-s04", "title": "四、文房四宝", "kp_count": 6, "weight": "high"}]}, {"id": "culture-c16", "title": "第十六章风俗习惯", "weight": "high", "sections": [{"id": "culture-c16-s01", "title": "一、茶酒与烹调", "kp_count": 8, "weight": "high"}, {"id": "culture-c16-s02", "title": "二、衣冠服饰", "kp_count": 1, "weight": "high"}, {"id": "culture-c16-s03", "title": "三、婚俗与葬俗", "kp_count": 6, "weight": "high"}, {"id": "culture-c16-s04", "title": "四、民族祥瑞动物", "kp_count": 5, "weight": "high"}, {"id": "culture-c16-s05", "title": "五、名贵花木", "kp_count": 7, "weight": "high"}, {"id": "culture-c16-s06", "title": "六、民族节日", "kp_count": 9, "weight": "high"}, {"id": "culture-c16-s07", "title": "七、其他崇尚和禁忌", "kp_count": 29, "weight": "high"}]}, {"id": "culture-c17", "title": "第十七章中外文化交流", "weight": "high", "sections": [{"id": "culture-c17-s01", "title": "四、日本遣唐使和留学生", "kp_count": 4, "weight": "high"}, {"id": "culture-c17-s02", "title": "五、郑和下西洋", "kp_count": 2, "weight": "high"}, {"id": "culture-c17-s03", "title": "六、西学东渐和东学西传", "kp_count": 7, "weight": "high"}]}, {"id": "culture-c18", "title": "附录中国被列入《世界遗产名录》的名胜古迹", "weight": "high", "sections": [{"id": "culture-c18-s01", "title": "一、世界遗产名录", "kp_count": 3, "weight": "high"}]}]}, {"doc": "rumen", "title": "对外汉语教学入门（第3版）", "chapters": [{"id": "rumen-c01", "title": "第一章总论", "weight": "high", "sections": [{"id": "rumen-c01-s01", "title": "第一章总论", "kp_count": 6, "weight": "high"}]}, {"id": "rumen-c02", "title": "第二章外语教学法", "weight": "high", "sections": [{"id": "rumen-c02-s01", "title": "第二章外语教学法", "kp_count": 12, "weight": "high"}]}, {"id": "rumen-c03", "title": "第三章课堂教学", "weight": "high", "sections": [{"id": "rumen-c03-s01", "title": "第三章课堂教学", "kp_count": 111, "weight": "high"}]}, {"id": "rumen-c04", "title": "第四章第二语言习得|", "weight": "high", "sections": [{"id": "rumen-c04-s01", "title": "第四章第二语言习得|", "kp_count": 75, "weight": "high"}]}, {"id": "rumen-c05", "title": "第五章语言测试与成绩分析", "weight": "high", "sections": [{"id": "rumen-c05-s01", "title": "第五章语言测试与成绩分析", "kp_count": 33, "weight": "high"}]}, {"id": "rumen-c06", "title": "第六章教材的评估、使用与开发", "weight": "high", "sections": [{"id": "rumen-c06-s01", "title": "第六章教材的评估、使用与开发", "kp_count": 60, "weight": "high"}]}, {"id": "rumen-c07", "title": "第七章人才培养与教师发展", "weight": "high", "sections": [{"id": "rumen-c07-s01", "title": "第七章人才培养与教师发展", "kp_count": 26, "weight": "high"}]}, {"id": "rumen-c08", "title": "第八章汉语传播与教学简史", "weight": "high", "sections": [{"id": "rumen-c08-s01", "title": "第八章汉语传播与教学简史", "kp_count": 39, "weight": "high"}]}, {"id": "rumen-c09", "title": "第九章语音教学", "weight": "high", "sections": [{"id": "rumen-c09-s01", "title": "第九章语音教学", "kp_count": 44, "weight": "high"}]}, {"id": "rumen-c10", "title": "第十章词汇教学", "weight": "high", "sections": [{"id": "rumen-c10-s01", "title": "第十章词汇教学", "kp_count": 60, "weight": "high"}]}, {"id": "rumen-c11", "title": "第十一章语法教学", "weight": "high", "sections": [{"id": "rumen-c11-s01", "title": "第十一章语法教学", "kp_count": 49, "weight": "high"}]}, {"id": "rumen-c12", "title": "第十二章汉字教学", "weight": "high", "sections": [{"id": "rumen-c12-s01", "title": "第十二章汉字教学", "kp_count": 54, "weight": "high"}]}, {"id": "rumen-c13", "title": "第十三章跨文化交际与文化教学", "weight": "high", "sections": [{"id": "rumen-c13-s01", "title": "第十三章跨文化交际与文化教学", "kp_count": 31, "weight": "high"}]}, {"id": "rumen-c14", "title": "第十四章汉语综合课教学", "weight": "high", "sections": [{"id": "rumen-c14-s01", "title": "第十四章汉语综合课教学", "kp_count": 63, "weight": "high"}]}, {"id": "rumen-c15", "title": "第十五章听力技能课", "weight": "high", "sections": [{"id": "rumen-c15-s01", "title": "第十五章听力技能课", "kp_count": 35, "weight": "high"}]}, {"id": "rumen-c16", "title": "第十六章□语课教学", "weight": "high", "sections": [{"id": "rumen-c16-s01", "title": "第十六章□语课教学", "kp_count": 29, "weight": "high"}]}, {"id": "rumen-c17", "title": "第十七章阅读课教学", "weight": "high", "sections": [{"id": "rumen-c17-s01", "title": "第十七章阅读课教学", "kp_count": 31, "weight": "high"}]}, {"id": "rumen-c18", "title": "第十八章写作课教学", "weight": "high", "sections": [{"id": "rumen-c18-s01", "title": "第十八章写作课教学", "kp_count": 18, "weight": "high"}]}, {"id": "rumen-c19", "title": "第十九章专用汉语", "weight": "high", "sections": [{"id": "rumen-c19-s01", "title": "第十九章专用汉语", "kp_count": 26, "weight": "high"}]}]}, {"doc": "xdhy_down", "title": "现代汉语通论（下册）", "chapters": [{"id": "xdhy_down-c01", "title": "第四章语法", "weight": "high", "sections": [{"id": "xdhy_down-c01-s01", "title": "第一节现代汉语语法概述", "kp_count": 32, "weight": "high"}, {"id": "xdhy_down-c01-s02", "title": "第四节短语", "kp_count": 11, "weight": "high"}, {"id": "xdhy_down-c01-s03", "title": "第五节句法成分", "kp_count": 17, "weight": "high"}, {"id": "xdhy_down-c01-s04", "title": "第六节句型系统", "kp_count": 20, "weight": "high"}, {"id": "xdhy_down-c01-s05", "title": "第七节句类系统", "kp_count": 23, "weight": "high"}]}, {"id": "xdhy_down-c02", "title": "第五章语用", "weight": "high", "sections": [{"id": "xdhy_down-c02-s01", "title": "第一节现代汉语语用概述", "kp_count": 74, "weight": "high"}]}]}, {"doc": "xdhy_up", "title": "现代汉语通论（上册）", "chapters": [{"id": "xdhy_up-c01", "title": "导论现代汉语概述", "weight": "high", "sections": [{"id": "xdhy_up-c01-s01", "title": "一、现代汉语的性质", "kp_count": 5, "weight": "high"}, {"id": "xdhy_up-c01-s02", "title": "二、现代汉语的历史地位和语际地位", "kp_count": 20, "weight": "high"}]}, {"id": "xdhy_up-c02", "title": "第一章语音", "weight": "high", "sections": [{"id": "xdhy_up-c02-s01", "title": "第一节现代汉语语音概述", "kp_count": 16, "weight": "high"}, {"id": "xdhy_up-c02-s02", "title": "第二节声母", "kp_count": 20, "weight": "high"}, {"id": "xdhy_up-c02-s03", "title": "第三节韵母", "kp_count": 24, "weight": "high"}, {"id": "xdhy_up-c02-s04", "title": "第四节声调", "kp_count": 5, "weight": "high"}, {"id": "xdhy_up-c02-s05", "title": "第五节音节", "kp_count": 36, "weight": "high"}, {"id": "xdhy_up-c02-s06", "title": "第六节音变", "kp_count": 35, "weight": "high"}, {"id": "xdhy_up-c02-s07", "title": "第七节节律", "kp_count": 22, "weight": "high"}]}, {"id": "xdhy_up-c03", "title": "第二章汉字", "weight": "high", "sections": [{"id": "xdhy_up-c03-s01", "title": "第一节现代汉字概述", "kp_count": 42, "weight": "high"}, {"id": "xdhy_up-c03-s02", "title": "第二节现代汉字的字形", "kp_count": 29, "weight": "high"}, {"id": "xdhy_up-c03-s03", "title": "第三节现代汉字的字音", "kp_count": 22, "weight": "high"}, {"id": "xdhy_up-c03-s04", "title": "第四节现代汉字的字义", "kp_count": 31, "weight": "high"}, {"id": "xdhy_up-c03-s05", "title": "第五节现代汉字形音义的关系", "kp_count": 24, "weight": "high"}, {"id": "xdhy_up-c03-s06", "title": "第六节现代汉字的规范", "kp_count": 52, "weight": "high"}, {"id": "xdhy_up-c03-s07", "title": "第七节现代汉字的信息处理", "kp_count": 52, "weight": "high"}]}, {"id": "xdhy_up-c04", "title": "第三章词汇", "weight": "high", "sections": [{"id": "xdhy_up-c04-s01", "title": "第一节现代汉语词汇概述", "kp_count": 24, "weight": "high"}, {"id": "xdhy_up-c04-s02", "title": "第二节构词法与造词法", "kp_count": 30, "weight": "high"}, {"id": "xdhy_up-c04-s03", "title": "第三节词义构成", "kp_count": 25, "weight": "high"}, {"id": "xdhy_up-c04-s04", "title": "第四节词义分析与释义", "kp_count": 32, "weight": "high"}, {"id": "xdhy_up-c04-s05", "title": "第五节词汇的分类系统", "kp_count": 44, "weight": "high"}, {"id": "xdhy_up-c04-s06", "title": "第六节词汇的构成系统", "kp_count": 26, "weight": "high"}, {"id": "xdhy_up-c04-s07", "title": "第七节词汇的熟语系统", "kp_count": 20, "weight": "high"}, {"id": "xdhy_up-c04-s08", "title": "第八节词汇的发展与规范", "kp_count": 28, "weight": "high"}]}]}, {"doc": "yinlun", "title": "对外汉语教育学引论", "chapters": [{"id": "yinlun-c01", "title": "第一章对外汉语教育是一门专门的学科", "weight": "high", "sections": [{"id": "yinlun-c01-s01", "title": "第一章对外汉语教育是一门专门的学科", "kp_count": 67, "weight": "high"}]}, {"id": "yinlun-c02", "title": "第二章汉语作为第二语言教学的发展与现状", "weight": "high", "sections": [{"id": "yinlun-c02-s01", "title": "第二章汉语作为第二语言教学的发展与现状", "kp_count": 50, "weight": "high"}]}, {"id": "yinlun-c03", "title": "第三章对外汉语教学的语言学基础和教育学基础", "weight": "high", "sections": [{"id": "yinlun-c03-s01", "title": "第一节语言学基础", "kp_count": 20, "weight": "high"}, {"id": "yinlun-c03-s02", "title": "第二节教育学基础", "kp_count": 82, "weight": "high"}]}, {"id": "yinlun-c04", "title": "第四章对外汉语教学的心理学基础和文化学基础", "weight": "high", "sections": [{"id": "yinlun-c04-s01", "title": "第一节心理学基础", "kp_count": 16, "weight": "high"}, {"id": "yinlun-c04-s02", "title": "第二节文化学基础", "kp_count": 74, "weight": "high"}]}, {"id": "yinlun-c05", "title": "第五章语言习得理论", "weight": "high", "sections": [{"id": "yinlun-c05-s01", "title": "第一节语言学习与习得", "kp_count": 35, "weight": "high"}, {"id": "yinlun-c05-s02", "title": "第二节第一语言习得理论", "kp_count": 22, "weight": "high"}, {"id": "yinlun-c05-s03", "title": "第三节第二语言习得理论", "kp_count": 47, "weight": "high"}]}, {"id": "yinlun-c06", "title": "第六章第二语言习得研究", "weight": "high", "sections": [{"id": "yinlun-c06-s01", "title": "第二节中介语理论", "kp_count": 68, "weight": "high"}]}, {"id": "yinlun-c07", "title": "第七章第二语言教学法主要流派与发展趋向", "weight": "high", "sections": [{"id": "yinlun-c07-s01", "title": "第三节第二语言教学法的发展趋向", "kp_count": 53, "weight": "high"}]}, {"id": "yinlun-c08", "title": "第八章对外汉语教学理论与应用(上)", "weight": "high", "sections": [{"id": "yinlun-c08-s01", "title": "第八章对外汉语教学理论与应用(上)", "kp_count": 77, "weight": "high"}]}, {"id": "yinlun-c09", "title": "第九章对外汉语教学理论与应用(下)", "weight": "high", "sections": [{"id": "yinlun-c09-s01", "title": "第一节对外汉语教学过程与课堂教学", "kp_count": 132, "weight": "high"}]}, {"id": "yinlun-c10", "title": "第十章对外汉语教学的学科建设", "weight": "high", "sections": [{"id": "yinlun-c10-s01", "title": "第一节对外汉语教学研究方法", "kp_count": 74, "weight": "high"}]}]}, {"doc": "zhenti_10_23", "title": "南师大汉硕10-23真题带答案", "chapters": [{"id": "zhenti_10_23-c01", "title": "全文", "weight": "high", "sections": [{"id": "zhenti_10_23-c01-s01", "title": "全文", "kp_count": 348, "weight": "high"}]}]}, {"doc": "zhenti_2026", "title": "2026南师大334+445真题", "chapters": [{"id": "zhenti_2026-c01", "title": "全文", "weight": "high", "sections": [{"id": "zhenti_2026-c01-s01", "title": "全文", "kp_count": 16, "weight": "high"}]}]}, {"doc": "zhenti_24", "title": "24南师大354+445真题和答案", "chapters": [{"id": "zhenti_24-c01", "title": "全文", "weight": "high", "sections": [{"id": "zhenti_24-c01-s01", "title": "全文", "kp_count": 82, "weight": "high"}]}]}, {"doc": "zhenti_25", "title": "25南师大354+445真题", "chapters": [{"id": "zhenti_25-c01", "title": "全文", "weight": "high", "sections": [{"id": "zhenti_25-c01-s01", "title": "全文", "kp_count": 7, "weight": "high"}]}]}, {"doc": "ziliao", "title": "汉硕考研资料汇总", "chapters": [{"id": "ziliao-c01", "title": "全文", "weight": "high", "sections": [{"id": "ziliao-c01-s01", "title": "全文", "kp_count": 183, "weight": "high"}]}]}]}
+{
+  "books": [
+    {
+      "doc": "culture",
+      "title": "中国文化要略（第四版）",
+      "chapters": [
+        {
+          "id": "culture-c01",
+          "title": "第一章 简论",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c01-s01",
+              "title": "第一节 文化与中国文化",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c01-s02",
+              "title": "第二节 中国文化的特点与价值",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c01-s03",
+              "title": "综合考点",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c02",
+          "title": "第二章 地理概况",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c02-s01",
+              "title": "第一节 地理环境与行政区划",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c02-s02",
+              "title": "第二节 山川名胜与古都",
+              "weight": "normal"
+            },
+            {
+              "id": "culture-c02-s03",
+              "title": "综合考点",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c03",
+          "title": "第三章 历史纵横",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c03-s01",
+              "title": "第一节 上古与先秦制度",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c03-s02",
+              "title": "第二节 王朝更替与变法",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c03-s03",
+              "title": "第三节 庙号谥号年号",
+              "weight": "normal"
+            },
+            {
+              "id": "culture-c03-s04",
+              "title": "第四节 外戚与宦官",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c03-s05",
+              "title": "综合考点",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c04",
+          "title": "第四章 姓氏与名、字、号",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c04-s01",
+              "title": "第一节 姓与氏的起源",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c04-s02",
+              "title": "第二节 名、字、号与避讳",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c05",
+          "title": "第五章 汉字",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c05-s01",
+              "title": "第一节 汉字形体演变",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c05-s02",
+              "title": "第二节 六书与汉字结构",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c05-s03",
+              "title": "第三节 字书与注音",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c06",
+          "title": "第六章 学术思想",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c06-s01",
+              "title": "第一节 先秦诸子",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c06-s02",
+              "title": "第二节 两汉经学",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c06-s03",
+              "title": "第三节 宋明理学",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c06-s04",
+              "title": "第四节 清代朴学",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c06-s05",
+              "title": "综合考点",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c07",
+          "title": "第七章 宗教信仰",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c07-s01",
+              "title": "第一节 三大崇拜与原始宗教",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c07-s02",
+              "title": "第二节 佛教",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c07-s03",
+              "title": "第三节 道教",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c07-s04",
+              "title": "第四节 藏传佛教",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c07-s05",
+              "title": "第五节 其他宗教",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c08",
+          "title": "第八章 古代教育",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c08-s01",
+              "title": "第一节 官学制度",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c08-s02",
+              "title": "第二节 书院制度",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c08-s03",
+              "title": "第三节 蒙学与教育特征",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c09",
+          "title": "第九章 科举制度",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c09-s01",
+              "title": "第一节 选官制度的演变",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c09-s02",
+              "title": "第二节 明清科举程序",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c09-s03",
+              "title": "第三节 防弊制度与八股文",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c10",
+          "title": "第十章 典籍藏书",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c10-s01",
+              "title": "第一节 典籍分类与载体",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c10-s02",
+              "title": "第二节 著名典籍",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c10-s03",
+              "title": "第三节 藏书楼",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c11",
+          "title": "第十一章 科技成就",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c11-s01",
+              "title": "第一节 四大发明",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c11-s02",
+              "title": "第二节 农学与医药",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c11-s03",
+              "title": "第三节 数学、天文与历法",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c11-s04",
+              "title": "第四节 水利工程",
+              "weight": "normal"
+            },
+            {
+              "id": "culture-c11-s05",
+              "title": "第五节 科技发展滞缓原因",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c12",
+          "title": "第十二章 传统建筑",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c12-s01",
+              "title": "第一节 木构架与结构构件",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c12-s02",
+              "title": "第二节 屋顶形制与等级",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c12-s03",
+              "title": "第三节 布局、民居与园林",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c12-s04",
+              "title": "第四节 建筑典籍",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c13",
+          "title": "第十三章 古典文学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c13-s01",
+              "title": "第一节 先秦文学",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c13-s02",
+              "title": "第二节 汉魏六朝文学",
+              "weight": "normal"
+            },
+            {
+              "id": "culture-c13-s03",
+              "title": "第三节 唐宋文学",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c13-s04",
+              "title": "第四节 元明清文学",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c14",
+          "title": "第十四章 各类艺术",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c14-s01",
+              "title": "第一节 书法艺术",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c14-s02",
+              "title": "第二节 绘画艺术",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c14-s03",
+              "title": "第三节 戏曲艺术",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c15",
+          "title": "第十五章 精美器物",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c15-s01",
+              "title": "第一节 青铜器",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c15-s02",
+              "title": "第二节 陶瓷",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c15-s03",
+              "title": "第三节 玉器与工艺",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "culture-c16",
+          "title": "第十六章 风俗习惯",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c16-s01",
+              "title": "第一节 岁时节日",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c16-s02",
+              "title": "第二节 人生礼仪与婚俗",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c16-s03",
+              "title": "第三节 生肖与饮食",
+              "weight": "normal"
+            },
+            {
+              "id": "culture-c16-s04",
+              "title": "综合考点",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c17",
+          "title": "第十七章 中外文化交流",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c17-s01",
+              "title": "第一节 陆上与海上丝路",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c17-s02",
+              "title": "第二节 中外人物往来",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c17-s03",
+              "title": "第三节 西学东渐",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "culture-c18",
+          "title": "第十八章 中国传统文化的基本特征与现代价值",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "culture-c18-s01",
+              "title": "第一节 中国传统文化的基本特征",
+              "weight": "high"
+            },
+            {
+              "id": "culture-c18-s02",
+              "title": "第二节 传统文化的现代价值",
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "yinlun",
+      "title": "对外汉语教育学引论",
+      "chapters": [
+        {
+          "id": "yinlun-c01",
+          "title": "第一章 对外汉语教育是一门专门的学科",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c01-s01",
+              "title": "第一节 对外汉语教育的学科名称",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c01-s02",
+              "title": "第二节 对外汉语教育的学科任务和学科体系",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c01-s03",
+              "title": "第三节 对外汉语教育的学科性质和学科特点",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c01-s04",
+              "title": "第四节 对外汉语教育的学科定位与争论",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c02",
+          "title": "第二章 汉语作为第二语言教学的发展与现状",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c02-s01",
+              "title": "第一节 我国对外汉语教学的发展回顾",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c02-s02",
+              "title": "第二节 我国对外汉语教学的发展现状",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c02-s03",
+              "title": "第三节 世界汉语教学的发展特点",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c03",
+          "title": "第三章 对外汉语教学的语言学基础和教育学基础",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c03-s01",
+              "title": "第一节 对外汉语教学的语言学基础(一)",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c03-s02",
+              "title": "第二节 对外汉语教学的语言学基础(二)",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c03-s03",
+              "title": "第三节 对外汉语教学的教育学基础",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c04",
+          "title": "第四章 对外汉语教学的心理学基础和文化学基础",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c04-s01",
+              "title": "第一节 对外汉语教学的心理学基础",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c04-s02",
+              "title": "第二节 对外汉语教学的文化学基础(一)",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c04-s03",
+              "title": "第三节 对外汉语教学的文化学基础(二)",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c05",
+          "title": "第五章 语言习得理论",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c05-s01",
+              "title": "第一节 语言学习与习得",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c05-s02",
+              "title": "第二节 第一语言习得及主要理论和假说",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c05-s03",
+              "title": "第三节 第二语言习得理论和假说",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c06",
+          "title": "第六章 第二语言习得研究",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c06-s01",
+              "title": "第一节 第二语言习得过程研究",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c06-s02",
+              "title": "第二节 学习者的个体因素",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c06-s03",
+              "title": "第三节 语言学习环境",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c07",
+          "title": "第七章 第二语言教学法主要流派与发展趋向",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c07-s01",
+              "title": "第一节 认知派与经验派教学法",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c07-s02",
+              "title": "第二节 人本派与功能派教学法",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c07-s03",
+              "title": "第三节 第二语言教学法的发展趋向",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c08",
+          "title": "第八章 对外汉语教学理论与应用(上)",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c08-s01",
+              "title": "第一节 对外汉语教学目的与课程设计",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c08-s02",
+              "title": "第二节 对外汉语教学的基本教学原则",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c08-s03",
+              "title": "第三节 对外汉语教材的编写与选用",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c09",
+          "title": "第九章 对外汉语教学理论与应用(下)",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c09-s01",
+              "title": "第一节 对外汉语教学过程与课堂教学",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c09-s02",
+              "title": "第二节 对外汉语语音、词汇、语法、汉字教学",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c09-s03",
+              "title": "第三节 语言测试",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "yinlun-c10",
+          "title": "第十章 对外汉语教学的学科建设",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "yinlun-c10-s01",
+              "title": "第一节 对外汉语教学研究方法",
+              "weight": "high"
+            },
+            {
+              "id": "yinlun-c10-s02",
+              "title": "第二节 对外汉语教学学科建设的任务",
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "xdhy_up",
+      "title": "现代汉语通论（上册）",
+      "chapters": [
+        {
+          "id": "xdhy_up-c01",
+          "title": "第一章 语音",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "xdhy_up-c01-s01",
+              "title": "第一节 现代汉语语音概述",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c01-s02",
+              "title": "第二节 音节分析：元音和辅音",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c01-s03",
+              "title": "第三节 音节分析：声母和韵母",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c01-s04",
+              "title": "第四节 普通话声调",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c01-s05",
+              "title": "第二章 元音",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "xdhy_up-c02",
+          "title": "第二章 汉字",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "xdhy_up-c02-s01",
+              "title": "第一节 现代汉字概述",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s02",
+              "title": "第二节 现代汉字的字形",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s03",
+              "title": "第三节 现代汉字的字音",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s04",
+              "title": "第四节 现代汉字的字义",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s05",
+              "title": "第五节 现代汉字形音义的关系",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s06",
+              "title": "第六节 现代汉字的规范",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c02-s07",
+              "title": "第七节 现代汉字的信息处理",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "xdhy_up-c03",
+          "title": "第三章 词汇",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "xdhy_up-c03-s01",
+              "title": "第一节 现代汉语词汇概述",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s02",
+              "title": "第二节 构词法与造词法",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s03",
+              "title": "第三节 词义构成",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s04",
+              "title": "第四节 词义分析与释义",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s05",
+              "title": "第五节 词汇的分类系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s06",
+              "title": "第六节 词汇的构成系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s07",
+              "title": "第七节 词汇的熟语系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_up-c03-s08",
+              "title": "第八节 词汇的发展与规范",
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "xdhy_down",
+      "title": "现代汉语通论（下册）",
+      "chapters": [
+        {
+          "id": "xdhy_down-c01",
+          "title": "第四章 语法",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "xdhy_down-c01-s01",
+              "title": "第一节 现代汉语语法概述",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s02",
+              "title": "第二节 词类和功能分析法",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s03",
+              "title": "第三节 虚词的作用及其辨析",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s04",
+              "title": "第四节 短语与层次分析法",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s05",
+              "title": "第五节 句型系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s06",
+              "title": "第六节 句式系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s07",
+              "title": "第七节 句类系统",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s08",
+              "title": "第八节 句法结构中的语义分析",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s09",
+              "title": "第九节 歧义结构与框式结构",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s10",
+              "title": "第十节 认知解释与动态变化",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s11",
+              "title": "第十一节 复句类型",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c01-s12",
+              "title": "第十二节 多重复句与紧缩复句",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "xdhy_down-c02",
+          "title": "第五章 语用",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "xdhy_down-c02-s01",
+              "title": "第一节 现代汉语语用概述",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s02",
+              "title": "第二节 话语意义",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s03",
+              "title": "第三节 言语行为与会话原则",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s04",
+              "title": "第四节 话语结构",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s05",
+              "title": "第五节 语言要素的修辞",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s06",
+              "title": "第六节 语用效果与辞格",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s07",
+              "title": "第七节 语体的分类与功能",
+              "weight": "high"
+            },
+            {
+              "id": "xdhy_down-c02-s08",
+              "title": "第八节 病句的类型与修改",
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "rumen",
+      "title": "对外汉语教学入门（第3版）",
+      "chapters": [
+        {
+          "id": "rumen-c01",
+          "title": "第一章 总论",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c01-s01",
+              "title": "第一节 学科性质",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c01-s02",
+              "title": "第二节 语言学习的基本概念",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c01-s03",
+              "title": "第三节 第二语言教学的性质、任务和类别",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c01-s04",
+              "title": "第四节 基础学科和相关学科",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c02",
+          "title": "第二章 外语教学法",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c02-s01",
+              "title": "第一节 教学法概述",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c02-s02",
+              "title": "第二节 传统教学法",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c02-s03",
+              "title": "第三节 人本主义教学法",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c02-s04",
+              "title": "第四节 交际型教学法",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c02-s05",
+              "title": "第五节 创新型教学法",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c02-s06",
+              "title": "第六节 教学法的发展趋势",
+              "weight": "normal"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c03",
+          "title": "第三章 课堂教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c03-s01",
+              "title": "第一节 备课",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c03-s02",
+              "title": "第二节 讲述与倾听技能",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c03-s03",
+              "title": "第三节 提问与组织讨论技能",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c03-s04",
+              "title": "第四节 非语言表达技能",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c03-s05",
+              "title": "第五节 表扬与批评技能",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c03-s06",
+              "title": "第六节 课堂组织与管理",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c03-s07",
+              "title": "第七节 板书和多媒体",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c04",
+          "title": "第四章 第二语言习得",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c04-s01",
+              "title": "第一节 第一语言的作用与对比分析",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s02",
+              "title": "第二节 偏误分析",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s03",
+              "title": "第三节 中介语及其发展过程",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s04",
+              "title": "第四节 输入、输出与互动",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s05",
+              "title": "第五节 学习者个体差异",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s06",
+              "title": "第六节 学习和学习者的策略",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s07",
+              "title": "第七节 语言普遍性假说",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c04-s08",
+              "title": "第八节 其他语言习得假说",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c05",
+          "title": "第五章 语言测试与成绩分析",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c05-s01",
+              "title": "第一节 语言测试的性质与目的",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c05-s02",
+              "title": "第二节 语言测试的类别",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c05-s03",
+              "title": "第三节 语言测试的原则和特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c05-s04",
+              "title": "第四节 测试成绩分析",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c06",
+          "title": "第六章 教材的评估、使用与开发",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c06-s01",
+              "title": "第一节 教材分类",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c06-s02",
+              "title": "第二节 教材评估的基本内容与方法",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c06-s03",
+              "title": "第五节 汉语语料库的建设与应用",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c07",
+          "title": "第七章 人才培养与教师发展",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c07-s01",
+              "title": "第一节 国际汉语教师的基本素质",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c07-s02",
+              "title": "第二节 人才培养与技能训练",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c07-s03",
+              "title": "第三节 汉语教师的发展",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c08",
+          "title": "第八章 汉语传播与教学简史",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c08-s01",
+              "title": "第一节 汉语在东亚、东南亚的传播",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c08-s02",
+              "title": "第二节 汉语在西方的传播",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c08-s03",
+              "title": "第三节 华人移民和华文教育",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c08-s04",
+              "title": "第四节 中华人民共和国成立前国内的汉语教学",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c09",
+          "title": "第九章 语音教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c09-s01",
+              "title": "第一节 语音介绍",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c09-s02",
+              "title": "第二节 语音教学的原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c09-s03",
+              "title": "第三节 语音教学方法与技巧",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c10",
+          "title": "第十章 词汇教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c10-s01",
+              "title": "第一节 现代汉语词汇的特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c10-s02",
+              "title": "第二节 词汇教学的重要性和任务",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c10-s03",
+              "title": "第三节 教学词汇的选择和控制",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c10-s04",
+              "title": "第四节 词汇教学的重点与难点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c10-s05",
+              "title": "第五节 词汇教学的基本原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c10-s06",
+              "title": "第六节 词汇教学的环节和技巧",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c11",
+          "title": "第十一章 语法教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c11-s01",
+              "title": "第一节 语法的含义和类别",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c11-s02",
+              "title": "第二节 汉语语法的特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c11-s03",
+              "title": "第三节 语法教学的原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c11-s04",
+              "title": "第四节 语法教学的方法",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c11-s05",
+              "title": "第五节 语法点的教学技巧",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c12",
+          "title": "第十二章 汉字教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c12-s01",
+              "title": "第一节 汉字教学的地位和重要性",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c12-s02",
+              "title": "第二节 对外汉字教学的特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c12-s03",
+              "title": "第三节 汉字教学的原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c12-s04",
+              "title": "第四节 汉字教学的技巧",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c13",
+          "title": "第十三章 跨文化交际与文化教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c13-s01",
+              "title": "第一节 跨文化交际",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c13-s02",
+              "title": "第二节 价值观和文化",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c13-s03",
+              "title": "第三节 汉语教学中的文化教学",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c13-s04",
+              "title": "第四节 跨文化交际与文化教学的基本态度和方法",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c14",
+          "title": "第十四章 汉语综合课教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c14-s01",
+              "title": "第一节 性质和特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c14-s02",
+              "title": "第二节 教学内容和教学原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c14-s03",
+              "title": "第三节 教学环节和教学方法",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c15",
+          "title": "第十五章 听力技能课",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c15-s01",
+              "title": "第一节 听力课课型特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c15-s02",
+              "title": "第二节 听力课的课堂教学",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c16",
+          "title": "第十六章 口语课教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c16-s01",
+              "title": "第一节 口语教学原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c16-s02",
+              "title": "第二节 口语教学环节",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c17",
+          "title": "第十七章 阅读课教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c17-s01",
+              "title": "第一节 读者是如何阅读的？",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c17-s02",
+              "title": "第二节 怎么上阅读课？",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c17-s03",
+              "title": "第三节 阅读课怎么教词汇？",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c17-s04",
+              "title": "第四节 如何把阅读课上得生动有趣？",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c17-s05",
+              "title": "第五节 报刊阅读课",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c18",
+          "title": "第十八章 写作课教学",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "rumen-c18-s01",
+              "title": "第一节 汉语写作教学的特点",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c18-s02",
+              "title": "第二节 写作教学原则",
+              "weight": "high"
+            },
+            {
+              "id": "rumen-c18-s03",
+              "title": "第三节 课堂教学方法",
+              "weight": "high"
+            }
+          ]
+        },
+        {
+          "id": "rumen-c19",
+          "title": "第十九章 专用汉语",
+          "weight": "normal",
+          "sections": [
+            {
+              "id": "rumen-c19-s01",
+              "title": "第一节 专用汉语的定义与分类",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c19-s02",
+              "title": "第二节 专用汉语教学大纲与课程设置",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c19-s03",
+              "title": "第三节 专用汉语教学方法",
+              "weight": "normal"
+            },
+            {
+              "id": "rumen-c19-s04",
+              "title": "第四节 专用汉语的测试和评估",
+              "weight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "zhenti_10_23",
+      "title": "南师大汉硕10-23真题带答案",
+      "chapters": [
+        {
+          "id": "zhenti_10_23-c01",
+          "title": "全文",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "zhenti_10_23-c01-s01",
+              "title": "全文",
+              "kp_count": 348,
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "zhenti_2026",
+      "title": "2026南师大334+445真题",
+      "chapters": [
+        {
+          "id": "zhenti_2026-c01",
+          "title": "全文",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "zhenti_2026-c01-s01",
+              "title": "全文",
+              "kp_count": 16,
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "zhenti_24",
+      "title": "24南师大354+445真题和答案",
+      "chapters": [
+        {
+          "id": "zhenti_24-c01",
+          "title": "全文",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "zhenti_24-c01-s01",
+              "title": "全文",
+              "kp_count": 82,
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "zhenti_25",
+      "title": "25南师大354+445真题",
+      "chapters": [
+        {
+          "id": "zhenti_25-c01",
+          "title": "全文",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "zhenti_25-c01-s01",
+              "title": "全文",
+              "kp_count": 7,
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "doc": "ziliao",
+      "title": "汉硕考研资料汇总",
+      "chapters": [
+        {
+          "id": "ziliao-c01",
+          "title": "全文",
+          "weight": "high",
+          "sections": [
+            {
+              "id": "ziliao-c01-s01",
+              "title": "全文",
+              "kp_count": 183,
+              "weight": "high"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
