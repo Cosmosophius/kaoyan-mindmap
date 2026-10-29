@@ -120,35 +120,43 @@ HTML = r"""<!DOCTYPE html>
    primary=tone80 / primaryContainer=tone30 / surface=tone6 这一套配对
    ============================================================ */
 :root{
-  --h:145;
-  --primary:            oklch(80% 0.19 var(--h));
-  --on-primary:         oklch(20% 0.06 var(--h));
-  --primary-container:  oklch(30% 0.09 var(--h));
-  --on-primary-cont:    oklch(90% 0.07 var(--h));
+  /* ---------- 温暖手账质感配色 (Warm Journal Paper & Morandi Notes) ---------- */
+  --h:85;
 
-  --secondary:          oklch(80% 0.07 var(--h));
-  --on-secondary:       oklch(20% 0.03 var(--h));
-  --secondary-container:oklch(30% 0.04 var(--h));
-  --on-secondary-cont:  oklch(90% 0.03 var(--h));
+  /* 根卡：复古焦糖书皮手账 */
+  --primary:            oklch(52% 0.11 55);
+  --on-primary:         oklch(98% 0.01 55);
+  --primary-container:  oklch(90.5% 0.042 60);
+  --on-primary-cont:    oklch(26% 0.08 50);
 
-  --tertiary:           oklch(82% 0.10 205);
-  --tertiary-container: oklch(30% 0.06 205);
-  --on-tertiary-cont:   oklch(92% 0.05 205);
+  /* 章节卡：莫兰迪鼠尾草植物绿便签 */
+  --secondary:          oklch(56% 0.08 140);
+  --on-secondary:       oklch(98% 0.01 140);
+  --secondary-container:oklch(91.8% 0.035 140);
+  --on-secondary-cont:  oklch(25% 0.06 140);
 
-  --gold:               oklch(86% 0.14 85);
-  --gold-container:     oklch(32% 0.07 85);
+  /* 小节卡：莫兰迪暖杏奶白便签 */
+  --tertiary:           oklch(62% 0.07 75);
+  --tertiary-container: oklch(93.8% 0.028 75);
+  --on-tertiary-cont:   oklch(28% 0.06 65);
 
-  --surface:            oklch(7% 0.012 var(--h));
-  --sc-lowest:          oklch(5% 0.010 var(--h));
-  --sc-low:             oklch(10% 0.012 var(--h));
-  --sc:                 oklch(13% 0.014 var(--h));
-  --sc-high:            oklch(17% 0.016 var(--h));
-  --sc-highest:         oklch(22% 0.018 var(--h));
+  /* 真题高频：复古麦穗金高亮便签 */
+  --gold:               oklch(68% 0.16 85);
+  --gold-container:     oklch(92.5% 0.08 88);
 
-  --on-surface:         oklch(92% 0.010 var(--h));
-  --on-surface-var:     oklch(80% 0.020 var(--h));
-  --outline:            oklch(58% 0.020 var(--h));
-  --outline-var:        oklch(32% 0.016 var(--h));
+  /* 纸张底色：温暖象牙米白和纸（护眼哑光不刺眼） */
+  --surface:            oklch(96.8% 0.016 88);
+  --sc-lowest:          oklch(98.5% 0.008 88);
+  --sc-low:             oklch(95.5% 0.018 88);
+  --sc:                 oklch(94.2% 0.020 88);
+  --sc-high:            oklch(92.0% 0.024 88);
+  --sc-highest:         oklch(88.5% 0.028 88);
+
+  /* 墨水文字色：浓郁复古钢笔墨水棕黑（极具手写温度） */
+  --on-surface:         oklch(22% 0.025 55);
+  --on-surface-var:     oklch(46% 0.035 55);
+  --outline:            oklch(76% 0.030 80);
+  --outline-var:        oklch(86% 0.020 85);
 
   /* Shape.kt：4/8/12/16/28 */
   --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px;
@@ -173,11 +181,11 @@ body{
 #stage{position:fixed;inset:0;overflow:hidden;touch-action:none;cursor:grab;background:var(--surface);}
 #stage.dragging{cursor:grabbing;}
 
-/* 点阵背景：36px 网格 / 1.2r / alpha .22，跟随平移但不参与缩放重绘 */
+/* 点阵背景：28px 手账点阵纸，跟随平移但不参与缩放重绘 */
 #grid{
   position:absolute;inset:-72px;
-  background-image:radial-gradient(circle, color-mix(in oklch, var(--outline) 22%, transparent) 1.2px, transparent 1.2px);
-  background-size:36px 36px;
+  background-image:radial-gradient(circle, color-mix(in oklch, var(--outline) 40%, transparent) 1.2px, transparent 1.2px);
+  background-size:28px 28px;
   will-change:transform;
   pointer-events:none;
 }
@@ -200,15 +208,15 @@ body{
 .tc{flex:none;position:relative;}
 .tk{display:flex;flex-direction:column;}
 
-/* ---------- 卡片 ---------- */
+/* ---------- 卡片：实体手账便签质感 ---------- */
 .card{
   position:relative;
   box-sizing:border-box;          /* 让 COL_W 是含 padding 的实际宽度 */
   border-radius:var(--r-md);
   background:var(--sc-high);
-  border:1px solid var(--outline-var);
+  border:1px solid color-mix(in oklch, var(--outline-var) 85%, transparent);
   padding:3px 7px;
-  box-shadow:0 1px 2px rgba(0,0,0,.26);
+  box-shadow:0 1px 2px rgba(90, 75, 60, 0.08), 0 3px 8px rgba(90, 75, 60, 0.05);
   will-change:transform,opacity;
   contain:layout style;
   transform-origin:0 50%;         /* 树向右生长：从左侧顶点长出 */
@@ -216,11 +224,11 @@ body{
              border-color .18s var(--ease-standard),
              box-shadow .22s var(--ease-standard);
 }
-/* 悬停抬升（仅精确指针，触屏不触发，避免误触残留） */
+/* 便签轻微抬升效果 */
 @media (hover:hover) and (pointer:fine){
   .card:hover{
-    box-shadow:0 2px 4px rgba(0,0,0,.34), 0 10px 26px rgba(0,0,0,.40);
-    border-color:color-mix(in oklch,var(--outline) 55%, var(--outline-var));
+    box-shadow:0 3px 8px rgba(90, 75, 60, 0.12), 0 8px 18px rgba(90, 75, 60, 0.08);
+    border-color:color-mix(in oklch,var(--outline) 65%, var(--outline-var));
   }
 }
 /* 键盘可达性：MD3 focus ring */
@@ -251,19 +259,19 @@ body{
   border-radius:14px;
   background:var(--primary-container);
   border:1.5px solid var(--primary);
-  box-shadow:0 6px 18px rgba(0,0,0,.44);
+  box-shadow:0 4px 14px rgba(70, 45, 25, 0.16), inset 0 1px 0 rgba(255,255,255,0.45);
   padding:10px 13px;
 }
 .card.chapter{
   background:var(--secondary-container);
   border-color:var(--secondary);
-  box-shadow:inset 3px 0 0 var(--secondary), 0 2px 8px rgba(0,0,0,.35);
+  box-shadow:inset 3px 0 0 var(--secondary), 0 2px 8px rgba(80, 65, 50, 0.08);
 }
 .card.section{
   background:var(--tertiary-container);
   position:relative;
   border-color:color-mix(in oklch, var(--tertiary) 45%, var(--outline-var));
-  box-shadow:inset 3px 0 0 var(--tertiary), 0 1px 4px rgba(0,0,0,.28);
+  box-shadow:inset 3px 0 0 var(--tertiary), 0 1px 4px rgba(80, 65, 50, 0.06);
 }
 /* section 的两个操作按钮改为「悬停浮现」：绝对定位到卡片右缘外侧，
    不占文档流宽度。实测它们常驻时占 36px，25 张 section 卡合计 900px，
@@ -284,6 +292,26 @@ body{
 /* 触屏没有 hover，直接常驻显示（否则按钮永远点不到） */
 @media (hover:none){
   .card.section .ibtn.act{ opacity:.85;pointer-events:auto;position:static;transform:none;right:auto;box-shadow:none;background:transparent; }
+}
+
+/* 和纸胶带贴纸：半透明手撕纸胶带，带微小角度贴角，赋予手账本手作感 */
+.card.chapter::after{
+  content:"";
+  position:absolute; top:-5px; right:12px; width:26px; height:8px;
+  background:rgba(255, 255, 255, 0.65);
+  border:1px solid rgba(130, 150, 130, 0.28);
+  box-shadow:0 1px 2px rgba(80, 65, 50, 0.08);
+  transform:rotate(-2.5deg);
+  pointer-events:none;
+}
+.card.section::after{
+  content:"";
+  position:absolute; top:-4px; right:10px; width:20px; height:7px;
+  background:rgba(255, 255, 255, 0.7);
+  border:1px solid rgba(170, 150, 130, 0.22);
+  box-shadow:0 1px 2px rgba(80, 65, 50, 0.06);
+  transform:rotate(1.8deg);
+  pointer-events:none;
 }
 .card.kp{
   background:var(--sc);
@@ -448,12 +476,14 @@ body{
 .dockpin .dp-x:hover{background:color-mix(in oklch,var(--on-surface) 14%,transparent);}
 .dockpin .dp-x svg{width:10px;height:10px;}
 
-/* ---------- 顶栏 ---------- */
+/* ---------- 顶栏：手账封顶与书签标签 ---------- */
 #topbar{
   position:fixed;left:0;right:0;top:0;z-index:20;
   padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;
-  background:color-mix(in oklch,var(--sc-low) 92%,transparent);
-  border-bottom:1px solid var(--outline-var);
+  background:color-mix(in oklch,var(--surface) 90%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);
+  box-shadow:0 1px 4px rgba(80, 65, 50, 0.05);
   display:flex;flex-direction:column;gap:9px;
   transition:transform .26s var(--ease-emphasized);
 }
@@ -469,14 +499,16 @@ body{
 }
 #books::-webkit-scrollbar{display:none;}
 .chip{
-  flex:none;border:1px solid var(--outline-var);border-radius:var(--r-sm);
-  background:transparent;color:var(--on-surface-var);
-  padding:7px 12px;font-size:12.5px;font-weight:500;white-space:nowrap;cursor:pointer;
-  transition:background .2s var(--ease-standard),color .2s var(--ease-standard),border-color .2s var(--ease-standard);
+  flex:none;border:1px solid color-mix(in oklch,var(--outline-var) 85%,transparent);border-radius:var(--r-sm);
+  background:var(--sc-lowest);color:var(--on-surface-var);
+  padding:6px 12px;font-size:12.5px;font-weight:500;white-space:nowrap;cursor:pointer;
+  box-shadow:0 1px 2px rgba(80, 65, 50, 0.04);
+  transition:background .2s var(--ease-standard),color .2s var(--ease-standard),border-color .2s var(--ease-standard),box-shadow .2s var(--ease-standard);
 }
 .chip.on{
   background:var(--secondary-container);color:var(--on-secondary-cont);
   border-color:var(--secondary);font-weight:700;
+  box-shadow:0 2px 6px rgba(80, 65, 50, 0.08);
 }
 
 /* ---------- 右下工具列 ---------- */
@@ -485,15 +517,15 @@ body{
   display:flex;flex-direction:column;gap:10px;
 }
 .fab{
-  width:44px;height:44px;border:0;border-radius:var(--r-lg);
-  background:var(--sc-high);color:var(--on-surface);
+  width:44px;height:44px;border:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);border-radius:var(--r-lg);
+  background:var(--sc-lowest);color:var(--on-surface);
   display:grid;place-items:center;cursor:pointer;
-  box-shadow:0 3px 10px rgba(0,0,0,.42);
-  transition:background .18s var(--ease-standard),transform .18s var(--ease-emphasized);
+  box-shadow:0 2px 6px rgba(80, 65, 50, 0.09), 0 6px 16px rgba(80, 65, 50, 0.05);
+  transition:background .18s var(--ease-standard),transform .18s var(--ease-emphasized),box-shadow .18s var(--ease-standard);
 }
 .fab:active{transform:scale(.92);}
 .fab svg{width:20px;height:20px;display:block;}
-.fab.primary{background:var(--primary);color:var(--on-primary);}
+.fab.primary{background:var(--primary);color:var(--on-primary);border-color:var(--primary);}
 
 /* ---------- 加载态 ---------- */
 #hint{
@@ -690,37 +722,42 @@ body{
 #zoomPct{
   position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom) + 118px);z-index:20;
   font-size:11px;font-variant-numeric:tabular-nums;color:var(--on-surface-var);
-  background:var(--sc-high);border:1px solid var(--outline-var);border-radius:var(--r-sm);
+  background:var(--sc-lowest);border:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);border-radius:var(--r-sm);
   padding:2px 8px;pointer-events:none;
+  box-shadow:0 1px 3px rgba(80,65,50,0.06);
 }
 
-/* ---------- 搜索面板 ---------- */
+/* ---------- 搜索面板：手账收纳抽屉 ---------- */
 #searchPanel{
   position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 70px);transform:translateX(-50%);
   width:min(560px,calc(100vw - 32px));max-height:60vh;z-index:40;
-  background:var(--sc-high);border:1px solid var(--outline-var);border-radius:var(--r-lg);
-  box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-direction:column;overflow:hidden;
+  background:var(--sc-lowest);border:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);border-radius:var(--r-lg);
+  box-shadow:0 12px 32px rgba(80,65,50,0.14), 0 2px 6px rgba(80,65,50,0.08);display:flex;flex-direction:column;overflow:hidden;
 }
 #searchPanel[hidden]{display:none;}
 #searchInput{
-  background:transparent;border:0;border-bottom:1px solid var(--outline-var);
+  background:transparent;border:0;border-bottom:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);
   color:var(--on-surface);font-size:15px;padding:14px 16px;outline:none;
 }
 #searchList{overflow:auto;padding:6px;}
 .sr{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;}
-.sr:hover{background:var(--sc-highest);}
+.sr:hover{background:var(--sc-high);}
 .sr b{font-size:13px;font-weight:600;color:var(--on-surface);}
 .sr span{font-size:11px;color:var(--on-surface-var);}
 
-/* ---------- 面包屑 ---------- */
+/* ---------- 面包屑：手账书签便签条 ---------- */
 #crumbs{
   position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom) + 16px);z-index:15;
   display:flex;gap:6px;align-items:center;max-width:calc(100vw - 120px);
   font-size:12px;color:var(--on-surface-var);overflow:hidden;
+  background:color-mix(in oklch,var(--surface) 92%,transparent);
+  padding:4px 8px;border-radius:var(--r-sm);
+  border:1px solid color-mix(in oklch,var(--outline-var) 80%,transparent);
+  box-shadow:0 1px 3px rgba(80,65,50,0.05);
 }
 #crumbs button{
   background:transparent;border:0;color:inherit;font:inherit;cursor:pointer;
-  padding:2px 4px;border-radius:6px;white-space:nowrap;
+  padding:2px 4px;border-radius:4px;white-space:nowrap;
 }
 #crumbs button:hover{background:var(--sc-high);}
 #crumbs .sep{opacity:.4;flex:none;}
