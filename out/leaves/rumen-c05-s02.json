@@ -3,227 +3,115 @@
   "title": "第二节 语言测试的类别",
   "kps": [
     {
-      "title": "分散测试",
-      "type": "名词解释",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[100] Sincla",
+      "type": "教材原文",
       "points": [
-        "分散测试（discrete point test）指用不同的语言项目分别检测学生不同的知识和技能"
+        "[100] Sinclair J, Coulthard R M. Towards an analysis of discourse [M]. Oxford: Oxford University Press, 1975."
       ],
-      "quote": "分散测试 (discrete point test) 指用不同的语言项目分别检测学生不同的知识和技能。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "综合性测试",
-      "type": "名词解释",
-      "points": [
-        "综合性测试（integrative test）指全面检测学生综合运用语言的能力",
-        "由于人们在交际中往往同时使用几种不同的语言技能，因此测试应该是综合性的，同时检测考生的多种技能"
-      ],
-      "quote": "综合性测试 (integrative test) 指全面检测学生综合运用语言的能力。由于人们在交际中往往同时使用几种不同的语言技能，如在会话中要运用听说两种技能，因此测试应该是综合性的，同时检测考生的多种技能",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "主观测试",
-      "type": "名词解释",
-      "points": [
-        "主观测试是指测试题为主观题",
-        "在主观测试中，评分员对考生回答的反应相当重要"
-      ],
-      "quote": "主观测试是指测试题为主观题。在主观测试中，评分员对考生回答的反应相当重要。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "客观测试",
-      "type": "名词解释",
-      "points": [
-        "客观测试中，所有考生成绩的评判都依据一个客观标准",
-        "如多项选择题，要求在四五个答案中选一个正确的，选对了得分，选错了没分"
-      ],
-      "quote": "客观测试就不会出现上述问题。在客观测试中，所有考生成绩的评判都依据一个客观标准。如多项选择题，要求在四五个答案中选一个正确的，选对了得分，选错了没分。",
+      "quote": "[100] Sinclair J, Coulthard R M. Towards an analysis of discourse [M]. Oxford: Oxford University Press, 1975.",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "分班测试和学能测试",
-      "type": "名词解释",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[101] Sorace",
+      "type": "教材原文",
       "points": [
-        "这两种测试都是为了将来的学习，其区别在于：分班测试着重测量学生现实的实际水平，学能测试（aptitude test）着重测量学生将来的潜在能力"
+        "[101] Sorace A, Filiaci F. Anaphora resolution in near-native speakers of Italian [J]. Second Language Re- search, 2006, 22: 339-368."
       ],
-      "quote": "这两种测试都是为了将来的学习，其区别在于：分班测试着重测量学生现实的实际水平, 学能测试 (aptitude test) 着重测量学生将来的潜在能力。",
+      "quote": "[101] Sorace A, Filiaci F. Anaphora resolution in near-native speakers of Italian [J]. Second Language Re- search, 2006, 22: 339-368.",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "成绩测试",
-      "type": "名词解释",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[102] Sorace",
+      "type": "教材原文",
       "points": [
-        "成绩测试的目的在于检查学生对所学课程的掌握程度",
-        "其特点是学了什么考什么"
+        "[102] Sorace A, Serratrice L. Internal and external interfaces in bilingual language development: Beyond structural overlap [J]. International Journal of Bilingualism, 2009, 13: 195-210."
       ],
-      "quote": "成绩测试的目的在于检查学生对所学课程的掌握程度。其特点是学了什么考什么。某一课程，如口语的期中期末考试，就是成绩测试。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "水平测试",
-      "type": "名词解释",
-      "points": [
-        "水平测试的目的是检测学生运用二语的能力",
-        "其特点是通过特定的语言项目来考核学生运用二语进行交际的能力，不以某一套检测、某一个课程为依据"
-      ],
-      "quote": "水平测试的目的是检测学生运用二语的能力。其特点是通过特定的语言项目来考核学生运用二语进行交际的能力，不以某一套检测、某一个课程为依据。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "常模参照测试和标准参照测试",
-      "type": "名词解释",
-      "points": [
-        "常模参照测试是为了显示考生语言能力的差异，每个考生的成绩只需要跟其他考生比较",
-        "标准参照测试是为了显示考生水平跟某种标准的距离，每个考生的分数主要跟规定的标准比较"
-      ],
-      "quote": "常模参照测试是为了显示考生语言能力的差异，每个考生的成绩只需要跟其他考生比较。……标准参照测试是为了显示考生水平跟某种标准的距离，每个考生的分数主要跟规定的标准比较。",
+      "quote": "[102] Sorace A, Serratrice L. Internal and external interfaces in bilingual language development: Beyond structural overlap [J]. International Journal of Bilingualism, 2009, 13: 19",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "动态性测试",
-      "type": "名词解释",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[103] Stockw",
+      "type": "教材原文",
       "points": [
-        "动态性测试（dynamic assessment）是以社会文化理论，尤其是以最近发展区（zone of proximal development）为核心的维果斯基认知发展理论为基础的一种测试理论和类型",
-        "动态性测试强调与教学紧密结合，主要目标在于评判考生的发展潜力，即未来的语言发展可能性"
+        "[103] Stockwell R, Bowen J, Martin J. The srammatical structures of English and Spanish [M]. Chicago: Chicago University Press, 1965."
       ],
-      "quote": "动态性测试 (dynamic assessment) 是以社会文化理论, 尤其是以最近发展区 (zone of proximal development) 为核心的维果斯基认知发展理论为基础的一种测试理论和类型。",
+      "quote": "[103] Stockwell R, Bowen J, Martin J. The srammatical structures of English and Spanish [M]. Chicago: Chicago University Press, 1965.",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "诊断测试",
-      "type": "名词解释",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[104] Swain ",
+      "type": "教材原文",
       "points": [
-        "诊断测试与成绩测试相反",
-        "成绩测试关注的是学习成功的程度，诊断测试关注的则是失败的程度",
-        "诊断测试常常用来发现教、学方面存在的问题",
-        "其目的是改进教学，调整教学计划，进行个别指导"
+        "[104] Swain M. Communicative competence: Some roles of comprehensible input and comprehensible output in its development [M] // Gass S, Madden C. Input in second language acquisition. Cambridge,MA: Newburry House, 1985."
       ],
-      "quote": "诊断测试与成绩测试相反。成绩测试关注的是学习成功的程度，诊断测试关注的则是失败的程度。诊断测试常常用来发现教、学方面存在的问题。其目的是改进教学，调整教学计划, 进行个别指导。",
+      "quote": "[104] Swain M. Communicative competence: Some roles of comprehensible input and comprehensible output in its development [M] // Gass S, Madden C. Input in second language acquisiti",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "举例说明成绩测试与水平测试的异同。",
-      "type": "简答题",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[105] Tarone",
+      "type": "教材原文",
       "points": [
-        "区别主要在于测试的内容和目的",
-        "成绩测试：检查学生对所学课程掌握程度，学了什么考什么，如口语期中期末考试",
-        "成绩测试内容与教学进度、练习形式一致",
-        "水平测试：检测学生运用二语进行交际的能力，不以某一课程为依据",
-        "水平测试内容超出正规课堂教学范围（如HSK、托福）",
-        "相同点：都是语言测试的重要类别，都用于评估学习者语言状况"
+        "[105] Tarone E. Communication strategies, foreigner talk and repair in interlanguage [J]. Language Learn- ing, 1980, 30: 417-431."
       ],
-      "quote": "二者的区别主要在于测试的内容和目的。成绩测试的目的在于检查学生对所学课程的掌握程度。其特点是学了什么考什么。……水平测试的目的是检测学生运用二语的能力。……美国的托福考试、我国的汉语水平考试、英国的剑桥英语考试等，都是水平测试。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "什么是主观测试?如何控制主观题评分的主观性?",
-      "type": "简答题",
-      "points": [
-        "主观测试：测试题为主观题，评分员对考生回答的反应很重要",
-        "如写作、口语考试，不同评分员可能给不同分数",
-        "控制方法：确定具体统一的评分标准",
-        "评分员经过专门的选拔与培训",
-        "OPI测试员需经专门选拔与培训后才上岗",
-        "主观测试有利于检测学生实际交际的技能"
-      ],
-      "quote": "主观测试是指测试题为主观题。在主观测试中，评分员对考生回答的反应相当重要。……因此，确定具体统一的评分标准，评分员经过培训，是保证主观测试信度的重要条件。",
+      "quote": "[105] Tarone E. Communication strategies, foreigner talk and repair in interlanguage [J]. Language Learn- ing, 1980, 30: 417-431.",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "主观测试和客观测试的区别主要在于命题的客观或主观，与评判成绩的方式没有关系。",
-      "type": "判断题",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[106] White ",
+      "type": "教材原文",
       "points": [
-        "主观测试和客观测试的区别主要在于评判成绩的方式不同，与命题的客观或主观、答题的客观或主观没有关系（李筱菊，1997）。"
+        "[106] White L. The responsibility of grammatical theory to acquisitional data [M] // Hornstein N and Light- foot D. Explanation in linguistics: The logical problem of language acquisition. London: Longman, 1981."
       ],
-      "quote": "这两种测试的区别主要在于评判成绩的方式不同，与命题的客观或主观、答题的客观或主观没有关系 (李筱菊，1997)。",
+      "quote": "[106] White L. The responsibility of grammatical theory to acquisitional data [M] // Hornstein N and Light- foot D. Explanation in linguistics: The logical problem of language acqu",
       "weight": "normal",
       "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     },
     {
-      "title": "在各项语言测试项目中，写作的评分标准最容易把握，可靠性系数最高。",
-      "type": "判断题",
+      "section_id": "rumen-c05-s02",
+      "doc": "rumen",
+      "title": "【原文】[107] White ",
+      "type": "教材原文",
       "points": [
-        "一般说来，在各项语言测试项目中，语法、词汇、阅读的可靠性系数比较高，通常达0.85~0.98；听力次之；口语又次之；写作的评分标准最难把握，可靠性系数最低。"
+        "[107] White L. Grammatical theory: Interfaces and L2 knowledge [M] // Bhatia T K, Ritchie W C. The new handbook of second language acquisition. Bingley: Emerald Group Publishing Limited, 2009."
       ],
-      "quote": "一般说来，在各项语言测试项目中，语法、词汇、阅读的可靠性系数比较高，通常达0.85~0.98; 听力次之, 通常达0.8~0.89; 口语又次之, 通常是0.7~0.79;写作的评分标准最难把握，可靠性系数最低。",
+      "quote": "[107] White L. Grammatical theory: Interfaces and L2 knowledge [M] // Bhatia T K, Ritchie W C. The new handbook of second language acquisition. Bingley: Emerald Group Publishing Li",
       "weight": "normal",
       "evidence": [
-        "核心考点"
-      ]
-    },
-    {
-      "title": "普通话水平测试属于标准参照测试。",
-      "type": "判断题",
-      "points": [
-        "标准参照测试是为了显示考生水平跟某种标准的距离，每个考生的分数主要跟规定的标准比较。普通话水平测试属于标准参照测试。"
-      ],
-      "quote": "标准参照测试是为了显示考生水平跟某种标准的距离，每个考生的分数主要跟规定的标准比较。……普通话水平测试属于标准参照测试。",
-      "weight": "normal",
-      "evidence": [
-        "核心考点"
-      ]
-    },
-    {
-      "title": "HSK、托福、剑桥英语考试等属于（　　）。",
-      "type": "单项选择题",
-      "points": [
-        "水平测试的目的是检测学生运用二语的能力，其特点是通过特定的语言项目来考核学生运用二语进行交际的能力，不以某一套检测、某一个课程为依据。美国的托福考试、我国的汉语水平考试、英国的剑桥英语考试等，都是水平测试。"
-      ],
-      "quote": "美国的托福考试、我国的汉语水平考试、英国的剑桥英语考试等，都是水平测试。",
-      "weight": "high",
-      "evidence": [
-        "教材高频"
-      ]
-    },
-    {
-      "title": "成绩测试关注的是学习成功的程度，而（　　）关注的则是失败的程度，常用来发现教、学方面存在的问题。",
-      "type": "单项选择题",
-      "points": [
-        "诊断测试与成绩测试相反。成绩测试关注的是学习成功的程度，诊断测试关注的则是失败的程度。诊断测试常常用来发现教、学方面存在的问题。"
-      ],
-      "quote": "诊断测试与成绩测试相反。成绩测试关注的是学习成功的程度，诊断测试关注的则是失败的程度。诊断测试常常用来发现教、学方面存在的问题。",
-      "weight": "normal",
-      "evidence": [
-        "核心考点"
+        "原书正文"
       ]
     }
   ]

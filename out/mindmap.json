@@ -22,7 +22,7 @@
             {
               "id": "culture-c01-s03",
               "title": "综合考点",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -61,7 +61,7 @@
             {
               "id": "culture-c03-s02",
               "title": "第二节 王朝更替与变法",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c03-s03",
@@ -76,24 +76,24 @@
             {
               "id": "culture-c03-s05",
               "title": "综合考点",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "culture-c04",
           "title": "第四章 姓氏与名、字、号",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "culture-c04-s01",
               "title": "第一节 姓与氏的起源",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c04-s02",
               "title": "第二节 名、字、号与避讳",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -142,12 +142,12 @@
             {
               "id": "culture-c06-s04",
               "title": "第四节 清代朴学",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c06-s05",
               "title": "综合考点",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -277,7 +277,7 @@
             {
               "id": "culture-c11-s05",
               "title": "第五节 科技发展滞缓原因",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -294,7 +294,7 @@
             {
               "id": "culture-c12-s02",
               "title": "第二节 屋顶形制与等级",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c12-s03",
@@ -348,12 +348,12 @@
             {
               "id": "culture-c14-s02",
               "title": "第二节 绘画艺术",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c14-s03",
               "title": "第三节 戏曲艺术",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -392,7 +392,7 @@
             {
               "id": "culture-c16-s02",
               "title": "第二节 人生礼仪与婚俗",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c16-s03",
@@ -927,34 +927,34 @@
         {
           "id": "rumen-c01",
           "title": "第一章 总论",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c01-s01",
               "title": "第一节 学科性质",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c01-s02",
               "title": "第二节 语言学习的基本概念",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c01-s03",
               "title": "第三节 第二语言教学的性质、任务和类别",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c01-s04",
               "title": "第四节 基础学科和相关学科",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c02",
           "title": "第二章 外语教学法",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c02-s01",
@@ -964,7 +964,7 @@
             {
               "id": "rumen-c02-s02",
               "title": "第二节 传统教学法",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c02-s03",
@@ -974,7 +974,7 @@
             {
               "id": "rumen-c02-s04",
               "title": "第四节 交际型教学法",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c02-s05",
@@ -991,12 +991,12 @@
         {
           "id": "rumen-c03",
           "title": "第三章 课堂教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c03-s01",
               "title": "第一节 备课",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c03-s02",
@@ -1006,7 +1006,7 @@
             {
               "id": "rumen-c03-s03",
               "title": "第三节 提问与组织讨论技能",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c03-s04",
@@ -1016,417 +1016,417 @@
             {
               "id": "rumen-c03-s05",
               "title": "第五节 表扬与批评技能",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c03-s06",
               "title": "第六节 课堂组织与管理",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c03-s07",
               "title": "第七节 板书和多媒体",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c04",
           "title": "第四章 第二语言习得",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c04-s01",
               "title": "第一节 第一语言的作用与对比分析",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s02",
               "title": "第二节 偏误分析",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s03",
               "title": "第三节 中介语及其发展过程",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s04",
               "title": "第四节 输入、输出与互动",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s05",
               "title": "第五节 学习者个体差异",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s06",
               "title": "第六节 学习和学习者的策略",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s07",
               "title": "第七节 语言普遍性假说",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c04-s08",
               "title": "第八节 其他语言习得假说",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c05",
           "title": "第五章 语言测试与成绩分析",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c05-s01",
               "title": "第一节 语言测试的性质与目的",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c05-s02",
               "title": "第二节 语言测试的类别",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c05-s03",
               "title": "第三节 语言测试的原则和特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c05-s04",
               "title": "第四节 测试成绩分析",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c06",
           "title": "第六章 教材的评估、使用与开发",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c06-s01",
               "title": "第一节 教材分类",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c06-s02",
               "title": "第二节 教材评估的基本内容与方法",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c06-s03",
               "title": "第五节 汉语语料库的建设与应用",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c07",
           "title": "第七章 人才培养与教师发展",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c07-s01",
               "title": "第一节 国际汉语教师的基本素质",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c07-s02",
               "title": "第二节 人才培养与技能训练",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c07-s03",
               "title": "第三节 汉语教师的发展",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c08",
           "title": "第八章 汉语传播与教学简史",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c08-s01",
               "title": "第一节 汉语在东亚、东南亚的传播",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c08-s02",
               "title": "第二节 汉语在西方的传播",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c08-s03",
               "title": "第三节 华人移民和华文教育",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c08-s04",
               "title": "第四节 中华人民共和国成立前国内的汉语教学",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c09",
           "title": "第九章 语音教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c09-s01",
               "title": "第一节 语音介绍",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c09-s02",
               "title": "第二节 语音教学的原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c09-s03",
               "title": "第三节 语音教学方法与技巧",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c10",
           "title": "第十章 词汇教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c10-s01",
               "title": "第一节 现代汉语词汇的特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c10-s02",
               "title": "第二节 词汇教学的重要性和任务",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c10-s03",
               "title": "第三节 教学词汇的选择和控制",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c10-s04",
               "title": "第四节 词汇教学的重点与难点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c10-s05",
               "title": "第五节 词汇教学的基本原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c10-s06",
               "title": "第六节 词汇教学的环节和技巧",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c11",
           "title": "第十一章 语法教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c11-s01",
               "title": "第一节 语法的含义和类别",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c11-s02",
               "title": "第二节 汉语语法的特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c11-s03",
               "title": "第三节 语法教学的原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c11-s04",
               "title": "第四节 语法教学的方法",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c11-s05",
               "title": "第五节 语法点的教学技巧",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c12",
           "title": "第十二章 汉字教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c12-s01",
               "title": "第一节 汉字教学的地位和重要性",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c12-s02",
               "title": "第二节 对外汉字教学的特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c12-s03",
               "title": "第三节 汉字教学的原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c12-s04",
               "title": "第四节 汉字教学的技巧",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c13",
           "title": "第十三章 跨文化交际与文化教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c13-s01",
               "title": "第一节 跨文化交际",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c13-s02",
               "title": "第二节 价值观和文化",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c13-s03",
               "title": "第三节 汉语教学中的文化教学",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c13-s04",
               "title": "第四节 跨文化交际与文化教学的基本态度和方法",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c14",
           "title": "第十四章 汉语综合课教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c14-s01",
               "title": "第一节 性质和特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c14-s02",
               "title": "第二节 教学内容和教学原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c14-s03",
               "title": "第三节 教学环节和教学方法",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c15",
           "title": "第十五章 听力技能课",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c15-s01",
               "title": "第一节 听力课课型特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c15-s02",
               "title": "第二节 听力课的课堂教学",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c16",
           "title": "第十六章 口语课教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c16-s01",
               "title": "第一节 口语教学原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c16-s02",
               "title": "第二节 口语教学环节",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c17",
           "title": "第十七章 阅读课教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c17-s01",
               "title": "第一节 读者是如何阅读的？",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c17-s02",
               "title": "第二节 怎么上阅读课？",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c17-s03",
               "title": "第三节 阅读课怎么教词汇？",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c17-s04",
               "title": "第四节 如何把阅读课上得生动有趣？",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c17-s05",
               "title": "第五节 报刊阅读课",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
         {
           "id": "rumen-c18",
           "title": "第十八章 写作课教学",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "rumen-c18-s01",
               "title": "第一节 汉语写作教学的特点",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c18-s02",
               "title": "第二节 写作教学原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "rumen-c18-s03",
               "title": "第三节 课堂教学方法",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -1466,13 +1466,13 @@
         {
           "id": "zhenti_10_23-c01",
           "title": "全文",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "zhenti_10_23-c01-s01",
               "title": "全文",
               "kp_count": 348,
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -1485,13 +1485,13 @@
         {
           "id": "zhenti_2026-c01",
           "title": "全文",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "zhenti_2026-c01-s01",
               "title": "全文",
               "kp_count": 16,
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -1504,13 +1504,13 @@
         {
           "id": "zhenti_24-c01",
           "title": "全文",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "zhenti_24-c01-s01",
               "title": "全文",
               "kp_count": 82,
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -1523,13 +1523,13 @@
         {
           "id": "zhenti_25-c01",
           "title": "全文",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "zhenti_25-c01-s01",
               "title": "全文",
               "kp_count": 7,
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -1542,13 +1542,13 @@
         {
           "id": "ziliao-c01",
           "title": "全文",
-          "weight": "high",
+          "weight": "normal",
           "sections": [
             {
               "id": "ziliao-c01-s01",
               "title": "全文",
               "kp_count": 183,
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
