@@ -1,6 +1,6 @@
 /* 汉硕考研思维导图 · Service Worker
    版本号由构建时按 index.html 内容哈希注入，重建即换缓存桶，旧包自动清掉。 */
-const VER   = "a08e13b8d7";
+const VER   = "28fa9b389d";
 const SHELL = "shell-" + VER;
 const DATA  = "data-" + VER;
 

@@ -259,9 +259,14 @@ body{
   will-change:transform,opacity;
   contain:layout style;
   transform-origin:0 50%;         /* 树向右生长：从左侧顶点长出 */
-  transition:background .18s var(--ease-standard),
+  transition:width .26s var(--ease-emphasized),
+             background .18s var(--ease-standard),
              border-color .18s var(--ease-standard),
-             box-shadow .22s var(--ease-standard);
+             box-shadow .22s var(--ease-standard),
+             transform .14s var(--ease-standard);
+}
+.card:active{
+  transform:scale(0.985);
 }
 /* 便签轻微抬升效果 */
 @media (hover:hover) and (pointer:fine){
@@ -395,8 +400,33 @@ body{
 .detail{display:none;}
 .card.open > .detail{
   display:block;
-  margin-top:3px;font-size:11px;line-height:1.5;color:var(--on-surface-var);
+  margin-top:4px;font-size:11px;line-height:1.5;color:var(--on-surface-var);
+  animation: detailDropIn .22s var(--ease-emphasized) forwards;
+  transform-origin: top;
 }
+@keyframes detailDropIn{
+  from{ opacity:0; transform:translateY(-4px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
+/* 商业级题型微胶囊标签（Micro Capsule Tag） */
+.tag-type{
+  display:inline-flex; align-items:center;
+  font-size:9.5px; font-weight:600; line-height:1;
+  padding:2px 6px; border-radius:10px;
+  background:color-mix(in oklch,var(--outline-var) 45%,transparent);
+  color:var(--on-surface-var);
+  margin-right:4px;
+}
+.tag-type.hot{
+  background:var(--gold-container);
+  color:oklch(38% 0.12 85);
+  box-shadow:0 1px 2px rgba(180, 140, 40, 0.12);
+}
+[data-theme="dark"] .tag-type.hot{
+  color:var(--gold);
+}
+
 .detail .pt{display:flex;gap:6px;margin-top:2px;}
 .detail .pt::before{
   content:"";flex:none;width:3px;height:3px;border-radius:50%;
@@ -410,18 +440,34 @@ body{
   font-size:11px;line-height:1.6;
   border-left:2px solid var(--outline-var);
 }
-/* 正文：展开后直接在画布内变宽变高，不弹窗 */
+/* 正文：展开后直接在画布内变宽变高，弹性滑入展开 */
 .para{
   margin-top:10px;padding-top:10px;
-  border-top:1px solid var(--outline-var);
+  border-top:1px dashed color-mix(in oklch,var(--outline-var) 85%,transparent);
   font-size:12.5px;line-height:1.9;
   color:color-mix(in oklch,var(--on-surface) 88%,transparent);
   max-height:min(520px, 62vh);
   overflow-y:auto;overscroll-behavior:contain;
   user-select:text;cursor:text;
-  /* 阅读排版：两端对齐 + 首行缩进 2 字，中文长文更好读 */
   text-align:justify;text-justify:inter-ideograph;
   hanging-punctuation:allow-end;
+  animation: paraSpringIn .28s var(--ease-emphasized) forwards;
+  transform-origin: top;
+}
+@keyframes paraSpringIn{
+  from{ opacity:0; transform:scaleY(0.9) translateY(-8px); }
+  to  { opacity:1; transform:scaleY(1) translateY(0); }
+}
+
+/* 手账荧光笔高亮划线（Journal Highlighter Mark） */
+.hl-quote{
+  background:linear-gradient(180deg, transparent 40%, rgba(254, 230, 150, 0.55) 40%);
+  border-radius:2px; padding:0 2px;
+  font-weight:600;
+  color:var(--on-surface);
+}
+[data-theme="dark"] .hl-quote{
+  background:linear-gradient(180deg, transparent 40%, rgba(212, 160, 40, 0.35) 40%);
 }
 .para p{
   margin-bottom:10px;
@@ -1217,7 +1263,8 @@ function createCard(n){
         kp.p.map(p => '<div class="pt"><span>' + esc(p) + '</span></div>').join("") +
         '</div>';
     }
-    if(kp.y) detail += '<div class="detail" style="margin-top:5px;opacity:.75">题型：' + esc(kp.y) + '</div>';
+    if(kp.y) detail += '<div style="margin-top:4px"><span class="tag-type' + (n.weight === "high" ? " hot" : "") + '">' + esc(kp.y) + '</span></div>';
+    if(kp.q) detail += '<div class="quote" style="margin-top:4px"><span class="hl-quote">' + esc(kp.q) + '</span></div>';
   }
 
   el.innerHTML =
@@ -1673,8 +1720,11 @@ async function togglePara(n){
   n.el.classList.toggle("para-open", n.paraOpen);
   if(n.paraEl) n.paraEl.style.display = n.paraOpen ? "" : "none";
   n.el.style.width = (n.paraOpen ? W_PARA : n.w) + "px";
-  n.h = Math.max(22, n.el.offsetHeight);
-  relayout();
+  /* 挂载下一帧平滑更新高度，触发 FLIP 弹簧弹性展开/收起过渡 */
+  requestAnimationFrame(() => {
+    n.h = Math.max(22, n.el.offsetHeight);
+    relayout();
+  });
 }
 
 /* =====================================================================
