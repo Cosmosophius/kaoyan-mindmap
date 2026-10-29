@@ -5,25 +5,8 @@
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】2. 相似度相似度 (d",
-      "type": "教材原文",
-      "points": [
-        "2. 相似度相似度 (degree of similarity) 指两种语言中对应的语言点表面相似, 实际上有一些区别",
-        "当存在这种“关键相似度”(a crucial similarity measure) 时, 干扰更可能引发偏误",
-        "如英语和旁遮普语都有含 of的所属结构，旁遮普母语者学习英语时容易出错",
-        "而英语和旁遮普语介词的位置、句中动词有明显区别，则偏误不多"
-      ],
-      "quote": "2. 相似度相似度 (degree of similarity) 指两种语言中对应的语言点表面相似, 实际上有一些区别。当存在这种“关键相似度”(a crucial similarity measure) 时, 干扰更可能引发偏误。如英语和旁遮普语都有含 of的所属结构，旁遮普母语者学习英语时容易出错。而英语和旁遮普语介词的位置、句中动词有明显区别，则偏误不",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c03-s07",
-      "doc": "rumen",
-      "title": "【原文】越南语有声调，越南学生的",
-      "type": "教材原文",
+      "title": "越南语有声调",
+      "type": "核心概括",
       "points": [
         "越南语有声调，越南学生的声调感比母语没有声调的学生好得多",
         "但到了中、高级阶段，仍有一些学生发第四声时降得不到位",
@@ -33,14 +16,14 @@
       "quote": "越南语有声调，越南学生的声调感比母语没有声调的学生好得多。但到了中、高级阶段，仍有一些学生发第四声时降得不到位。原因是越南语有两个降调，一个32，另一个是331。学习者受它们影响，发四声下降不到位。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】相似度与对比等级4级相关",
-      "type": "教材原文",
+      "title": "相似度与对比等级",
+      "type": "核心概括",
       "points": [
         "相似度与对比等级4级相关",
         "学生容易看到相同点，忽略差异",
@@ -49,42 +32,42 @@
       "quote": "相似度与对比等级4级相关。学生容易看到相同点，忽略差异。如越南语被动句标志词“được”(如意) 和“bị”(不如意), 可对应汉语“被”:",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】a. Nó bị thầ",
-      "type": "教材原文",
+      "title": "a. Nó bị",
+      "type": "核心概括",
       "points": [
         "a. Nó bị thầy giáo phê bình một trận.对译：他 被 老师 批评 一 顿意译：他被老师批评了一顿"
       ],
       "quote": "a. Nó bị thầy giáo phê bình một trận.对译：他 被 老师 批评 一 顿意译：他被老师批评了一顿。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】b. Chị ấy đư",
-      "type": "教材原文",
+      "title": "b. Chị ấ",
+      "type": "核心概括",
       "points": [
         "b. Chị ấy được bầu làm b í thưthành uỳ.对译： 她 被 选 作 书记 市 委意译：她被选为市委书记"
       ],
       "quote": "b. Chị ấy được bầu làm b í thưthành uỳ.对译： 她 被 选 作 书记 市 委意译：她被选为市委书记。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】表面看，此类情况似乎应归",
-      "type": "教材原文",
+      "title": "表面看",
+      "type": "核心概括",
       "points": [
         "表面看，此类情况似乎应归入对比等级2级，不难学习",
         "但越南学生常出现以下偏误：*他昨天被感冒了"
@@ -92,35 +75,64 @@
       "quote": "表面看，此类情况似乎应归入对比等级2级，不难学习。但越南学生常出现以下偏误：*他昨天被感冒了。/*我被迷路了。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】为何困难等级低，偏误却比",
-      "type": "教材原文",
+      "title": "为何困难等级低",
+      "type": "核心概括",
       "points": [
         "为何困难等级低，偏误却比较多? 原因是以上对比忽略了一个重要事实：越南语用 bi、 dugc的句子，谓语动词可以是不及物动词："
       ],
       "quote": "为何困难等级低，偏误却比较多? 原因是以上对比忽略了一个重要事实：越南语用 bi、 dugc的句子，谓语动词可以是不及物动词：",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c03-s07",
       "doc": "rumen",
-      "title": "【原文】a. Tôi bị ốm",
-      "type": "教材原文",
+      "title": "a. Tôi b",
+      "type": "核心概括",
       "points": [
         "a. Tôi bị ốm rồi.对译： 我被 病了意译：我病了"
       ],
       "quote": "a. Tôi bị ốm rồi.对译： 我被 病了意译：我病了。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c03-s07",
+      "doc": "rumen",
+      "title": "b. Bốmẹ ",
+      "type": "核心概括",
+      "points": [
+        "b. Bốmẹ cốgắ ng đề Nam được đi học.对译： 父母 尽力 让 小南 被 上学意译：父母尽力让小南上学"
+      ],
+      "quote": "b. Bốmẹ cốgắ ng đề Nam được đi học.对译： 父母 尽力 让 小南 被 上学意译：父母尽力让小南上学。",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c03-s07",
+      "doc": "rumen",
+      "title": "而汉语“被”字句",
+      "type": "核心概括",
+      "points": [
+        "而汉语“被”字句，谓语动词一般是及物动词",
+        "两种语言的对比如图4.1所示"
+      ],
+      "quote": "而汉语“被”字句，谓语动词一般是及物动词。两种语言的对比如图4.1所示。",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
       ]
     }
   ]

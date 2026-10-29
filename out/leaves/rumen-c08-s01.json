@@ -5,95 +5,22 @@
     {
       "section_id": "rumen-c08-s01",
       "doc": "rumen",
-      "title": "【原文】2. 北京大学CCL语料",
-      "type": "教材原文",
-      "points": [
-        "2. 北京大学CCL语料库( http://ecl.pku.edu.cn:8080/ccl corpus/index.jsp?dir=xiandai )"
-      ],
-      "quote": "2. 北京大学CCL语料库( http://ecl.pku.edu.cn:8080/ccl corpus/index.jsp?dir=xiandai )",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c08-s01",
-      "doc": "rumen",
-      "title": "【原文】总字数约3亿字，包括现代",
-      "type": "教材原文",
+      "title": "总字数约3亿字",
+      "type": "核心概括",
       "points": [
         "总字数约3亿字，包括现代汉语和古代汉语，另外还有汉英双语语料库"
       ],
       "quote": "总字数约3亿字，包括现代汉语和古代汉语，另外还有汉英双语语料库。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c08-s01",
       "doc": "rumen",
-      "title": "【原文】3.国家语委现代汉语语料",
-      "type": "教材原文",
-      "points": [
-        "3.国家语委现代汉语语料库 http://www.encorpus.org)平衡语料库，总字数1945万，题材类别广泛，时间跨度大，包括人文社会科学类、自然科学类、综合类等领域的语料",
-        "语料经分词和词性标注，可进行按词检索和分词类的检索"
-      ],
-      "quote": "3.国家语委现代汉语语料库 http://www.encorpus.org)平衡语料库，总字数1945万，题材类别广泛，时间跨度大，包括人文社会科学类、自然科学类、综合类等领域的语料。语料经分词和词性标注，可进行按词检索和分词类的检索。",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c08-s01",
-      "doc": "rumen",
-      "title": "【原文】4.厦门大学语料库 ht",
-      "type": "教材原文",
-      "points": [
-        "4.厦门大学语料库 http://www.luweixmu.com/ccorpus/index.htm)包括中文语料库和商务汉语语料库",
-        "中文语料库收集中文自然语料文本大约1061万字次、738万词次(含标点)，涉及的语体有书面语和口语，语域(学科) 包括文学、科技、新闻、广告等"
-      ],
-      "quote": "4.厦门大学语料库 http://www.luweixmu.com/ccorpus/index.htm)包括中文语料库和商务汉语语料库。中文语料库收集中文自然语料文本大约1061万字次、738万词次(含标点)，涉及的语体有书面语和口语，语域(学科) 包括文学、科技、新闻、广告等。标注",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c08-s01",
-      "doc": "rumen",
-      "title": "【原文】188 对外汉语教学入门",
-      "type": "教材原文",
-      "points": [
-        "188 对外汉语教学入门(第三版)语料库用软件自动分词和词性附码，但未经人工干预",
-        "商务汉语语料库收集商务汉语自然语料文本大约120万字次、85万词次 (含标点)"
-      ],
-      "quote": "188 对外汉语教学入门(第三版)语料库用软件自动分词和词性附码，但未经人工干预。商务汉语语料库收集商务汉语自然语料文本大约120万字次、85万词次 (含标点)。",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c08-s01",
-      "doc": "rumen",
-      "title": "【原文】5. 台湾“中央研究院”",
-      "type": "教材原文",
-      "points": [
-        "5. 台湾“中央研究院”现代汉语平衡语料库( http://app.sinica.edu.tw/cgi-bin/kiwi/mkiwi/kiwi.sh)"
-      ],
-      "quote": "5. 台湾“中央研究院”现代汉语平衡语料库( http://app.sinica.edu.tw/cgi-bin/kiwi/mkiwi/kiwi.sh)",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c08-s01",
-      "doc": "rumen",
-      "title": "【原文】服务于语言分析，每个句子",
-      "type": "教材原文",
+      "title": "服务于语言分析",
+      "type": "核心概括",
       "points": [
         "服务于语言分析，每个句子都依词断开，并标注词类",
         "语料收集尽量做到不同主题和语式的均衡分布，包括文学、生活、社会、科学、哲学、艺术等领域，共约790万字"
@@ -101,21 +28,23 @@
       "quote": "服务于语言分析，每个句子都依词断开，并标注词类。语料收集尽量做到不同主题和语式的均衡分布，包括文学、生活、社会、科学、哲学、艺术等领域，共约790万字。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c08-s01",
       "doc": "rumen",
-      "title": "【原文】6.兰卡斯特汉语语料库(",
-      "type": "教材原文",
+      "title": "现代汉语书面语通",
+      "type": "核心概括",
       "points": [
-        "6.兰卡斯特汉语语料库(LCMC) http://bowland-files.lancs.ac.uk/corplang/cgi-bin/conc.pl)"
+        "现代汉语书面语通用型平衡语料库，100万词，由旅英学者肖忠华博士建立",
+        "严格按照FLOB 模式编制",
+        "有助于汉语单语研究或汉英、英汉双语对比研究"
       ],
-      "quote": "6.兰卡斯特汉语语料库(LCMC) http://bowland-files.lancs.ac.uk/corplang/cgi-bin/conc.pl)",
+      "quote": "现代汉语书面语通用型平衡语料库，100万词，由旅英学者肖忠华博士建立。严格按照FLOB 模式编制。有助于汉语单语研究或汉英、英汉双语对比研究。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     }
   ]

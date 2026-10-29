@@ -5,8 +5,8 @@
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】a. 学生们坐了下来",
-      "type": "教材原文",
+      "title": "a. 学生们坐了下来",
+      "type": "核心概括",
       "points": [
         "a. 学生们坐了下来",
         "// The students sat down.b. *我在校园看见同学们",
@@ -15,14 +15,14 @@
       "quote": "a. 学生们坐了下来。 // The students sat down.b. *我在校园看见同学们。// We saw the students on the campus.",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】a句的“学生们”和 st",
-      "type": "教材原文",
+      "title": "a句的“学生们”",
+      "type": "核心概括",
       "points": [
         "a句的“学生们”和 students都是主语, 句子都可以成立",
         "b句“同学们”和 students 都是宾语，英语可以说，汉语不能说",
@@ -31,28 +31,28 @@
       "quote": "a句的“学生们”和 students都是主语, 句子都可以成立。b句“同学们”和 students 都是宾语，英语可以说，汉语不能说。由此可见，汉语的“们”跟英语表复数的s不同，不是典型的复数形式。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】第二，汉语代词没有性和格",
-      "type": "教材原文",
+      "title": "第二",
+      "type": "核心概括",
       "points": [
         "第二，汉语代词没有性和格、人称代词与物主代词的区别"
       ],
       "quote": "第二，汉语代词没有性和格、人称代词与物主代词的区别。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】第三，汉语动词没有形态变",
-      "type": "教材原文",
+      "title": "第三",
+      "type": "核心概括",
       "points": [
         "第三，汉语动词没有形态变化",
         "例如，动词虽然有“着”表示体态，但它与英语302|对外汉语教学入门(第三版)-ing有很大差异",
@@ -62,28 +62,28 @@
       "quote": "第三，汉语动词没有形态变化。例如，动词虽然有“着”表示体态，但它与英语302|对外汉语教学入门(第三版)-ing有很大差异。以前的语法书常讲，汉语有两个“着”， “着，”表示行为动作进行，“着₂”表示状态持续； 但在语言实际中，“着，”单独表示行为动作进行的情况比较少。请对比：",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】相对来说，表行为动作进行",
-      "type": "教材原文",
+      "title": "表行为动作进行的功能",
+      "type": "核心概括",
       "points": [
         "相对来说，表行为动作进行的功能，大多由动词前的“在、正在”承担"
       ],
       "quote": "相对来说，表行为动作进行的功能，大多由动词前的“在、正在”承担。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】五、特殊的动词结构(一)",
-      "type": "教材原文",
+      "title": "特殊的动词结构",
+      "type": "核心概括",
       "points": [
         "五、特殊的动词结构(一) 动补结构汉语的“动词+补语”结构，对许多外国人来说，很像一个完整的词",
         "而且，补语有多种类型",
@@ -92,35 +92,66 @@
       "quote": "五、特殊的动词结构(一) 动补结构汉语的“动词+补语”结构，对许多外国人来说，很像一个完整的词。而且，补语有多种类型。先看汉语的例子：",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】英语: broke, f",
-      "type": "教材原文",
+      "title": "英语",
+      "type": "核心概括",
       "points": [
         "英语: broke, forced the door open, got away with...印度尼西亚语: memecahkan"
       ],
       "quote": "英语: broke, forced the door open, got away with...印度尼西亚语: memecahkan",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s03",
       "doc": "rumen",
-      "title": "【原文】打破 (me-表示动作结",
-      "type": "教材原文",
+      "title": "打破 (me-表",
+      "type": "核心概括",
       "points": [
         "打破 (me-表示动作结果，相当于“破”)韩语: 창문을 깨고, ……"
       ],
       "quote": "打破 (me-表示动作结果，相当于“破”)韩语: 창문을 깨고, ……",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c11-s03",
+      "doc": "rumen",
+      "title": "(窗子——宾格)",
+      "type": "核心概括",
+      "points": [
+        "(窗子——宾格) (破——连接语尾) ⋯⋯[没有具体行为“打”]英语或用一个动词 (broke), 或用“动词+名词+动词”结构 (forced the door open),或用“动词+副词”结构 (got away with)",
+        "印度尼西亚语用一个合成词",
+        "韩语用“名词+后置词+表示结果的动词(相当于汉语补语)”",
+        "泰语的语义成分和顺序为：“打窗子破，撬门开，拿东西值钱走”"
+      ],
+      "quote": "(窗子——宾格) (破——连接语尾) ⋯⋯[没有具体行为“打”]英语或用一个动词 (broke), 或用“动词+名词+动词”结构 (forced the door open),或用“动词+副词”结构 (got away with)； 印度尼西亚语用一个合成词； 韩语用“名词+后置词+表示结果的动词(相当于汉语补语)”； 泰语的语义成分和顺序为：“打窗子破，撬",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c11-s03",
+      "doc": "rumen",
+      "title": "汉语",
+      "type": "核心概括",
+      "points": [
+        "汉语：打得破/打不破 [动₁+得/不+动₂ 行为+能/不能产生+结果]英语: breakable/ not breakable"
+      ],
+      "quote": "汉语：打得破/打不破 [动₁+得/不+动₂ 行为+能/不能产生+结果]英语: breakable/ not breakable",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
       ]
     }
   ]

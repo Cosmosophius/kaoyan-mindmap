@@ -5,36 +5,36 @@
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】d. ……, witho",
-      "type": "教材原文",
+      "title": "d. ……",
+      "type": "核心概括",
       "points": [
         "d. ……, without even giving opinion to the simplest question."
       ],
       "quote": "d. ……, without even giving opinion to the simplest question.",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】e. ……, witho",
-      "type": "教材原文",
+      "title": "e. ……",
+      "type": "核心概括",
       "points": [
         "e. ……, without even taking a rest on Sunday.f. You can even boil water in a paper cup."
       ],
       "quote": "e. ……, without even taking a rest on Sunday.f. You can even boil water in a paper cup.",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】从语言共性的角度看，上述",
-      "type": "教材原文",
+      "title": "的连词和副词功能",
+      "type": "核心概括",
       "points": [
         "从语言共性的角度看，上述汉语句子中的“连”不但跟英语中的 even对应，而且跟其他许多语言中表示递进 (或程度递进) 的连词和副词功能相似",
         "如果讲清楚它跟学生母语中对应成分的共性，可以方便学生学习和掌握"
@@ -42,71 +42,56 @@
       "quote": "从语言共性的角度看，上述汉语句子中的“连”不但跟英语中的 even对应，而且跟其他许多语言中表示递进 (或程度递进) 的连词和副词功能相似。如果讲清楚它跟学生母语中对应成分的共性，可以方便学生学习和掌握。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】3. 表层结构不同、深层",
-      "type": "教材原文",
-      "points": [
-        "3. 表层结构不同、深层语义结构相同的对比汉语中一些语法项目，从表层看跟外语不同，但从深层语义结构上看却有相同之处",
-        "请对比下面的汉语、英语和越南语的表达："
-      ],
-      "quote": "3. 表层结构不同、深层语义结构相同的对比汉语中一些语法项目，从表层看跟外语不同，但从深层语义结构上看却有相同之处。请对比下面的汉语、英语和越南语的表达：",
-      "weight": "normal",
-      "evidence": [
-        "原书正文"
-      ]
-    },
-    {
-      "section_id": "rumen-c11-s05",
-      "doc": "rumen",
-      "title": "【原文】汉语：我们学校数学系的年",
-      "type": "教材原文",
+      "title": "汉语",
+      "type": "核心概括",
       "points": [
         "汉语：我们学校数学系的年轻女教师英语: the young woman teacher of the math department in our university"
       ],
       "quote": "汉语：我们学校数学系的年轻女教师英语: the young woman teacher of the math department in our university",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】越南语: giáo vi",
-      "type": "教材原文",
+      "title": "越南语",
+      "type": "核心概括",
       "points": [
         "越南语: giáo viên nữ trẻ của khoa toán trong chún g tôi老师 女 年轻 的 系 数学 学校 我 们"
       ],
       "quote": "越南语: giáo viên nữ trẻ của khoa toán trong chún g tôi老师 女 年轻 的 系 数学 学校 我 们",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】这三种语言的表层结构有明",
-      "type": "教材原文",
+      "title": "这三种语言的表层结构",
+      "type": "核心概括",
       "points": [
         "这三种语言的表层结构有明显区别：汉语的修饰语都在中心词前面，越南语的修饰语都在中心词后边，英语则有前有后"
       ],
       "quote": "这三种语言的表层结构有明显区别：汉语的修饰语都在中心词前面，越南语的修饰语都在中心词后边，英语则有前有后。",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
       ]
     },
     {
       "section_id": "rumen-c11-s05",
       "doc": "rumen",
-      "title": "【原文】但这只是表面现象",
-      "type": "教材原文",
+      "title": "但这只是表面现象",
+      "type": "核心概括",
       "points": [
         "但这只是表面现象",
         "如果从深层语义结构上看，三种语言有着极其相似的东西",
@@ -116,7 +101,36 @@
       "quote": "但这只是表面现象。如果从深层语义结构上看，三种语言有着极其相似的东西。我们把修饰语分成性别、年龄、小部门、大部门四类，前两类表示中心词所指的性质，后两类表示中心词所指的归属。再考察它们的位置及其跟中心词的距离。不难看出，修饰语和中心词的位置，汉语和越南语形成一种镜像关系：",
       "weight": "normal",
       "evidence": [
-        "原书正文"
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c11-s05",
+      "doc": "rumen",
+      "title": "修饰语与中心词的语义关系",
+      "type": "核心概括",
+      "points": [
+        "汉语：大部门-小部门-年龄-性别 + 中心词第十一章 语法教学|315越南语：中心词 + 性别-年龄-小部门-大部门仔细分析三种语言中修饰语与中心词的语义关系，可以看出，尽管三种语言的表层结构不同，但表示性别的修饰语离中心词最近，表示年龄的离中心词远一点，表示小部门的更远，表示大部门的最远",
+        "由此可以总结出一条语义规则：越能反映中心词所指最稳定特征的修饰语，离中心词越近"
+      ],
+      "quote": "汉语：大部门-小部门-年龄-性别 + 中心词第十一章 语法教学|315越南语：中心词 + 性别-年龄-小部门-大部门仔细分析三种语言中修饰语与中心词的语义关系，可以看出，尽管三种语言的表层结构不同，但表示性别的修饰语离中心词最近，表示年龄的离中心词远一点，表示小部门的更远，表示大部门的最远。由此可以总结出一条语义规则：越能反映中心词所指最稳定特征的修饰语，离",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
+      ]
+    },
+    {
+      "section_id": "rumen-c11-s05",
+      "doc": "rumen",
+      "title": "由于不同语言中语",
+      "type": "核心概括",
+      "points": [
+        "由于不同语言中语义的相似性、共同性比句法形式的相似形、共同性要多得多，概括语义共性可以使学生更容易理解和掌握所学的语法项目，纲举目张，同时习得汉语的语法形式"
+      ],
+      "quote": "由于不同语言中语义的相似性、共同性比句法形式的相似形、共同性要多得多，概括语义共性可以使学生更容易理解和掌握所学的语法项目，纲举目张，同时习得汉语的语法形式。",
+      "weight": "normal",
+      "evidence": [
+        "原书要点"
       ]
     }
   ]

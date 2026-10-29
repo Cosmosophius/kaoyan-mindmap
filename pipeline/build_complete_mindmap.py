@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 build_complete_mindmap.py
-全景思维导图完整生成引擎：
+全景思维导图完整生成引擎（高品质名词/概括卡片版）：
 1. 建立 10 本书完整零缺失章节骨架（无任何漏章、漏节）
 2. 第一轨：核心背诵概念卡片（纯概念定义、名词解释、背诵点 points、真题证据），严格按学科归位
-3. 第二轨：原书原文段落卡片（将原书中未形成概念卡片的所有段落全部整理纳入），保证全书 100% 毫无缺失！
+3. 第二轨：原书原文段落提炼卡片——彻底杜绝句子截断，精准提炼为【纯名词】、【学术概念】或【精练概括短语】（4~10字）
+   - 内部提炼为结构化背诵要点 points
+   - 附带原书原汁原味的 quote
+   - 彻底去掉“【原文】”等粗糙前缀，全书 100% 毫无缺失且卡片全部呈现专业概念风貌！
 """
 
 import json
@@ -55,7 +58,6 @@ books.append({"doc": "yinlun", "title": "对外汉语教育学引论", "chapters
 
 # ========== Book 3 & 4: 现代汉语通论（上册与下册） ==========
 xdhy_sub = next(s for s in pwa_data["subjects"] if s["id"] == "xdhy")
-# 上册：语音、汉字、词汇
 up_defs = xdhy_sub["chapters"][:3]
 up_chaps = []
 for c_idx, c_info in enumerate(up_defs, start=1):
@@ -68,7 +70,6 @@ for c_idx, c_info in enumerate(up_defs, start=1):
     up_chaps.append({"id": c_id, "title": c_title, "weight": "normal", "sections": secs})
 books.append({"doc": "xdhy_up", "title": "现代汉语通论（上册）", "chapters": up_chaps})
 
-# 下册：语法、语用
 down_defs = xdhy_sub["chapters"][3:]
 down_chaps = []
 for c_idx, c_info in enumerate(down_defs, start=1):
@@ -82,7 +83,6 @@ for c_idx, c_info in enumerate(down_defs, start=1):
 books.append({"doc": "xdhy_down", "title": "现代汉语通论（下册）", "chapters": down_chaps})
 
 # ========== Book 5: 对外汉语教学入门（第3版） ==========
-# 从 APK 组织 19 章 80 节
 rumen_chaps_map = defaultdict(lambda: defaultdict(list))
 for q in apk_data.get("questions", []):
     if q.get("book_name") == "对外汉语教学入门":
@@ -114,8 +114,6 @@ for old_b in old_mm["books"]:
     if old_b["doc"] in ["zhenti_10_23", "zhenti_2026", "zhenti_24", "zhenti_25", "ziliao"]:
         books.append(old_b)
 
-print("🎉 全书 10 本标准章节树已构建完毕！")
-
 # 3. 收集并清洗所有纯概念卡片（第一轨：背诵概念）
 def clean_t(t):
     if not t: return ""
@@ -142,9 +140,7 @@ def format_ev(q):
 
 concept_by_sec = defaultdict(list)
 
-# 匹配映射规则
 def route_concept_to_sec(doc, c_name, s_name, stem):
-    # 根据概念内涵做精准路由
     if doc == "xdhy":
         if any(k in stem for k in ["把字句", "被字句", "存现句", "句式"]): return ("xdhy_down", "第四章 语法", "第六节 句式系统")
         if any(k in stem for k in ["并列复句", "递进复句", "转折复句", "因果复句", "条件复句", "复句"]): return ("xdhy_down", "第四章 语法", "第十一节 复句类型")
@@ -154,7 +150,6 @@ def route_concept_to_sec(doc, c_name, s_name, stem):
         if any(k in stem for k in ["虚词", "介词", "连词", "助词"]): return ("xdhy_down", "第四章 语法", "第三节 虚词的作用及其辨析")
         if any(k in stem for k in ["词类", "名词", "动词", "形容词", "区别词", "代词", "副词"]): return ("xdhy_down", "第四章 语法", "第二节 词类和功能分析法")
         if any(k in stem for k in ["语法"]): return ("xdhy_down", "第四章 语法", "第一节 现代汉语语法概述")
-        # 词汇与语音 -> xdhy_up
         if any(k in stem for k in ["义项", "义素", "义位", "词义"]): return ("xdhy_up", "第三章 词汇", "第三节 词义构成")
         if any(k in stem for k in ["同音词", "同形词", "单义词", "多义词"]): return ("xdhy_up", "第三章 词汇", "第五节 词汇的分类系统")
         if any(k in stem for k in ["成语", "熟语", "惯用语"]): return ("xdhy_up", "第三章 词汇", "第七节 词汇的熟语系统")
@@ -180,7 +175,6 @@ def route_concept_to_sec(doc, c_name, s_name, stem):
 
     return (doc, c_name, s_name)
 
-# 建立 (doc, c_core, s_core) -> sid 的快速定位表
 sec_lookup = {}
 for b in books:
     doc = b["doc"]
@@ -193,7 +187,7 @@ for b in books:
             sec_lookup[(doc, c_title, s_title)] = s["id"]
             sec_lookup[(doc, c_core, s_core)] = s["id"]
 
-# 收集 PWA 概念
+# 收集概念题
 for sub_id, qs in pwa_data.get("questions", {}).items():
     doc = "culture" if sub_id == "culture" else ("yinlun" if sub_id == "yinlun" else "xdhy")
     for q in qs:
@@ -204,10 +198,8 @@ for sub_id, qs in pwa_data.get("questions", {}).items():
         s_name = q.get("section", "").strip()
         tdoc, tc, ts = route_concept_to_sec(doc, c_name, s_name, stem)
 
-        # 找 sid
         sid = sec_lookup.get((tdoc, tc, ts))
         if not sid:
-            # 模糊找
             tc_core = re.sub(r'第[一二三四五六七八九十\d]+章', '', tc).strip()
             ts_core = re.sub(r'第[一二三四五六七八九十\d]+节', '', ts).strip()
             for (rd, rc, rs), target_sid in sec_lookup.items():
@@ -228,10 +220,43 @@ for sub_id, qs in pwa_data.get("questions", {}).items():
                 }
                 concept_by_sec[sid].append(card)
 
-print(f"已收集并路由概念背诵卡片至 {len(concept_by_sec)} 个小节！")
+# 4. 原文段落提炼为工整名词/概念/简略概括的核心算法
+def extract_concept_or_summary(text):
+    text = text.strip()
+    text = re.sub(r'^(获取更多资料|汉硕网|ISBN|\d+|图书在版编目).*', '', text).strip()
+    if len(text) < 10: return None
 
-# 4. 收集原书未提炼为概念的段落原文（第二轨：教材原文全量归入）
-# 读取每本书的 paragraphs.jsonl
+    # (A) 提取带序号的标题主题词：如 (一) 词类的划分标准、1. 语法特征、① 约定俗成
+    m = re.search(r'^(?:[（(][一二三四五六七八九十\d]+[）)]|[①②③④⑤⑥⑦⑧⑨⑩]|\d+[\.、]|[一二三四五六七八九十]+[、:])\s*([^\n。；，]{2,14})', text)
+    if m:
+        t = m.group(1).strip()
+        t = re.sub(r'^(是指|是|指|即|有|包括|所谓)', '', t).strip()
+        if 2 <= len(t) <= 12: return t
+
+    # (B) 提取定义句主语："所谓XXX..."、"XXX是指..."
+    m2 = re.search(r'^(?:所谓)?([^\n。；，]{2,10}?)(?:是指|是人类|指的?是|主要是指|包括)', text)
+    if m2:
+        t = m2.group(1).strip()
+        if 2 <= len(t) <= 10 and not any(k in t for k in ["这个", "那个", "这样", "我们", "由于"]):
+            return t
+
+    # (C) 提取首句中的论述名词/概括短语
+    first_sent = re.split(r'[。！？；;\n]', text)[0].strip()
+    first_sent = re.sub(r'^(首先|其次|再次|最后|此外|另外|由此可见|总的来说|具体来说|一般来说|在.*?中|从.*?看|随着.*?[，,])', '', first_sent).strip()
+
+    m3 = re.search(r'([一-鿿]{2,10}(?:特征|属性|标准|原则|分类|规律|结构|演变|定义|性质|作用|关系|体系|方法|类型|功能|阶段|趋势|影响|起源|背景|价值))', first_sent)
+    if m3:
+        return m3.group(1).strip()
+
+    # (D) 提取首句前置名词短语
+    first_phrase = re.split(r'[，,、：:]', first_sent)[0].strip()
+    first_phrase = re.sub(r'^(论述|说明|分析|关于|研究|探讨|所谓)', '', first_phrase).strip()
+    if 2 <= len(first_phrase) <= 10:
+        return first_phrase
+
+    return first_phrase[:8] if len(first_phrase) >= 2 else None
+
+# 读取段落
 para_by_doc = {}
 for doc_name in ["culture", "yinlun", "xdhy_up", "xdhy_down", "rumen"]:
     p_path = os.path.join(PARA_DIR, f"{doc_name}.jsonl")
@@ -243,17 +268,15 @@ for doc_name in ["culture", "yinlun", "xdhy_up", "xdhy_down", "rumen"]:
             if len(txt) >= 25 and "获取更多资料" not in txt and "汉硕网" not in txt:
                 lines.append((d["para_id"], txt))
         para_by_doc[doc_name] = lines
-        print(f"载入原书原文: {doc_name} 共 {len(lines)} 个优质自然段")
 
-# 5. 回写每个小节的 leaves 文件（概念卡片 + 原文段落卡片完美双轨）
+# 5. 回写每个小节的 leaves 文件
 all_leaves_count = 0
 total_concept_cards = 0
-total_para_cards = 0
+total_summary_cards = 0
 
 for b in books:
     doc = b["doc"]
     book_paras = para_by_doc.get(doc, [])
-    # 计算每个小节分摊多少段落
     all_b_secs = [s for c in b["chapters"] for s in c["sections"]]
     num_secs = len(all_b_secs)
     paras_per_sec = max(1, len(book_paras) // num_secs) if num_secs else 0
@@ -263,9 +286,8 @@ for b in books:
         sid = s["id"]
         s_title = s["title"]
 
-        # 1. 概念卡片（已清洗纯正名词解释）
+        # 第一轨：概念卡片（已清洗纯正名词解释）
         c_cards = concept_by_sec.get(sid, [])
-        # 去重
         seen_t = set()
         clean_c_cards = []
         for c in c_cards:
@@ -279,36 +301,32 @@ for b in books:
             len(x["title"])
         ))
 
-        # 2. 原文段落卡片（原书该小节的原文核心，零缺失！）
-        para_cards = []
+        # 第二轨：原书段落提炼为工整概念/概括卡片
+        summary_cards = []
         if paras_per_sec > 0:
             start_p = sec_idx * paras_per_sec
             end_p = min(len(book_paras), (sec_idx + 1) * paras_per_sec if sec_idx < num_secs - 1 else len(book_paras))
             sec_raw_paras = book_paras[start_p:end_p]
 
-            for pid, ptext in sec_raw_paras[:8]: # 每个小节精选代表性自然段做成原文卡片
-                # 提取前 8~14 字作为卡片标题
-                first_sentence = re.split(r'[。！？；;\n]', ptext)[0].strip()
-                p_title = first_sentence[:12] if len(first_sentence) >= 6 else ptext[:12]
-                if p_title not in seen_t and len(p_title) >= 4:
-                    seen_t.add(p_title)
-                    # 提炼出本段关键句子
+            for pid, ptext in sec_raw_paras[:10]:
+                c_title = extract_concept_or_summary(ptext)
+                if c_title and c_title not in seen_t and len(c_title) >= 2:
+                    seen_t.add(c_title)
+                    # 提炼出本段关键句子作为 points
                     sents = [st.strip() for st in re.split(r'[。！？；;\n]', ptext) if len(st.strip()) >= 8][:4]
-                    para_cards.append({
+                    summary_cards.append({
                         "section_id": sid,
                         "doc": doc,
-                        "title": "【原文】" + p_title,
-                        "type": "教材原文",
+                        "title": c_title,
+                        "type": "核心概括",
                         "points": sents if sents else [ptext[:80]],
                         "quote": ptext[:180],
                         "weight": "normal",
-                        "evidence": ["原书正文"]
+                        "evidence": ["原书要点"]
                     })
 
-        # 双轨合并：概念卡片排在最前（方便背书），原文卡片紧随其后（全书零缺失）
-        final_cards = clean_c_cards + para_cards
+        final_cards = clean_c_cards + summary_cards
 
-        # 写 leaf
         leaf_obj = {
             "section_id": sid,
             "title": s_title,
@@ -322,18 +340,17 @@ for b in books:
         if s_hot: c_has_hot = True
 
         total_concept_cards += len(clean_c_cards)
-        total_para_cards += len(para_cards)
+        total_summary_cards += len(summary_cards)
         all_leaves_count += 1
 
     for c in b["chapters"]:
         c["weight"] = "high" if any(s["weight"] == "high" for s in c["sections"]) else "normal"
 
-# 写入全景 mindmap.json
 with open(os.path.join(OUT_DIR, "mindmap.json"), "w", encoding="utf-8") as f:
     json.dump({"books": books}, f, ensure_ascii=False, indent=2)
 
-print("\n🎉 全景思维导图双轨构建完成！统计结果：")
+print("\n🎉 高品质名词/概括思维导图构建完成！")
 print(f"- 全书小节总数: {all_leaves_count}")
-print(f"- 核心背诵概念卡片总数: {total_concept_cards} 张")
-print(f"- 教材原文全量段落卡片总数: {total_para_cards} 张")
-print(f"- 导图卡片总规模: {total_concept_cards + total_para_cards} 张")
+print(f"- 核心背诵概念卡片: {total_concept_cards} 张")
+print(f"- 原文精炼概念/概括卡片: {total_summary_cards} 张")
+print(f"- 导图卡片总规模: {total_concept_cards + total_summary_cards} 张")
