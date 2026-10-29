@@ -17,7 +17,7 @@
             {
               "id": "culture-c01-s02",
               "title": "第二节 中国文化的特点与价值",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c01-s03",
@@ -44,7 +44,7 @@
             {
               "id": "culture-c02-s03",
               "title": "综合考点",
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         },
@@ -66,7 +66,7 @@
             {
               "id": "culture-c03-s03",
               "title": "第三节 庙号谥号年号",
-              "weight": "normal"
+              "weight": "high"
             },
             {
               "id": "culture-c03-s04",
@@ -105,7 +105,7 @@
             {
               "id": "culture-c05-s01",
               "title": "第一节 汉字形体演变",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "culture-c05-s02",
@@ -115,7 +115,7 @@
             {
               "id": "culture-c05-s03",
               "title": "第三节 字书与注音",
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         },
@@ -201,7 +201,7 @@
             {
               "id": "culture-c08-s03",
               "title": "第三节 蒙学与教育特征",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -304,7 +304,7 @@
             {
               "id": "culture-c12-s04",
               "title": "第四节 建筑典籍",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -348,7 +348,7 @@
             {
               "id": "culture-c14-s02",
               "title": "第二节 绘画艺术",
-              "weight": "normal"
+              "weight": "high"
             },
             {
               "id": "culture-c14-s03",
@@ -375,7 +375,7 @@
             {
               "id": "culture-c15-s03",
               "title": "第三节 玉器与工艺",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -392,7 +392,7 @@
             {
               "id": "culture-c16-s02",
               "title": "第二节 人生礼仪与婚俗",
-              "weight": "normal"
+              "weight": "high"
             },
             {
               "id": "culture-c16-s03",
@@ -441,7 +441,7 @@
             {
               "id": "culture-c18-s02",
               "title": "第二节 传统文化的现代价值",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -623,7 +623,7 @@
             {
               "id": "yinlun-c08-s02",
               "title": "第二节 对外汉语教学的基本教学原则",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "yinlun-c08-s03",
@@ -832,42 +832,42 @@
             {
               "id": "xdhy_down-c01-s05",
               "title": "第五节 句型系统",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s06",
               "title": "第六节 句式系统",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s07",
               "title": "第七节 句类系统",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s08",
               "title": "第八节 句法结构中的语义分析",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s09",
               "title": "第九节 歧义结构与框式结构",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s10",
               "title": "第十节 认知解释与动态变化",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s11",
               "title": "第十一节 复句类型",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c01-s12",
               "title": "第十二节 多重复句与紧缩复句",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         },
@@ -879,12 +879,12 @@
             {
               "id": "xdhy_down-c02-s01",
               "title": "第一节 现代汉语语用概述",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c02-s02",
               "title": "第二节 话语意义",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c02-s03",
@@ -894,17 +894,17 @@
             {
               "id": "xdhy_down-c02-s04",
               "title": "第四节 话语结构",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c02-s05",
               "title": "第五节 语言要素的修辞",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c02-s06",
               "title": "第六节 语用效果与辞格",
-              "weight": "high"
+              "weight": "normal"
             },
             {
               "id": "xdhy_down-c02-s07",
@@ -914,7 +914,7 @@
             {
               "id": "xdhy_down-c02-s08",
               "title": "第八节 病句的类型与修改",
-              "weight": "high"
+              "weight": "normal"
             }
           ]
         }
@@ -1466,13 +1466,13 @@
         {
           "id": "zhenti_10_23-c01",
           "title": "全文",
-          "weight": "normal",
+          "weight": "high",
           "sections": [
             {
               "id": "zhenti_10_23-c01-s01",
               "title": "全文",
               "kp_count": 348,
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         }
@@ -1485,13 +1485,13 @@
         {
           "id": "zhenti_2026-c01",
           "title": "全文",
-          "weight": "normal",
+          "weight": "high",
           "sections": [
             {
               "id": "zhenti_2026-c01-s01",
               "title": "全文",
               "kp_count": 16,
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         }
@@ -1504,13 +1504,13 @@
         {
           "id": "zhenti_24-c01",
           "title": "全文",
-          "weight": "normal",
+          "weight": "high",
           "sections": [
             {
               "id": "zhenti_24-c01-s01",
               "title": "全文",
               "kp_count": 82,
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         }
@@ -1523,13 +1523,13 @@
         {
           "id": "zhenti_25-c01",
           "title": "全文",
-          "weight": "normal",
+          "weight": "high",
           "sections": [
             {
               "id": "zhenti_25-c01-s01",
               "title": "全文",
               "kp_count": 7,
-              "weight": "normal"
+              "weight": "high"
             }
           ]
         }
