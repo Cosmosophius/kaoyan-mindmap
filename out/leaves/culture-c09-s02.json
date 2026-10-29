@@ -102,5 +102,115 @@
       ],
       "orig_sid": "culture-c08-s05"
     }
+  ],
+  "groups": [
+    {
+      "title": "古代科举考试程序",
+      "weight": "high",
+      "kps": [
+        {
+          "section_id": "culture-c09-s02",
+          "doc": "culture",
+          "title": "殿试",
+          "type": "名词解释",
+          "points": [
+            "皇帝亲自主持的最高一级",
+            "始于武则天宋代定制",
+            "一甲三名状元榜眼探花",
+            "录取者统称进士"
+          ],
+          "quote": "科举考试要经过乡试、会试、殿试“三试”，录取的人员又分成“三甲”，头甲之中只取状元、榜眼、探花三名。",
+          "para_id": 337,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2019 真题"
+          ],
+          "orig_sid": "culture-c03-s03"
+        },
+        {
+          "section_id": "culture-c09-s02",
+          "doc": "culture",
+          "title": "会试",
+          "type": "名词解释",
+          "points": [
+            "乡试次年春三月京城举行",
+            "称春闱或礼闱",
+            "考中者称贡士",
+            "第一名称会元"
+          ],
+          "quote": "明清时代的监生没有唐代那样的出身限制，但因入学资格不同而分为四类：在京会试落第的举人，由翰林院择优选送入监就读的叫“举监”；",
+          "para_id": 1013,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2024 真题"
+          ],
+          "orig_sid": "culture-c08-s02"
+        },
+        {
+          "section_id": "culture-c09-s02",
+          "doc": "culture",
+          "title": "乡试",
+          "type": "名词解释",
+          "points": [
+            "省级考试三年一次",
+            "秋八月举行称秋闱",
+            "考中者称举人",
+            "第一名称解元"
+          ],
+          "quote": "科举考试要经过乡试、会试、殿试“三试”，录取的人员又分成“三甲”，头甲之中只取状元、榜眼、探花三名。",
+          "para_id": 1131,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2024 真题"
+          ],
+          "orig_sid": "culture-c08-s05"
+        }
+      ]
+    }
+  ],
+  "remaining_kps": [
+    {
+      "section_id": "culture-c09-s02",
+      "doc": "culture",
+      "title": "进士科",
+      "type": "名词解释",
+      "points": [
+        "隋炀帝大业年间始设",
+        "以试策取士",
+        "唐代重诗赋最为贵重",
+        "明清考八股文",
+        "标志科举制度形成"
+      ],
+      "quote": "以进士科的考试最受尊崇，报考的人数最多，以进士科的考试最受尊崇，报考的人数最多，因而录取最严。",
+      "para_id": 1115,
+      "confidence": 0.95,
+      "weight": "high",
+      "evidence": [
+        "2020 真题"
+      ],
+      "orig_sid": "culture-c08-s05"
+    },
+    {
+      "section_id": "culture-c09-s02",
+      "doc": "culture",
+      "title": "连中三元",
+      "type": "名词解释",
+      "points": [
+        "乡试解元、会试会元、殿试状元",
+        "三级皆第一为连中三元",
+        "历史上极为罕见"
+      ],
+      "quote": "3.科举考试中，“连中三元”指的是一个人在乡试、 和股试中都考取第一名。",
+      "para_id": 1138,
+      "confidence": 0.95,
+      "weight": "high",
+      "evidence": [
+        "2020 真题"
+      ],
+      "orig_sid": "culture-c08-s05"
+    }
   ]
 }

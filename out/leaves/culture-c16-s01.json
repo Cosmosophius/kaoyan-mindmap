@@ -110,5 +110,123 @@
       "evidence": [],
       "orig_sid": "culture-c16-s01"
     }
+  ],
+  "groups": [
+    {
+      "title": "传统岁时节令",
+      "weight": "high",
+      "kps": [
+        {
+          "section_id": "culture-c16-s01",
+          "doc": "culture",
+          "title": "清明节",
+          "type": "名词解释",
+          "points": [
+            "二十四节气与传统节日",
+            "扫墓祭祖与踏青郊游",
+            "融合寒食节禁火冷食习俗"
+          ],
+          "quote": "(四) 清明节与古时“寒食节”相合而成，时间一般在冬至后第105天，正好是农历三月上旬，公历4月5 日前后。",
+          "para_id": 2544,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2019 真题"
+          ],
+          "orig_sid": "culture-c16-s05"
+        },
+        {
+          "section_id": "culture-c16-s01",
+          "doc": "culture",
+          "title": "端午节",
+          "type": "名词解释",
+          "points": [
+            "农历五月初五，又称端阳节",
+            "纪念屈原投汨罗江",
+            "赛龙舟、吃粽子、挂艾草"
+          ],
+          "quote": "中国文化要略(第4版)中国文化要略(第4版)(五) 端午节(五) 端午节又称“端阳节”，时间为每年农历五月初五。",
+          "para_id": 2586,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2021 真题"
+          ],
+          "orig_sid": "culture-c16-s06"
+        },
+        {
+          "section_id": "culture-c16-s01",
+          "doc": "culture",
+          "title": "春节",
+          "type": "名词解释",
+          "points": [
+            "农历正月初一，又称过年",
+            "源于上古岁首祭祀",
+            "贴春联、守岁、拜年、压岁钱",
+            "象征辞旧迎新、阖家团圆"
+          ],
+          "quote": "楹联”又叫“对联”，春节贴于门上叫“春联”，是我国一种独特的艺术。它主要将文学(诗词) 和书法结合在一起，有时也将雕刻融合进来，如某些石刻和木刻的楹联。中国的艺术很注重美化和修饰，而楹联正好是一种美化和修",
+          "para_id": 2095,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2016 真题"
+          ],
+          "orig_sid": "culture-c14-s06"
+        },
+        {
+          "section_id": "culture-c16-s01",
+          "doc": "culture",
+          "title": "中秋节",
+          "type": "名词解释",
+          "points": [
+            "农历八月十五，居秋季之中",
+            "赏月、吃月饼、家人团聚",
+            "源于古代秋分祭月",
+            "嫦娥奔月神话"
+          ],
+          "quote": "中国文化要略中国文化要略(七) 中秋节(七) 中秋节在农历八月十五，与春节、端午合称三大传统节日。",
+          "para_id": 2593,
+          "confidence": 0.95,
+          "weight": "high",
+          "evidence": [
+            "2018 真题"
+          ],
+          "orig_sid": "culture-c16-s06"
+        }
+      ]
+    }
+  ],
+  "remaining_kps": [
+    {
+      "section_id": "culture-c16-s01",
+      "doc": "culture",
+      "title": "杜康",
+      "type": "简答题",
+      "points": [
+        "但中国的古文化常把某一项文明成就归功于个人，所以传说中的造酒始祖是仪狄和杜康。"
+      ],
+      "quote": "但中国的古文化常把某一项文明成就归功于个人，所以传说中的造酒始祖是仪狄和杜康。",
+      "para_id": 2379,
+      "confidence": 0.88,
+      "weight": "normal",
+      "evidence": [],
+      "orig_sid": "culture-c16-s01"
+    },
+    {
+      "section_id": "culture-c16-s01",
+      "doc": "culture",
+      "title": "天下第五泉",
+      "type": "简答题",
+      "points": [
+        "“天下第五泉”是苏州憨憨泉，又名观音泉，由陆羽评定。"
+      ],
+      "quote": "“天下第五泉”是苏州憨憨泉，又名观音泉，由陆羽评定。",
+      "para_id": 2374,
+      "confidence": 0.88,
+      "weight": "normal",
+      "evidence": [],
+      "orig_sid": "culture-c16-s01"
+    }
   ]
 }

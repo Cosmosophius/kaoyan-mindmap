@@ -42,24 +42,54 @@ def load_data():
             sections = []
             for s in c["sections"]:
                 kps = []
+                groups = []
                 leaf_path = os.path.join(OUT, "leaves", s["id"] + ".json")
                 if os.path.exists(leaf_path):
                     leaf = json.load(open(leaf_path, encoding="utf-8"))
-                    for kp in leaf.get("kps", []):
-                        kps.append({
-                            "t": kp.get("title", ""),
-                            "y": kp.get("type", ""),
-                            "p": kp.get("points", []),
-                            "q": kp.get("quote", ""),
-                            "w": kp.get("weight", "normal"),
-                            "e": kp.get("evidence", []) or [],
-                        })
+                    # 检查是否有 groups (大概念分类)
+                    if leaf.get("groups"):
+                        for g in leaf["groups"]:
+                            gkps = []
+                            for kp in g.get("kps", []):
+                                gkps.append({
+                                    "t": kp.get("title", ""),
+                                    "y": kp.get("type", ""),
+                                    "p": kp.get("points", []),
+                                    "q": kp.get("quote", ""),
+                                    "w": kp.get("weight", "normal"),
+                                    "e": kp.get("evidence", []) or [],
+                                })
+                            groups.append({
+                                "t": g.get("title", ""),
+                                "w": g.get("weight", "normal"),
+                                "k": gkps
+                            })
+                        for kp in leaf.get("remaining_kps", []):
+                            kps.append({
+                                "t": kp.get("title", ""),
+                                "y": kp.get("type", ""),
+                                "p": kp.get("points", []),
+                                "q": kp.get("quote", ""),
+                                "w": kp.get("weight", "normal"),
+                                "e": kp.get("evidence", []) or [],
+                            })
+                    else:
+                        for kp in leaf.get("kps", []):
+                            kps.append({
+                                "t": kp.get("title", ""),
+                                "y": kp.get("type", ""),
+                                "p": kp.get("points", []),
+                                "q": kp.get("quote", ""),
+                                "w": kp.get("weight", "normal"),
+                                "e": kp.get("evidence", []) or [],
+                            })
                 sections.append({
                     "id": s["id"],
                     "t": s["title"],
                     "w": s.get("weight", "normal"),
-                    "n": len(kps),
+                    "n": len(kps) + sum(len(g["k"]) for g in groups),
                     "k": kps,
+                    "g": groups
                 })
             chapters.append({
                 "id": c["id"],
@@ -316,6 +346,20 @@ body{
   position:relative;
   border-color:color-mix(in oklch, var(--tertiary) 45%, var(--outline-var));
   box-shadow:inset 3px 0 0 var(--tertiary), 0 1px 4px rgba(80, 65, 50, 0.06);
+}
+.card.topic{
+  background:var(--sc-highest);
+  position:relative;
+  border:1px dashed color-mix(in oklch, var(--primary) 50%, var(--outline-var));
+  box-shadow:inset 3px 0 0 var(--primary), 0 1px 3px rgba(80, 65, 50, 0.05);
+  font-weight:600;
+  padding:3px 7px;
+}
+.card.topic .label{
+  color:var(--on-surface);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.01em;
 }
 /* section 的两个操作按钮改为「悬停浮现」：绝对定位到卡片右缘外侧，
    不占文档流宽度。实测它们常驻时占 36px，25 张 section 卡合计 900px，
@@ -941,7 +985,7 @@ let   FIT_PAD    = 16;
 
 /* 布局常量（DictMindMap.computeMindMapLayout） */
 /* ---- 响应式度量：按视口实时计算，小屏不再溢出 ---- */
-const COL_W_BASE = [212, 230, 246, 264];  // 桌面基准列宽（收紧后 1024 屏可横排）
+const COL_W_BASE = [212, 230, 246, 264, 264];  // 桌面基准列宽（支持多级大概念树深度）
 const W_PARA_BASE = 520;
 
 /* 小屏纵向缩进布局（TreeChat 窄屏模式）：横排四列在 360px 上必然缩到 0.4 倍，
@@ -1089,13 +1133,41 @@ function buildTree(book){
       });
       cn.children.push(sn); NODES.push(sn);
 
-      se.k.forEach((kp, ki) => {
-        const kn = makeNode({
-          id:se.id + "#" + ki, kind:"kp", label:kp.t, depth:3, parent:sn,
-          w:COL_W[3], weight:kp.w, kp:kp
+      // 支持大概念分组 (Topic / Sub-category)
+      if(se.g && se.g.length){
+        se.g.forEach((gp, gi) => {
+          const gn = makeNode({
+            id: se.id + "#g" + gi, kind:"topic", label:gp.t, depth:3, parent:sn,
+            w:COL_W[3] || 200, weight:gp.w || "normal"
+          });
+          sn.children.push(gn); NODES.push(gn);
+
+          gp.k.forEach((kp, ki) => {
+            const kn = makeNode({
+              id: gn.id + "#k" + ki, kind:"kp", label:kp.t, depth:4, parent:gn,
+              w:COL_W[4] || COL_W[3], weight:kp.w, kp:kp
+            });
+            gn.children.push(kn); NODES.push(kn);
+          });
         });
-        sn.children.push(kn); NODES.push(kn);
-      });
+
+        // 剩余独立卡片挂在 sn 下
+        se.k.forEach((kp, ki) => {
+          const kn = makeNode({
+            id: se.id + "#rk" + ki, kind:"kp", label:kp.t, depth:3, parent:sn,
+            w:COL_W[3], weight:kp.w, kp:kp
+          });
+          sn.children.push(kn); NODES.push(kn);
+        });
+      } else {
+        se.k.forEach((kp, ki) => {
+          const kn = makeNode({
+            id:se.id + "#" + ki, kind:"kp", label:kp.t, depth:3, parent:sn,
+            w:COL_W[3], weight:kp.w, kp:kp
+          });
+          sn.children.push(kn); NODES.push(kn);
+        });
+      }
     });
   });
 
@@ -1473,7 +1545,7 @@ function measureCardW(n){
   }
 
   const fs = n.kind === "root" ? 15 : n.kind === "chapter" ? 13
-           : n.kind === "section" ? 12.5 : 13;
+           : (n.kind === "section" || n.kind === "topic") ? 12.5 : 13;
   let w = textPx(n.label || "", fs);
 
   /* 装饰宽度：padding 左右 + gap + 按钮 + 徽标 */
@@ -1507,6 +1579,7 @@ let edgePool = [];
 function edgeStyle(parent){
   if(parent.kind === "root")    return { c:"var(--secondary)", w:1.6,  o:0.72 };
   if(parent.kind === "chapter") return { c:"var(--tertiary)",  w:1.25, o:0.55 };
+  if(parent.kind === "section") return { c:"var(--primary)",   w:1.1,  o:0.48 };
   return { c:"var(--outline)", w:0.9, o:0.34 };
 }
 function drawEdges(){
