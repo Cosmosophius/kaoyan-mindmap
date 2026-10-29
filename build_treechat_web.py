@@ -204,14 +204,6 @@ HTML = r"""<!DOCTYPE html>
 [data-theme="dark"] .card{
   box-shadow:0 1px 3px rgba(0,0,0,.35), 0 4px 12px rgba(0,0,0,.25);
 }
-[data-theme="dark"] .card.chapter::after{
-  background:rgba(255, 255, 255, 0.22);
-  border-color:rgba(255, 255, 255, 0.12);
-}
-[data-theme="dark"] .card.section::after{
-  background:rgba(255, 255, 255, 0.20);
-  border-color:rgba(255, 255, 255, 0.10);
-}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:var(--surface);}
@@ -339,26 +331,6 @@ body{
 /* 触屏没有 hover，直接常驻显示（否则按钮永远点不到） */
 @media (hover:none){
   .card.section .ibtn.act{ opacity:.85;pointer-events:auto;position:static;transform:none;right:auto;box-shadow:none;background:transparent; }
-}
-
-/* 和纸胶带贴纸：半透明手撕纸胶带，带微小角度贴角，赋予手账本手作感 */
-.card.chapter::after{
-  content:"";
-  position:absolute; top:-5px; right:12px; width:26px; height:8px;
-  background:rgba(255, 255, 255, 0.65);
-  border:1px solid rgba(130, 150, 130, 0.28);
-  box-shadow:0 1px 2px rgba(80, 65, 50, 0.08);
-  transform:rotate(-2.5deg);
-  pointer-events:none;
-}
-.card.section::after{
-  content:"";
-  position:absolute; top:-4px; right:10px; width:20px; height:7px;
-  background:rgba(255, 255, 255, 0.7);
-  border:1px solid rgba(170, 150, 130, 0.22);
-  box-shadow:0 1px 2px rgba(80, 65, 50, 0.06);
-  transform:rotate(1.8deg);
-  pointer-events:none;
 }
 .card.kp{
   background:var(--sc);
@@ -1102,6 +1074,7 @@ function ensureDom(n){
 function syncTree(){
   refreshVisible();
   ensureDom(ROOT);
+  if(!ROOT.el) createCard(ROOT);
   if(ROOT.tn.parentNode !== nodesLayer) nodesLayer.appendChild(ROOT.tn);
   ROOT.tn.style.display = "";
   (function walk(n){
