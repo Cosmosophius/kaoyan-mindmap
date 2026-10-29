@@ -1258,13 +1258,12 @@ function createCard(n){
   let detail = "";
   if(n.kind === "kp" && n.kp){
     const kp = n.kp;
+    let inner = "";
     if(kp.p && kp.p.length){
-      detail += '<div class="detail">' +
-        kp.p.map(p => '<div class="pt"><span>' + esc(p) + '</span></div>').join("") +
-        '</div>';
+      inner += kp.p.map(p => '<div class="pt"><span>' + esc(p) + '</span></div>').join("");
     }
-    if(kp.y) detail += '<div style="margin-top:4px"><span class="tag-type' + (n.weight === "high" ? " hot" : "") + '">' + esc(kp.y) + '</span></div>';
-    if(kp.q) detail += '<div class="quote" style="margin-top:4px"><span class="hl-quote">' + esc(kp.q) + '</span></div>';
+    if(kp.y) inner += '<div style="margin-top:4px"><span class="tag-type' + (n.weight === "high" ? " hot" : "") + '">' + esc(kp.y) + '</span></div>';
+    if(inner) detail = '<div class="detail">' + inner + '</div>';
   }
 
   el.innerHTML =
