@@ -113,6 +113,7 @@ HTML = r"""<!DOCTYPE html>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="考研导图">
 <meta name="description" content="10 本教材 / 58 章 / 151 节 / 3618 条考点，可离线使用的交互式思维导图。">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(_){}})();</script>
 <style>
 /* ============================================================
    M3 配色：种子色 0xFF28C840（TreeChat ThemePalette.DEFAULT_GREEN）
@@ -164,6 +165,52 @@ HTML = r"""<!DOCTYPE html>
   /* Compose MotionScheme 对应曲线 */
   --ease-standard: cubic-bezier(0.2,0,0,1);
   --ease-emphasized: cubic-bezier(0.05,0.7,0.1,1);
+}
+
+/* ---------- 暗色模式：复古深黛皮革手账 (Dark Leather Journal) ---------- */
+[data-theme="dark"]{
+  --primary:            oklch(76% 0.14 55);
+  --on-primary:         oklch(20% 0.06 55);
+  --primary-container:  oklch(30% 0.08 55);
+  --on-primary-cont:    oklch(92% 0.05 55);
+
+  --secondary:          oklch(78% 0.08 140);
+  --on-secondary:       oklch(20% 0.04 140);
+  --secondary-container:oklch(32% 0.05 140);
+  --on-secondary-cont:  oklch(92% 0.03 140);
+
+  --tertiary:           oklch(80% 0.09 75);
+  --tertiary-container: oklch(32% 0.06 75);
+  --on-tertiary-cont:   oklch(93% 0.04 75);
+
+  --gold:               oklch(85% 0.15 85);
+  --gold-container:     oklch(34% 0.08 85);
+
+  --surface:            oklch(14% 0.015 60);
+  --sc-lowest:          oklch(11% 0.012 60);
+  --sc-low:             oklch(16% 0.016 60);
+  --sc:                 oklch(19% 0.018 60);
+  --sc-high:            oklch(23% 0.020 60);
+  --sc-highest:         oklch(28% 0.024 60);
+
+  --on-surface:         oklch(93% 0.012 85);
+  --on-surface-var:     oklch(78% 0.022 85);
+  --outline:            oklch(52% 0.025 75);
+  --outline-var:        oklch(32% 0.018 70);
+}
+[data-theme="dark"] #grid{
+  background-image:radial-gradient(circle, color-mix(in oklch, var(--outline) 30%, transparent) 1.2px, transparent 1.2px);
+}
+[data-theme="dark"] .card{
+  box-shadow:0 1px 3px rgba(0,0,0,.35), 0 4px 12px rgba(0,0,0,.25);
+}
+[data-theme="dark"] .card.chapter::after{
+  background:rgba(255, 255, 255, 0.22);
+  border-color:rgba(255, 255, 255, 0.12);
+}
+[data-theme="dark"] .card.section::after{
+  background:rgba(255, 255, 255, 0.20);
+  border-color:rgba(255, 255, 255, 0.10);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -793,6 +840,9 @@ body{
     </button>
     <button class="ibtn" id="btnCollapseAll" title="全部收起">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8l-6 6 1.4 1.4L12 10.8l4.6 4.6L18 14z"/></svg>
+    </button>
+    <button class="ibtn" id="btnTheme" title="切换暗色/亮色手账模式">
+      <svg id="themeIco" viewBox="0 0 24 24" fill="currentColor"><path d="M12.3 2a10 10 0 00-1.9 19.8 10 10 0 0011.6-11.6A10 10 0 0012.3 2zm-1.8 17.8A8 8 0 0110 4.1a8.2 8.2 0 001.3 4.2 8 8 0 008.6 4.1 8 8 0 01-9.4 7.4z"/></svg>
     </button>
     <button class="ibtn" id="btnToggleBar" title="收起顶栏">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.4 15.4L12 10.8l4.6 4.6L18 14l-6-6-6 6z"/></svg>
@@ -1974,6 +2024,29 @@ if(btnAlign) btnAlign.addEventListener("click", () => {
   try{ localStorage.setItem("alignMode", ALIGN_MODE); }catch(_){}
   syncAlignBtn();
   relayout();
+});
+
+/* ---------- 手账主题模式（亮色米纸 / 暗色皮革） ---------- */
+let THEME_MODE = "light";
+try{ THEME_MODE = localStorage.getItem("theme") || "light"; }catch(_){}
+const btnTheme = document.getElementById("btnTheme");
+const themeIco = document.getElementById("themeIco");
+const SUN_PATH = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
+const MOON_PATH = '<path d="M12.3 2a10 10 0 00-1.9 19.8 10 10 0 0011.6-11.6A10 10 0 0012.3 2zm-1.8 17.8A8 8 0 0110 4.1a8.2 8.2 0 001.3 4.2 8 8 0 008.6 4.1 8 8 0 01-9.4 7.4z"/>';
+
+function applyTheme(m){
+  THEME_MODE = m;
+  if(m === "dark") document.documentElement.setAttribute("data-theme", "dark");
+  else document.documentElement.removeAttribute("data-theme");
+  if(themeIco) themeIco.innerHTML = (m === "dark") ? SUN_PATH : MOON_PATH;
+  if(btnTheme) btnTheme.title = (m === "dark") ? "切换为米白象牙手账" : "切换为深黛皮革手账";
+  try{ localStorage.setItem("theme", m); }catch(_){}
+  drawEdges();
+}
+applyTheme(THEME_MODE);
+
+if(btnTheme) btnTheme.addEventListener("click", () => {
+  applyTheme(THEME_MODE === "dark" ? "light" : "dark");
 });
 
 document.getElementById("btnFit").addEventListener("click", () => fitView(true));
