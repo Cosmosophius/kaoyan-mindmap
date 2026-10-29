@@ -1363,11 +1363,27 @@ function kick(){
       dx = max(|ex-sx|, 60) * 0.5 ; cubicTo(sx+dx, sy, ex-dx, ey)
    ===================================================================== */
 function anchorOut(n){
+  if(n.el && n.el.isConnected){
+    const wr = world.getBoundingClientRect();
+    const s  = view.s || 1;
+    const r  = n.el.getBoundingClientRect();
+    return VERTICAL
+      ? { x: (r.left + r.width / 2 - wr.left) / s, y: (r.bottom - wr.top) / s }
+      : { x: (r.right - wr.left) / s,              y: (r.top + r.height / 2 - wr.top) / s };
+  }
   return VERTICAL
     ? { x:n.x + cardW(n)/2, y:n.y + n.h }        /* 纵向：父出点在下边中点 */
     : { x:n.x + cardW(n),   y:n.y + n.h/2 };     /* 横向：父出点在右边中点 */
 }
 function anchorIn(n){
+  if(n.el && n.el.isConnected){
+    const wr = world.getBoundingClientRect();
+    const s  = view.s || 1;
+    const r  = n.el.getBoundingClientRect();
+    return VERTICAL
+      ? { x: (r.left + r.width / 2 - wr.left) / s, y: (r.top - wr.top) / s }
+      : { x: (r.left - wr.left) / s,               y: (r.top + r.height / 2 - wr.top) / s };
+  }
   return VERTICAL
     ? { x:n.x + cardW(n)/2, y:n.y }              /* 纵向：子入点在上边中点 */
     : { x:n.x,              y:n.y + n.h/2 };
@@ -1469,7 +1485,7 @@ function drawEdges(){
            从父卡右边缘 (p.x, p.y) 出发水平向右平滑延展，在中轴柔和转向，
            并以 0 倾角水平平滑插入子卡左侧 (e.x, e.y)。
            数学上 x(t) 严格单调递增，彻底杜绝任何两端死褶与反向回折！ */
-        const midX = (p.x + e.x) / 2;
+        const midX = (e.x > p.x) ? (p.x + e.x) / 2 : p.x + 12;
         d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
             "C" + midX.toFixed(1) + " " + p.y.toFixed(1) + "," +
                   midX.toFixed(1) + " " + e.y.toFixed(1) + "," +
