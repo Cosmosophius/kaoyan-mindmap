@@ -1120,7 +1120,9 @@ function syncTree(){
     n.tk.style.display       = vis.length ? "flex" : "none";
     n.tk.style.flexDirection = "column";
     n.tk.style.gap           = GAP_Y + "px";
-    n.tk.style.marginLeft    = GAP_X + "px";
+    /* 主干分支舒展间隙：根到章节 36px，章节到小节 26px，其余 20px，避免挤在 8px 窄缝内折叠 */
+    const branchGap = (n.kind === "root") ? 36 : (n.kind === "chapter") ? 26 : 20;
+    n.tk.style.marginLeft    = Math.max(GAP_X, branchGap) + "px";
     n.tn.style.alignItems    = (ALIGN_MODE === "center") ? "center" : "flex-start";
     for(const c of vis) n.tk.appendChild(c.tn);
     for(const c of vis) walk(c);
@@ -1489,15 +1491,16 @@ function drawEdges(){
                   e.x.toFixed(1) + " " + (e.y - dy).toFixed(1) + "," +
                   e.x.toFixed(1) + " " + e.y.toFixed(1);
       }else{
-        /* 控制点偏移必须跟随真实水平间隙，不能设保底值。
-           旧代码 Math.max(|dx|, 60) * 0.5 在间隙只有 8px 时把控制点推到 30px，
-           两个控制点都落到卡片内部，曲线向外鼓出 —— 就是肉眼看到的"扭曲"。
-           改为取实际间隙的一半，曲线始终落在父子之间的走廊里。 */
-        const dx = Math.max(3, Math.abs(e.x - p.x) * 0.5);
+        /* 标准思维导图分支曲线（经典三次贝塞尔脑图曲线）：
+           中轴控制点 midX = (p.x + e.x) / 2。
+           从父卡右边缘 (p.x, p.y) 出发水平向右平滑延展，在中轴柔和转向，
+           并以 0 倾角水平平滑插入子卡左侧 (e.x, e.y)。
+           数学上 x(t) 严格单调递增，彻底杜绝任何两端死褶与反向回折！ */
+        const midX = (p.x + e.x) / 2;
         d = "M" + p.x.toFixed(1) + " " + p.y.toFixed(1) +
-            "C" + (p.x + dx).toFixed(1) + " " + p.y.toFixed(1) + "," +
-                  (e.x - dx).toFixed(1) + " " + e.y.toFixed(1) + "," +
-                   e.x.toFixed(1) + " " + e.y.toFixed(1);
+            "C" + midX.toFixed(1) + " " + p.y.toFixed(1) + "," +
+                  midX.toFixed(1) + " " + e.y.toFixed(1) + "," +
+                  e.x.toFixed(1) + " " + e.y.toFixed(1);
       }
       let path = edgePool[i];
       if(!path){
